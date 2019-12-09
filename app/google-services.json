@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "695011948415",
+    "firebase_url": "https://barbulance.firebaseio.com",
+    "project_id": "barbulance",
+    "storage_bucket": "barbulance.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:695011948415:android:5f45f2e0140ec510de8c4a",
+        "android_client_info": {
+          "package_name": "com.technion.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "695011948415-2r0qnmji2pfs6jo7fg908o35olkoneuh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAB3_3sqDmbcy_XkmAMziUTN7M5f059V5I"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "695011948415-2r0qnmji2pfs6jo7fg908o35olkoneuh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
