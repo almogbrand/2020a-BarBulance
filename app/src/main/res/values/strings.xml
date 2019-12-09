@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">BarBulance</string>
+    <string name="password">Password</string>
+    <string name="user">User</string>
+    <string name="name">Name</string>
+    <string name="sign_in">SIGN IN</string>
+    <string name="title_activity_events">EventsActivity</string>
 </resources>
