@@ -31,7 +31,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // TO DO: add permissions here
-                Intent intent = new Intent(SignInActivity.this, EventsActivity.class);
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                 finish();
                 startActivity(intent);
             }
@@ -40,7 +40,7 @@ public class SignInActivity extends AppCompatActivity {
         signInFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, EventsActivity.class);
+                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
