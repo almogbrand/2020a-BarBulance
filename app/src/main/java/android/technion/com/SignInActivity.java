@@ -8,13 +8,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 public class SignInActivity extends AppCompatActivity {
     private EditText signInUser;
     private EditText signInPassword;
     private Button signInButton;
-    private FloatingActionButton signInFab;
+    private Button signInAddEventButton;
 
 
     @Override
@@ -25,7 +23,7 @@ public class SignInActivity extends AppCompatActivity {
         signInUser = findViewById(R.id.signInUser);
         signInPassword = findViewById(R.id.signInPassword);
         signInButton = findViewById(R.id.signInButton);
-        signInFab = findViewById(R.id.signInFab);
+        signInAddEventButton = findViewById(R.id.signInAddEventButton);
 
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -37,10 +35,10 @@ public class SignInActivity extends AppCompatActivity {
             }
         });
 
-        signInFab.setOnClickListener(new View.OnClickListener() {
+        signInAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignInActivity.this, MainActivity.class);
+                Intent intent = new Intent(SignInActivity.this, AddEventActivity.class);
                 startActivity(intent);
             }
         });
