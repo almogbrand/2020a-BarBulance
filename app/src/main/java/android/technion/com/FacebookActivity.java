@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
@@ -27,6 +28,7 @@ import java.util.Arrays;
 public class FacebookActivity extends AppCompatActivity {
 
     private FloatingActionButton signInFab;
+    //private Button user_update_button;
 
     private static final String TAG = "FacebookLogin";
     private TextView mStatusTextView;
@@ -108,6 +110,15 @@ public class FacebookActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FacebookActivity.this, EventsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        Button user_update_button = findViewById(R.id.user_update_button);
+        user_update_button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FacebookActivity.this, UserProfile.class);
                 startActivity(intent);
             }
         });
