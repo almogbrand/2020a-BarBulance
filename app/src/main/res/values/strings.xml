@@ -4,7 +4,9 @@
     <string name="user">User</string>
     <string name="name">Name</string>
     <string name="sign_in">SIGN IN</string>
-    <string name="title_activity_events">EventsActivity</string>
+    <string name="title_events">Events</string>
+    <string name="title_rides">Rides</string>
+    <string name="title_user">User</string>
     <string name="facebook_app_id">432319980789529</string>
     <string name="fb_login_protocol_scheme">fb432319980789529</string>
 </resources>
