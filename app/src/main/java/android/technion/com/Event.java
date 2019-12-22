@@ -3,9 +3,11 @@ package android.technion.com;
 import java.util.ArrayList;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@AllArgsConstructor
 @NoArgsConstructor
 @Data
 public class Event {
@@ -17,11 +19,4 @@ public class Event {
     List<Drive> drives;
     List<Foster> fosters;
 
-    public Event(String eventID,String location, String reporterId) {
-        this.eventID=eventID;
-        this.location=location;
-        this.reporterId=reporterId;
-        this.drives=new ArrayList<>();
-        this.fosters=new ArrayList<>();
-    }
 }

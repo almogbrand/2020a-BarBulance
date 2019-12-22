@@ -21,7 +21,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Executor;
 
@@ -55,7 +57,9 @@ public class Database {
                 });
     }
     public void addDriveToDatabase(Drive drive){
+
         db.collection("Drives").add(drive);
+
     }
     public void addFosterToDatabase(Foster foster) {
         db.collection("Fosters").add(foster);
@@ -144,7 +148,7 @@ public class Database {
 
             @Override
             public void onBindViewHolder(DataHolder holder, int position, Foster item) {
-                holder.setValue(item.getEventID());
+                holder.setValue(item.getUserID());
                 holder.setLetter(item.getLocation());
             }
         };
@@ -156,6 +160,33 @@ public class Database {
 
     }
 
+    private void getAllEvents(final Context context) {
+        List<Event> toReturn = new ArrayList<>();
+
+        db.collection("Events").get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                          @Override
+                                          public void onSuccess(QuerySnapshot documentSnapshots) {
+                                              if (documentSnapshots.isEmpty()) {
+                                                  Log.d(TAG, "onSuccess: LIST EMPTY");
+                                                  return;
+                                              } else {
+                                                  // Convert the whole Query Snapshot to a list
+                                                  // of objects directly! No need to fetch each
+                                                  // document.
+//                                                  toReturn = documentSnapshots.toObjects(Event.class);
+//                                                  // Add all to your list
+//                                                  //toReturn.addAll(types);
+//                                                  Log.d(TAG, "onSuccess: " + toReturn);
+                                              }
+                                          }
+                                          }).addOnFailureListener(new OnFailureListener() {
+                                              @Override
+                                              public void onFailure(@NonNull Exception e) {
+                                                  Toast.makeText(context, "Error getting data!!!", Toast.LENGTH_LONG).show();
+                                              }
+                                          });
+                                      }
     ////add get for each of the objects
     ////add update for all objects
 
