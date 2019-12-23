@@ -2,6 +2,7 @@ package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.technion.com.ui.events.EventsFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -27,8 +28,9 @@ import java.util.Arrays;
 
 public class FacebookActivity extends AppCompatActivity {
 
-    private FloatingActionButton signInFab;
-    //private Button user_update_button;
+    private Button signInAddEventButton;
+    private LoginButton loginButton;
+
 
     private static final String TAG = "FacebookLogin";
     private TextView mStatusTextView;
@@ -53,7 +55,7 @@ public class FacebookActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
 
-                            Intent next = new Intent(FacebookActivity.this, EventsActivity.class);
+                            Intent next = new Intent(FacebookActivity.this, MainActivity.class);
                             finish();
                             startActivity(next);
 
@@ -82,7 +84,7 @@ public class FacebookActivity extends AppCompatActivity {
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
-        LoginButton loginButton = findViewById(R.id.login_button);
+        loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
             @Override
@@ -104,24 +106,17 @@ public class FacebookActivity extends AppCompatActivity {
             }
         });
 
-        signInFab = findViewById(R.id.signInFab);
 
-        signInFab.setOnClickListener(new View.OnClickListener() {
+
+        signInAddEventButton = findViewById(R.id.signInAddEventButton);
+        signInAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(FacebookActivity.this, EventsActivity.class);
+                Intent intent = new Intent(FacebookActivity.this, AddEventActivity.class);
                 startActivity(intent);
             }
         });
 
-        Button user_update_button = findViewById(R.id.user_update_button);
-        user_update_button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FacebookActivity.this, UserProfile.class);
-                startActivity(intent);
-            }
-        });
 
     }
 
