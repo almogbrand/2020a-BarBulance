@@ -19,6 +19,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -27,6 +29,9 @@ import java.util.Date;
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class AddEventActivity extends AppCompatActivity {
+    private FloatingActionButton addEventFab;
+    private FloatingActionButton addEventFabGallery;
+    private FloatingActionButton addEventFabCamera;
     private ImageView addEventImage;
     private Button addEventButton;
     private static final int GALLERY = 1, CAMERA = 2;
@@ -43,10 +48,33 @@ public class AddEventActivity extends AppCompatActivity {
         acTextView.setAdapter(adapter);
 
         addEventImage = findViewById(R.id.addEventImage);
-        addEventButton = findViewById(R.id.addEventButton);
-        addEventButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                showPictureDialog();
+        addEventFabGallery = findViewById(R.id.addEventFabGallery);
+        addEventFabCamera = findViewById(R.id.addEventFabCamera);
+        addEventFab = findViewById(R.id.addEventFab);
+        addEventFab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(addEventFabGallery.getVisibility() == View.VISIBLE){
+                    addEventFabGallery.hide();
+                    addEventFabCamera.hide();
+                } else {
+                    addEventFabGallery.show();
+                    addEventFabCamera.show();
+                }
+            }
+        });
+
+        addEventFabGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                choosePhotoFromGallary();
+            }
+        });
+
+        addEventFabCamera.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                takePhotoFromCamera();
             }
         });
     }
@@ -54,6 +82,8 @@ public class AddEventActivity extends AppCompatActivity {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        addEventFabGallery.hide();
+        addEventFabCamera.hide();
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
@@ -73,27 +103,6 @@ public class AddEventActivity extends AppCompatActivity {
             Bitmap imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);
             addEventImage.setImageBitmap(imageBitmap);
         }
-    }
-
-    private void showPictureDialog() {
-        AlertDialog.Builder pictureDialog = new AlertDialog.Builder(this);
-        pictureDialog.setTitle("Select Action");
-        String[] pictureDialogItems = {"Select photo from gallery", "Capture photo with camera"};
-        pictureDialog.setItems(pictureDialogItems,
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                choosePhotoFromGallary();
-                                break;
-                            case 1:
-                                takePhotoFromCamera();
-                                break;
-                        }
-                    }
-                });
-        pictureDialog.show();
     }
 
     private File createImageFile() throws IOException {

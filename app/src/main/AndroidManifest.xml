@@ -22,7 +22,8 @@
             android:resource="@xml/file_paths" />
 
         <activity android:name=".MainActivity" />
-        <activity android:name=".AddEventActivity" />
+        <activity android:name=".AddEventActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
         <activity android:name=".SignInActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
