@@ -27,7 +27,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Arrays;
 
 public class FacebookActivity extends AppCompatActivity {
-
+    private Button signInButton;
     private Button signInAddEventButton;
     private LoginButton loginButton;
 
@@ -117,6 +117,18 @@ public class FacebookActivity extends AppCompatActivity {
             }
         });
 
+        /* Temporary bypassing facebook login *////////////////////////////////////////
+
+        signInButton = findViewById(R.id.signInButton);
+        signInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        //////////////////////////////////////////////////////////////////////////////
 
     }
 
