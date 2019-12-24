@@ -84,6 +84,13 @@ public class FacebookActivity extends AppCompatActivity {
 
         // Initialize Facebook Login button
         mCallbackManager = CallbackManager.Factory.create();
+
+        //check if user is already signed in
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+        startActivity(intent);
+
         loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -105,8 +112,6 @@ public class FacebookActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         signInAddEventButton = findViewById(R.id.signInAddEventButton);
         signInAddEventButton.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +160,14 @@ public class FacebookActivity extends AppCompatActivity {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
+
+        //check if user is already signed in
+        //UNCOMMENT ONLY AFTER ADDING A MENU THAT ALLOWES SIGN OUT
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+//        Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+//        startActivity(intent);
+
     }
 
 
