@@ -13,9 +13,9 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Event event1 = new Event("TestEvent1","Hifa", "Dani Ginsberg","01","Turkey","bla bla bla",false);
-        Event event2 = new Event("TestEvent2","Beit Shemesh", "Almog Brand","02","Panda","bla bla",false);
-        Event event3 = new Event("TestEvent3","Kfar Masrik", "Lilit Yenokyan","03","Squirrel","bla",true );
+        Event event1 = new Event("Hifa", "Dani Ginsberg","01","Turkey","bla bla bla",false);
+        Event event2 = new Event("Beit Shemesh", "Almog Brand","02","Panda","bla bla",false);
+        Event event3 = new Event("Kfar Masrik", "Lilit Yenokyan","03","Squirrel","bla",true );
         Database db = new Database();
         db.setUpRecyclerViewEventsList(this, (RecyclerView)findViewById(R.id.events));
         db.addEventToDatabase(event1);
@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         db.addDriveToDatabase(drive1);
         db.addDriveToDatabase(drive2);
         db.addDriveToDatabase(drive3);
+
+
+        User user = new User("d@g.co.il","054","123");
+        db.addUserToDatabase(user);
+
 //       // Drive drive = db.getDriveFromDatabase(drive1.getDriverID());
 //        //db.addDriveToDatabase(drive);
 //

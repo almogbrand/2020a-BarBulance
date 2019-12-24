@@ -1,30 +1,30 @@
 package android.technion.com;
 
-import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.ByteArrayOutputStream;
 
 import static android.content.ContentValues.TAG;
 
@@ -34,12 +34,15 @@ public class Database {
     private FirestoreRecyclerAdapter FBAdapter;
     private RecyclerView recyclerV;
     private RecyclerView.LayoutManager layoutManager;
-    FirebaseFirestore db;
+    private FirebaseFirestore db;
+    private FirebaseStorage storage;
+
 
     public Database() {
-        db = FirebaseFirestore.getInstance();
-    }
 
+        db = FirebaseFirestore.getInstance();
+        storage = FirebaseStorage.getInstance();
+    }
 
     public void addEventToDatabase(Event event) {
 
@@ -86,11 +89,28 @@ public class Database {
                     }
                 });
     }
+    public void addUserToDatabase(final User user) {
+        DocumentReference mFirestoreUsers = db.collection("Users").document(user.getUID());
+       mFirestoreUsers.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void avoid) {
+                Log.d(TAG, "User added");
+            }
+        })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding User", e);
+                    }
+                });
+    }
+    public void setUpRecyclerViewEventsList(Context context, RecyclerView recyclerList) {
 
-    void setUpRecyclerViewEventsList(Context context, RecyclerView recyclerList) {
-
-        Query query = FirebaseFirestore.getInstance().collection("Events").orderBy("eventID", Query.Direction.ASCENDING).limit(50);
-        FirestoreRecyclerOptions<Event> options = new FirestoreRecyclerOptions.Builder<Event>().setQuery(query,Event.class).build();
+        Query query = FirebaseFirestore.getInstance().collection("Events").limit(50);
+        FirestoreRecyclerOptions<Event> options =
+                new FirestoreRecyclerOptions.Builder<Event>()
+                        .setQuery(query,Event.class)
+                        .build();
         recyclerV = recyclerList;
 
         FBAdapter = new FirestoreRecyclerAdapter<Event, EventHolder>(options){
@@ -127,8 +147,7 @@ public class Database {
         FBAdapter.startListening();
 
     }
-
-    void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
+    public void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
 
         Query query = FirebaseFirestore.getInstance().collection("Drives").orderBy("driverID", Query.Direction.ASCENDING).limit(50);
         FirestoreRecyclerOptions<Drive> options =
@@ -159,7 +178,6 @@ public class Database {
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-//                        Toast.makeText(v.getContext(),"fucking ID is" + item.getDriverID(),Toast.LENGTH_SHORT).show();
                         //TODO - add going to next intent
 
 
@@ -174,7 +192,7 @@ public class Database {
         FBAdapter.startListening();
 
     }
-    void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
+    public void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
 
         Query query = FirebaseFirestore.getInstance().collection("Fosters").orderBy("userID", Query.Direction.ASCENDING).limit(50);
         FirestoreRecyclerOptions<Foster> options = new FirestoreRecyclerOptions.Builder<Foster>().setQuery(query,Foster.class).build();
@@ -205,6 +223,47 @@ public class Database {
         FBAdapter.startListening();
 
     }
+    public void storeImageInDatabaseStorage(ImageView imageView,String photoID) {
+
+        StorageReference storageRef = storage.getReference();
+        StorageReference userImagesRef = storageRef.child("images/" + photoID +".jpg");
+
+
+        // Get the data from an ImageView as bytes
+        imageView.setDrawingCacheEnabled(true);
+        imageView.buildDrawingCache();
+        Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        byte[] data = baos.toByteArray();
+
+        UploadTask uploadTask = userImagesRef.putBytes(data);
+        uploadTask.addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                // Handle unsuccessful uploads
+            }
+        }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
+                // ...
+            }
+        });
+
+    }
+
+    public void getUserPhoneNumber (String UID) {
+        DocumentReference docRef = db.collection("Users").document(UID);
+        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                User user = documentSnapshot.toObject(User.class);
+                //TODO see if possible to somehow get the phone number out.
+            }
+        });
+    }
+
 
     /*
     public List<Event> getEventFromDatabase(String eventID) {
