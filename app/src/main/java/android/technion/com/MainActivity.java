@@ -5,30 +5,43 @@ import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-//        Event event1 = new Event("TestEvent1","Location1", "TestUser1");
-//        Event event2 = new Event("TestEvent2","Location2", "TestUser2");
-//        Event event3 = new Event("TestEvent3","Location3", "TestUser3");
+        Event event1 = new Event("TestEvent1","Hifa", "Dani Ginsberg","01","Turkey","bla bla bla",false);
+        Event event2 = new Event("TestEvent2","Beit Shemesh", "Almog Brand","02","Panda","bla bla",false);
+        Event event3 = new Event("TestEvent3","Kfar Masrik", "Lilit Yenokyan","03","Squirrel","bla",true );
         Database db = new Database();
         db.setUpRecyclerViewEventsList(this, (RecyclerView)findViewById(R.id.events));
-//        db.addEventToDatabase(event1);
-//        db.addEventToDatabase(event2);
-//        db.addEventToDatabase(event3);
-//        Drive drive1 = new Drive("TestUser1","1", "a","b");
-//        Drive drive2 = new Drive("TestUser2","2", "b","c");
-//        Drive drive3 = new Drive("TestUser3","3", "c","d");
-//        db.setUpRecyclerViewDrivesList(this,(RecyclerView)findViewById(R.id.drives));
-//        db.addDriveToDatabase(drive1);
-//        db.addDriveToDatabase(drive2);
-//        db.addDriveToDatabase(drive3);
-//        Foster foster1 = new Foster("TestEvent1","Species1","a",2.5,"TestUser1");
-//        Foster foster2 = new Foster("TestEvent2","Species2","b",3.5,"TestUser2");
-//        Foster foster3 = new Foster("TestEvent3","Species3","c",4.5,"TestUser3");
+        db.addEventToDatabase(event1);
+        db.addEventToDatabase(event2);
+        db.addEventToDatabase(event3);
+
+
+//       List<Event> events = db.getEventFromDatabase(event1.getEventID());
+//       Event event = events.get(0);
+//       event.setLocation("aaaaaaa");
+//       db.addEventToDatabase(event);
+
+        Drive drive1 = new Drive("Dani Ginsberg","0542344156", "Hifa","Tel-aviv","25/12/2019");
+        Drive drive2 = new Drive("Almog Brand","050000000", "Kiryat Shmona","Kiryat Bialik","26/12/2019");
+        Drive drive3 = new Drive("Lilit Yenokyan","0544444444", "Hifa","Naharia","27/12/2019");
+        db.setUpRecyclerViewDrivesList(this,(RecyclerView)findViewById(R.id.drives));
+        db.addDriveToDatabase(drive1);
+        db.addDriveToDatabase(drive2);
+        db.addDriveToDatabase(drive3);
+//       // Drive drive = db.getDriveFromDatabase(drive1.getDriverID());
+//        //db.addDriveToDatabase(drive);
+//
+//
+//        Foster foster1 = new Foster("a",2.5,"TestUser1");
+//        Foster foster2 = new Foster("b",3.5,"TestUser2");
+//        Foster foster3 = new Foster("c",4.5,"TestUser3");
 //        db.setUpRecyclerViewFostersList(this,(RecyclerView)findViewById(R.id.fosters));
 //        db.addFosterToDatabase(foster1);
 //        db.addFosterToDatabase(foster2);

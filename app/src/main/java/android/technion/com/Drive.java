@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Drive {
-    String collection="Drives";
+   final String collection="Drives";
 
 
     String driverID;

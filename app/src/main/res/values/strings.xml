@@ -1,4 +1,13 @@
 <resources>
     <string name="app_name">BarBulance</string>
     <string name="sample_text">Sample</string>
+    <string name="from">From:</string>
+    <string name="to">To:</string>
+    <string name="textview">TextView</string>
+    <string name="person">person</string>
+    <string name="location">location</string>
+    <string name="call">call</string>
+    <string name="add">add</string>
+    <string name="ambulance">ambulance</string>
+    <string name="change">change</string>
 </resources>

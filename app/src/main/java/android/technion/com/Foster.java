@@ -9,7 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class Foster {
-    String collection="Fosters";
+    final String collection="Fosters";
+
     String location;
     double timeThatCanFosterHours;
     String userID;
