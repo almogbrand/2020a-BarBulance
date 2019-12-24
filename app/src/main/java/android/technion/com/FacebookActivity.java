@@ -2,7 +2,6 @@ package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.technion.com.ui.events.EventsFragment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,14 +22,12 @@ import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import androidx.appcompat.app.AppCompatActivity;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.Arrays;
 
 public class FacebookActivity extends AppCompatActivity {
     private Button signInButton;
     private Button signInAddEventButton;
     private LoginButton loginButton;
-
 
     private static final String TAG = "FacebookLogin";
     private TextView mStatusTextView;
@@ -79,7 +76,6 @@ public class FacebookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facebook);
 
-        //222
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize Facebook Login button
@@ -87,11 +83,14 @@ public class FacebookActivity extends AppCompatActivity {
 
         //check if user is already signed in
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
+        FirebaseUser current = mAuth.getCurrentUser();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current!=null;
         if(isLoggedIn) {
             Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
             startActivity(intent);
         }
+
+        //singing in
         loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
@@ -104,16 +103,15 @@ public class FacebookActivity extends AppCompatActivity {
             @Override
             public void onCancel() {
                 Log.d(TAG, "facebook:onCancel");
-
             }
 
             @Override
             public void onError(FacebookException error) {
                 Log.d(TAG, "facebook:onError", error);
-
             }
         });
 
+        //Add an even - unregistered user
         signInAddEventButton = findViewById(R.id.signInAddEventButton);
         signInAddEventButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,7 +123,6 @@ public class FacebookActivity extends AppCompatActivity {
         });
 
         /* Temporary bypassing facebook login *////////////////////////////////////////
-
         signInButton = findViewById(R.id.signInButton);
         signInButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,7 +132,6 @@ public class FacebookActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
         //////////////////////////////////////////////////////////////////////////////
 
     }
@@ -159,15 +155,15 @@ public class FacebookActivity extends AppCompatActivity {
     @Override
     public void onStart() {
         super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
 
         //check if user is already signed in
-        //UNCOMMENT ONLY AFTER ADDING A MENU THAT ALLOWES SIGN OUT
 //        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-//        Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
-//        startActivity(intent);
+//        FirebaseUser current = mAuth.getCurrentUser();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current!=null;
+//        if(isLoggedIn) {
+//            Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+//            startActivity(intent);
+//        }
 
     }
 
