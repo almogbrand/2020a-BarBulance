@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="animals_array">
+        <item>Bird</item>
+        <item>Hedgehog</item>
+        <item>Deer</item>
+        <item>Eagle</item>
+        <item>Turtle</item>
+    </string-array>
+</resources>

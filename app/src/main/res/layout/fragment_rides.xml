@@ -29,6 +29,8 @@
         android:clickable="true"
         android:focusable="true"
         android:visibility="visible"
+        app:backgroundTint="@color/colorAccent"
+        app:tint="@color/colorIcons"
         app:fabSize="normal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

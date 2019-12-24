@@ -7,5 +7,10 @@
     <string name="title_events">Events</string>
     <string name="title_rides">Rides</string>
     <string name="title_user">User</string>
+    <string name="facebook_app_id">432319980789529</string>
+    <string name="fb_login_protocol_scheme">fb432319980789529</string>
+    <string name="logout">Logout</string>
+    <string name="about">About</string>
+    <string name="contact_us">Contact us</string>
     <string name="sample_text">Sample</string>
 </resources>
