@@ -88,9 +88,10 @@ public class FacebookActivity extends AppCompatActivity {
         //check if user is already signed in
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired();
-        Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
-        startActivity(intent);
-
+        if(isLoggedIn) {
+            Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
         loginButton = findViewById(R.id.login_button);
         loginButton.setReadPermissions(Arrays.asList("email", "public_profile"));
         loginButton.registerCallback(mCallbackManager, new FacebookCallback<LoginResult>() {
