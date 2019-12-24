@@ -87,9 +87,9 @@ public class Database {
                 });
     }
 
-    void setUpRecyclerViewEventsList(Context context, RecyclerView recyclerList) {
+    public void setUpRecyclerViewEventsList(Context context, RecyclerView recyclerList) {
 
-        Query query = FirebaseFirestore.getInstance().collection("Events").orderBy("eventID", Query.Direction.ASCENDING).limit(50);
+        Query query = FirebaseFirestore.getInstance().collection("Events").limit(50);
         FirestoreRecyclerOptions<Event> options = new FirestoreRecyclerOptions.Builder<Event>().setQuery(query,Event.class).build();
         recyclerV = recyclerList;
 
@@ -128,7 +128,7 @@ public class Database {
 
     }
 
-    void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
+    public void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
 
         Query query = FirebaseFirestore.getInstance().collection("Drives").orderBy("driverID", Query.Direction.ASCENDING).limit(50);
         FirestoreRecyclerOptions<Drive> options =

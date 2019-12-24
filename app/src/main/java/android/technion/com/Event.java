@@ -13,7 +13,6 @@ import lombok.NoArgsConstructor;
 public class Event {
     final String collection="Events";
 
-    String eventID;
     String location;
     String reporterId;
     String reporterPhoneNumber;
@@ -23,8 +22,7 @@ public class Event {
     List<Drive> drives;
     List<Foster> fosters;
 
-    public Event(String eventID, String location, String reporterId, String reporterPhoneNumber, String animalType , String description, Boolean urgent) {
-        this.eventID = eventID;
+    public Event(String location, String reporterId, String reporterPhoneNumber, String animalType , String description, Boolean urgent) {
         this.location = location;
         this.reporterId = reporterId;
         this.animalType = animalType;

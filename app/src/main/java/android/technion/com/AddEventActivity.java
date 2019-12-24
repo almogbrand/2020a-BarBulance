@@ -11,15 +11,23 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +37,7 @@ import java.util.Date;
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class AddEventActivity extends AppCompatActivity {
+    private boolean urgent;
     private FloatingActionButton addEventFab;
     private FloatingActionButton addEventFabGallery;
     private FloatingActionButton addEventFabCamera;
@@ -77,6 +86,47 @@ public class AddEventActivity extends AppCompatActivity {
                 takePhotoFromCamera();
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.add_event_send_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        TextInputEditText addEventNameText = findViewById(R.id.addEventNameText);
+        String name = addEventNameText.getText().toString();
+        TextInputEditText addEventPhoneText = findViewById(R.id.addEventPhoneText);
+        String phone = addEventPhoneText.getText().toString();
+        TextInputEditText addEventLocationText = findViewById(R.id.addEventLocationText);
+        String location = addEventLocationText.getText().toString();
+
+        TextInputLayout addEventAnimalType = findViewById(R.id.addEventAnimalType);
+        String animalType = addEventAnimalType.getEditText().getText().toString();
+//        TextInputEditText addEventAnimalType = findViewById(R.id.addEventAnimalType);
+//        String animalType = addEventAnimalType.getText().toString();
+        TextInputEditText addEventDescriptionText = findViewById(R.id.addEventDescriptionText);
+        String description = addEventDescriptionText.getText().toString();
+        Switch addEventUrgentSwitch = findViewById(R.id.addEventUrgentSwitch);
+
+        addEventUrgentSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                if (isChecked) {
+                    urgent = true;
+                } else {
+                    urgent = false;
+                }
+            }
+        });
+
+        Event event = new Event(location, name, phone, animalType, description, urgent);
+        Database db = new Database();
+        db.addEventToDatabase(event);
+        Toast toast = Toast.makeText(getApplicationContext(),"Event Sent!",Toast.LENGTH_SHORT);
+        toast.show();
+        return true;
     }
 
     @Override
