@@ -2,6 +2,7 @@ package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.technion.com.ui.Contact;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.facebook.login.LoginManager;
@@ -47,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.action_contact_us:
                 // TODO: add contact us activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
+                intent = new Intent(MainActivity.this, Contact.class);
+                startActivity(intent);
                 return true;
             case R.id.action_logout:
                 FirebaseAuth.getInstance().signOut();
