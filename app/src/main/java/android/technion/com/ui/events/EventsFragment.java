@@ -21,11 +21,11 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EventsFragment extends Fragment {
     private FloatingActionButton eventsFab;
-    private EventsViewModel homeViewModel;
+    private EventsViewModel eventsViewModel;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
-        homeViewModel =
+        eventsViewModel =
                 ViewModelProviders.of(this).get(EventsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_events, container, false);
         final TextView textView = root.findViewById(R.id.text_home);
@@ -43,7 +43,7 @@ public class EventsFragment extends Fragment {
         Database db = new Database();
         db.setUpRecyclerViewEventsList(this.getContext(), recyclerView);
 
-        homeViewModel.getText().observe(this, new Observer<String>() {
+        eventsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
                 textView.setText(s);

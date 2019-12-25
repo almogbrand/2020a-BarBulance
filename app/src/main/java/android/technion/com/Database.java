@@ -127,7 +127,7 @@ public class Database {
             @Override
             public void onBindViewHolder(EventHolder holder, int position,final Event item) {
                 holder.mainLogo.setImageResource(R.drawable.account);
-                holder.houseLogo.setImageResource(R.drawable.car);
+                holder.houseLogo.setImageResource(R.drawable.home);
                 holder.driveLogo.setImageResource(R.drawable.ambulance);
                 holder.setAnimalType(item.getAnimalType());
                 holder.setEventLocation(item.getLocation());
