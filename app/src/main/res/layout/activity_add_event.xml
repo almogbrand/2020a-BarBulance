@@ -29,6 +29,7 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addEventNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Full Name" />
@@ -51,6 +52,7 @@
             app:layout_constraintTop_toBottomOf="@id/addEventName">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addEventPhoneText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone number" />
@@ -73,6 +75,7 @@
             app:layout_constraintTop_toBottomOf="@id/addEventPhone">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addEventLocationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Location" />
@@ -155,6 +158,7 @@
             app:layout_constraintTop_toBottomOf="@id/addEventAnimalType">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addEventDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Description" />

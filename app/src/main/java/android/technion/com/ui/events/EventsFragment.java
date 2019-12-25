@@ -3,6 +3,7 @@ package android.technion.com.ui.events;
 import android.content.Intent;
 import android.os.Bundle;
 import android.technion.com.AddEventActivity;
+import android.technion.com.Database;
 import android.technion.com.R;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -36,6 +38,10 @@ public class EventsFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        RecyclerView recyclerView = root.findViewById(R.id.eventsList);
+        Database db = new Database();
+        db.setUpRecyclerViewEventsList(this.getContext(), recyclerView);
 
         homeViewModel.getText().observe(this, new Observer<String>() {
             @Override

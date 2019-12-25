@@ -39,7 +39,6 @@ public class Database {
 
 
     public Database() {
-
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
     }

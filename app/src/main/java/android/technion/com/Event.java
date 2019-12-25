@@ -23,7 +23,7 @@ public class Event {
     List<Drive> drives;
     List<Foster> fosters;
 
-    public Event( String location, String reporterId, String reporterPhoneNumber, String animalType , String description, Boolean urgent) {
+    public Event(String location, String reporterId, String reporterPhoneNumber, String animalType , String description, Boolean urgent) {
         this.location = location;
         this.reporterId = reporterId;
         this.animalType = animalType;
