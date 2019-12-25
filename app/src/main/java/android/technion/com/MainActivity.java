@@ -29,6 +29,7 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
     }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -37,18 +38,20 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
+        Intent intent;
         switch (item.getItemId()) {
             case R.id.action_about:
-                // TODO: add about activity
+                // TODO: add about activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
+                intent = new Intent(MainActivity.this, About.class);
+                startActivity(intent);
                 return true;
             case R.id.action_contact_us:
-                // TODO: add contact us activity
+                // TODO: add contact us activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
                 return true;
             case R.id.action_logout:
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
-                Intent intent = new Intent(MainActivity.this, FacebookActivity.class);
+                intent = new Intent(MainActivity.this, FacebookActivity.class);
                 this.finish();
                 startActivity(intent);
                 return true;
