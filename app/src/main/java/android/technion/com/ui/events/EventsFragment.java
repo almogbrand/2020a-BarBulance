@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class EventsFragment extends Fragment {
+    private TextView text_empty;
     private FloatingActionButton eventsFab;
     private EventsViewModel eventsViewModel;
 
@@ -28,7 +29,7 @@ public class EventsFragment extends Fragment {
         eventsViewModel =
                 ViewModelProviders.of(this).get(EventsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_events, container, false);
-        final TextView textView = root.findViewById(R.id.text_home);
+        final TextView text_empty = root.findViewById(R.id.text_empty);
 
         eventsFab = root.findViewById(R.id.eventsFab);
         eventsFab.setOnClickListener(new View.OnClickListener() {
@@ -43,12 +44,17 @@ public class EventsFragment extends Fragment {
         Database db = new Database();
         db.setUpRecyclerViewEventsList(this.getContext(), recyclerView);
 
+        if(db.getFBAdapter().getItemCount() == 0){
+            text_empty.setVisibility(View.GONE);
+        }
+
         eventsViewModel.getText().observe(this, new Observer<String>() {
             @Override
             public void onChanged(@Nullable String s) {
-                textView.setText(s);
+                text_empty.setText(s);
             }
         });
+
         return root;
     }
 }

@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -44,7 +43,6 @@ public class AddEventActivity extends AppCompatActivity {
     private FloatingActionButton addEventFabGallery;
     private FloatingActionButton addEventFabCamera;
     private ImageView addEventImage;
-    private Button addEventButton;
     private static final int GALLERY = 1, CAMERA = 2;
     private String currentPhotoPath;
 
