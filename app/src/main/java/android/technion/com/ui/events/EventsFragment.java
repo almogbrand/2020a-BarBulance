@@ -29,7 +29,7 @@ public class EventsFragment extends Fragment {
         eventsViewModel =
                 ViewModelProviders.of(this).get(EventsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_events, container, false);
-        final TextView text_empty = root.findViewById(R.id.text_empty);
+        text_empty = root.findViewById(R.id.text_empty);
 
         eventsFab = root.findViewById(R.id.eventsFab);
         eventsFab.setOnClickListener(new View.OnClickListener() {

@@ -26,7 +26,10 @@
             android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            app:layout_constraintTop_toTopOf="parent"
+            app:startIconDrawable="@drawable/account"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addEventNameText"
@@ -49,7 +52,10 @@
             android:inputType="phone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addEventName">
+            app:layout_constraintTop_toBottomOf="@id/addEventName"
+            app:startIconDrawable="@drawable/phone"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addEventPhoneText"
@@ -72,13 +78,17 @@
             android:inputType="textPostalAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addEventPhone">
+            app:layout_constraintTop_toBottomOf="@id/addEventPhone"
+            app:startIconDrawable="@drawable/map_marker"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addEventLocationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location" />
+                android:hint="Location"
+                android:maxLength="16"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -133,7 +143,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addEventUrgentLayout"
-            android:hint="Animal type" >
+            android:hint="@string/animal_type"
+            app:startIconDrawable="@drawable/rabbit"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline">
 
             <androidx.appcompat.widget.AppCompatAutoCompleteTextView
                 android:id="@+id/filled_exposed_dropdown"
@@ -155,13 +168,14 @@
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addEventAnimalType">
+            app:layout_constraintTop_toBottomOf="@id/addEventAnimalType"
+            app:startIconDrawable="@drawable/text" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addEventDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description" />
+                android:hint="Description (optional)" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
