@@ -19,14 +19,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name="com.technion.android.displayEventActivity"
-            android:label="@string/title_activity_display_event"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:name=".DisplayEventActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize" />
 
-        <meta-data
-            android:name="com.google.android.actions"
-            android:resource="@xml/file_paths" />
-
+        <!-- <meta-data -->
+        <!-- android:name="com.google.android.actions" -->
+        <!-- android:resource="@xml/file_paths" /> -->
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Contact"
