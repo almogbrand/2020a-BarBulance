@@ -15,7 +15,6 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -44,7 +43,6 @@ public class AddEventActivity extends AppCompatActivity {
     private FloatingActionButton addEventFabGallery;
     private FloatingActionButton addEventFabCamera;
     private ImageView addEventImage;
-    private Button addEventButton;
     private static final int GALLERY = 1, CAMERA = 2;
     private String currentPhotoPath;
 
@@ -119,11 +117,30 @@ public class AddEventActivity extends AppCompatActivity {
         String location = addEventLocationText.getText().toString();
         String animalType = addEventAnimalType.getEditText().getText().toString();
         String description = addEventDescriptionText.getText().toString();
+        Toast toast;
+        if(name.equals("") || phone.equals("") || location.equals("") || animalType.equals("")){
+            if(name.equals("")){
+                addEventNameText.setError("Required");
+            }
+            if(phone.equals("")) {
+                addEventPhoneText.setError("Required");
+            }
+            if(location.equals("")) {
+                addEventLocationText.setError("Required");
+            }
+            if(animalType.equals("")){
+                addEventAnimalType.setError("Required");
+            }
+
+            toast = Toast.makeText(getApplicationContext(),"Required fields are empty!", Toast.LENGTH_LONG);
+            toast.show();
+            return true;
+        }
 
         Event event = new Event(location, name, phone, animalType, description, urgent);
         Database db = new Database();
         db.addEventToDatabase(event);
-        Toast toast = Toast.makeText(getApplicationContext(),"Event Sent!",Toast.LENGTH_SHORT);
+        toast = Toast.makeText(getApplicationContext(),"Event Sent!", Toast.LENGTH_SHORT);
         toast.show();
 
         Intent intent = new Intent(AddEventActivity.this, MainActivity.class);

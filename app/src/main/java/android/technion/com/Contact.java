@@ -1,10 +1,7 @@
-package android.technion.com.ui;
+package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.technion.com.About;
-import android.technion.com.FacebookActivity;
-import android.technion.com.R;
 import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;

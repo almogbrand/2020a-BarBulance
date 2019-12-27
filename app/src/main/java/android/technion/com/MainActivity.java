@@ -2,7 +2,6 @@ package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.technion.com.ui.Contact;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.facebook.login.LoginManager;

@@ -21,5 +21,8 @@
     <string name="call">call</string>
     <string name="add">add</string>
     <string name="ambulance">ambulance</string>
-    <string name="change">change</string>
+    <string name="home">home</string>
+    <string name="title_activity_display_event">displayEventActivity</string>
+    <string name="animal_type">Animal type</string>
+    <string name="required">Required</string>
 </resources>

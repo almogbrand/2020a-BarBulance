@@ -37,6 +37,9 @@ public class Database {
     private FirebaseFirestore db;
     private FirebaseStorage storage;
 
+    public FirestoreRecyclerAdapter getFBAdapter(){
+        return FBAdapter;
+    }
 
     public Database() {
         db = FirebaseFirestore.getInstance();
@@ -44,7 +47,6 @@ public class Database {
     }
 
     public void addEventToDatabase(Event event) {
-
         db.collection("Events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -58,8 +60,8 @@ public class Database {
                     }
                 });
     }
-    public void addDriveToDatabase(Drive drive){
 
+    public void addDriveToDatabase(Drive drive){
         db.collection("Drives").add(drive).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
@@ -74,6 +76,7 @@ public class Database {
                 });
 
     }
+
     public void addFosterToDatabase(Foster foster) {
         db.collection("Fosters").add(foster).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -88,6 +91,7 @@ public class Database {
                     }
                 });
     }
+
     public void addUserToDatabase(final User user) {
         DocumentReference mFirestoreUsers = db.collection("Users").document(user.getUID());
        mFirestoreUsers.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -103,6 +107,7 @@ public class Database {
                     }
                 });
     }
+
     public void setUpRecyclerViewEventsList(Context context, RecyclerView recyclerList) {
 
         Query query = FirebaseFirestore.getInstance().collection("Events").limit(50);
@@ -126,8 +131,40 @@ public class Database {
 
             @Override
             public void onBindViewHolder(EventHolder holder, int position,final Event item) {
-                holder.mainLogo.setImageResource(R.drawable.account);
-                holder.houseLogo.setImageResource(R.drawable.car);
+                String animal = item.getAnimalType();
+                switch (animal){
+                    case "Bat":
+                        holder.mainLogo.setImageResource(R.drawable.animal_bat);
+                        break;
+                    case "Bird":
+                        holder.mainLogo.setImageResource(R.drawable.animal_bird);
+                        break;
+                    case "Boar":
+                        holder.mainLogo.setImageResource(R.drawable.animal_boar);
+                        break;
+                    case "Eagle":
+                        holder.mainLogo.setImageResource(R.drawable.animal_eagle);
+                        break;
+                    case "Hedgehog":
+                        holder.mainLogo.setImageResource(R.drawable.animal_hedgehog);
+                        break;
+                    case "Jackal":
+                        holder.mainLogo.setImageResource(R.drawable.animal_jackal);
+                        break;
+                    case "Owl":
+                        holder.mainLogo.setImageResource(R.drawable.animal_owl);
+                        break;
+                    case "Snake":
+                        holder.mainLogo.setImageResource(R.drawable.animal_snake);
+                        break;
+                    case "Turtle":
+                        holder.mainLogo.setImageResource(R.drawable.animal_turtle);
+                        break;
+                    default:
+                        holder.mainLogo.setImageResource(R.drawable.animal_unknown);
+                }
+//                holder.mainLogo.setImageResource(R.drawable.account);
+                holder.houseLogo.setImageResource(R.drawable.home);
                 holder.driveLogo.setImageResource(R.drawable.ambulance);
                 holder.setAnimalType(item.getAnimalType());
                 holder.setEventLocation(item.getLocation());
@@ -140,12 +177,13 @@ public class Database {
                 });
             }
         };
+
         layoutManager = new LinearLayoutManager(context);
         recyclerV.setLayoutManager(layoutManager);
         recyclerV.setAdapter(FBAdapter);
         FBAdapter.startListening();
-
     }
+
     public void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
 
         Query query = FirebaseFirestore.getInstance().collection("Drives").orderBy("driverID", Query.Direction.ASCENDING).limit(50);
