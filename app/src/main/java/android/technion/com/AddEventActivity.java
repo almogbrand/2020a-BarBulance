@@ -130,7 +130,7 @@ public class AddEventActivity extends AppCompatActivity {
             }
             if(animalType.equals("")){
                 addEventAnimalType.setError("Required");
-            } 
+            }
 
             toast = Toast.makeText(getApplicationContext(),"Required fields are empty!", Toast.LENGTH_LONG);
             toast.show();

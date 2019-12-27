@@ -24,4 +24,5 @@
     <string name="home">home</string>
     <string name="title_activity_display_event">displayEventActivity</string>
     <string name="animal_type">Animal type</string>
+    <string name="required">Required</string>
 </resources>
