@@ -17,12 +17,18 @@
     <string name="to">To:</string>
     <string name="textview">TextView</string>
     <string name="person">person</string>
-    <string name="location">location</string>
+    <string name="location">Location</string>
     <string name="call">call</string>
     <string name="add">add</string>
     <string name="ambulance">ambulance</string>
     <string name="home">home</string>
-    <string name="title_activity_display_event">displayEventActivity</string>
     <string name="animal_type">Animal type</string>
     <string name="required">Required</string>
+    <string name="pickup">pickup</string>
+    <string name="foster">foster</string>
+    <string name="nonurgent">nonurgent</string>
+    <string name="urgent">urgent</string>
+    <string name="full_name">Full Name</string>
+    <string name="phone_number">Phone number</string>
+    <string name="description_optional">Description (optional)</string>
 </resources>
