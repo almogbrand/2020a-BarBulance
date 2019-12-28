@@ -28,7 +28,6 @@ import java.util.Arrays;
 public class FacebookActivity extends AppCompatActivity {
     private Button signInButton;
     private Button signInAddEventButton;
-    private Button signInDisplayEventButton;
     private LoginButton loginButton;
 
     private static final String TAG = "FacebookLogin";
@@ -120,16 +119,6 @@ public class FacebookActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(FacebookActivity.this, AddEventActivity.class);
                 finish();
-                startActivity(intent);
-            }
-        });
-
-        /// Temporary //////////////////////////////////////////////////////////////////
-        signInDisplayEventButton = findViewById(R.id.signInDisplayEventButton);
-        signInDisplayEventButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FacebookActivity.this, DisplayEventActivity.class);
                 startActivity(intent);
             }
         });

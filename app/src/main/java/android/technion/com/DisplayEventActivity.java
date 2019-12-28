@@ -30,12 +30,13 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         event = (Event) getIntent().getSerializableExtra("event");
         displayEventImage = findViewById(R.id.displayEventImage);
+        // TODO: display the image
 
         displayEventNameText = findViewById(R.id.displayEventNameText);
         displayEventNameText.setText(event.getReporterId());
 
         displayEventPhoneText = findViewById(R.id.displayEventPhoneText);
-        displayEventPhoneText.setText(event.getReporterPhoneNumber());
+        displayEventPhoneText.setText(event.getPhoneNumber());
 
         displayEventLocationText = findViewById(R.id.displayEventLocationText);
         displayEventLocationText.setText(event.getLocation());
@@ -59,7 +60,9 @@ public class DisplayEventActivity extends AppCompatActivity {
         }
 
         displayEventPickupButton = findViewById(R.id.displayEventPickupButton);
+        // TODO: set action onClick pickup
         displayEventFosterButton = findViewById(R.id.displayEventFosterButton);
+        // TODO: set action onClick foster
 
         // to start at the bottom of the activity
         scrollview = findViewById(R.id.displayEventScrollView);
@@ -69,8 +72,5 @@ public class DisplayEventActivity extends AppCompatActivity {
                 scrollview.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
-
-
-
     }
 }

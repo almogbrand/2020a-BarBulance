@@ -45,6 +45,7 @@ public class AddEventActivity extends AppCompatActivity {
     private ImageView addEventImage;
     private static final int GALLERY = 1, CAMERA = 2;
     private String currentPhotoPath;
+    private String imageName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -137,9 +138,10 @@ public class AddEventActivity extends AppCompatActivity {
             return true;
         }
 
-        Event event = new Event(location, name, phone, animalType, description, urgent);
+        Event event = new Event(location, name, phone, animalType, description, urgent, imageName);
         Database db = new Database();
         db.addEventToDatabase(event);
+        db.storeImageInDatabaseStorage(addEventImage, imageName);
         toast = Toast.makeText(getApplicationContext(),"Event Sent!", Toast.LENGTH_SHORT);
         toast.show();
 
@@ -155,16 +157,17 @@ public class AddEventActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         addEventFabGallery.hide();
         addEventFabCamera.hide();
+
         if (resultCode == this.RESULT_CANCELED) {
             return;
         }
         if (requestCode == GALLERY && resultCode == RESULT_OK && data != null) {
             Uri contentURI = data.getData();
             try {
+                String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
+                imageName = "JPEG_" + timeStamp;
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), contentURI);
                 addEventImage.setImageBitmap(bitmap);
-
-
             } catch (IOException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Failed!", Toast.LENGTH_SHORT).show();
@@ -181,6 +184,7 @@ public class AddEventActivity extends AppCompatActivity {
         String imageFileName = "JPEG_" + timeStamp + "_";
         File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
+        imageName = image.getName();
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }

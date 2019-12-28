@@ -22,9 +22,10 @@
             android:name=".DisplayEventActivity"
             android:configChanges="keyboardHidden|orientation|screenSize" />
 
-        <!-- <meta-data -->
-        <!-- android:name="com.google.android.actions" -->
-        <!-- android:resource="@xml/file_paths" /> -->
+<!--        <meta-data-->
+<!--            android:name="com.google.android.actions"-->
+<!--            android:resource="@xml/file_paths" />-->
+
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Contact"

@@ -264,11 +264,10 @@ public class Database {
         FBAdapter.startListening();
 
     }
-    public void storeImageInDatabaseStorage(ImageView imageView,String photoID) {
+    public void storeImageInDatabaseStorage(ImageView imageView, String photoID) {
 
         StorageReference storageRef = storage.getReference();
         StorageReference userImagesRef = storageRef.child("images/" + photoID +".jpg");
-
 
         // Get the data from an ImageView as bytes
         imageView.setDrawingCacheEnabled(true);
