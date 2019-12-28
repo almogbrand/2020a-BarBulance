@@ -32,7 +32,6 @@ import static android.content.ContentValues.TAG;
 
 
 public class Database {
-    private Event event;
     private FirestoreRecyclerAdapter FBAdapter;
     private RecyclerView recyclerV;
     private RecyclerView.LayoutManager layoutManager;
@@ -133,7 +132,6 @@ public class Database {
 
             @Override
             public void onBindViewHolder(EventHolder holder, int position, final Event item) {
-                event = item;
                 String animal = item.getAnimalType();
                 switch (animal){
                     case "Bat":
@@ -175,7 +173,7 @@ public class Database {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(v.getContext(), DisplayEventActivity.class);
-                        intent.putExtra("event", event);
+                        intent.putExtra("event", item);
                         v.getContext().startActivity(intent);
                     }
                 });
