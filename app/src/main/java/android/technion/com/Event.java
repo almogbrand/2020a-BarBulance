@@ -1,5 +1,6 @@
 package android.technion.com;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Event {
+public class Event implements Serializable {
     final String collection="Events";
 
     String location;

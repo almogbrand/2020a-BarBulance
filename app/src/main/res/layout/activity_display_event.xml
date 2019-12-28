@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/displayEventScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true">
@@ -35,9 +36,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
-            android:ems="10"
-            android:hint="@string/animal_type"
-            app:layout_constraintEnd_toStartOf="@+id/displayEventUrgentSwitch"
+            app:layout_constraintEnd_toStartOf="@+id/displayEventUrgentButton"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/displayEventImage"
             app:startIconDrawable="@drawable/rabbit">
@@ -49,14 +48,21 @@
                 android:hint="@string/animal_type" />
         </com.google.android.material.textfield.TextInputLayout>
 
-        <Switch
-            android:id="@+id/displayEventUrgentSwitch"
-            android:layout_width="150dp"
-            android:layout_height="40dp"
-            android:layout_marginTop="24dp"
+        <Button
+            android:id="@+id/displayEventUrgentButton"
+            android:layout_width="wrap_content"
+            android:layout_height="0dp"
+            android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:switchMinWidth="140dp"
+            android:layout_marginBottom="12dp"
+            android:drawableLeft="@drawable/alert_circle_outline"
+            android:drawableTint="@color/colorIcons"
+            android:text="@string/nonurgent"
+            android:textSize="14sp"
+            android:backgroundTint="@color/colorSecondaryText"
+            app:iconPadding="8dp"
+            app:layout_constraintBottom_toTopOf="@+id/displayEventLocation"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/displayEventImage" />
 
@@ -70,20 +76,17 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:ems="10"
             android:inputType="textPostalAddress"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/displayEventAnimalType"
-            app:startIconDrawable="@drawable/map_marker"
-            app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline">
+            app:startIconDrawable="@drawable/map_marker">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/displayEventLocationText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Location"
+                android:hint="@string/location"
                 android:maxLength="16"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,7 +100,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:ems="10"
             android:inputType="textMultiLine"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,7 +110,7 @@
                 android:id="@+id/displayEventDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Description (optional)" />
+                android:hint="Description" />
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -122,10 +124,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:ems="10"
             android:inputType="textPersonName"
-            app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/displayEventDescription"
@@ -135,7 +134,7 @@
                 android:id="@+id/displayEventNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Full Name" />
+                android:hint="Contact Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
@@ -148,10 +147,7 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:ems="10"
             android:inputType="phone"
-            app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/displayEventName"

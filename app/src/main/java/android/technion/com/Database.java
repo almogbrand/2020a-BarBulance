@@ -1,8 +1,10 @@
 package android.technion.com;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.technion.com.ui.events.EventsFragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,7 +32,7 @@ import static android.content.ContentValues.TAG;
 
 
 public class Database {
-
+    private Event event;
     private FirestoreRecyclerAdapter FBAdapter;
     private RecyclerView recyclerV;
     private RecyclerView.LayoutManager layoutManager;
@@ -126,11 +128,12 @@ public class Database {
                 View v = LayoutInflater.from(parent.getContext())
                         .inflate(R.layout.eventholder_row, parent, false);
 
-                return  new EventHolder(v);
+                return new EventHolder(v);
             }
 
             @Override
-            public void onBindViewHolder(EventHolder holder, int position,final Event item) {
+            public void onBindViewHolder(EventHolder holder, int position, final Event item) {
+                event = item;
                 String animal = item.getAnimalType();
                 switch (animal){
                     case "Bat":
@@ -163,7 +166,7 @@ public class Database {
                     default:
                         holder.mainLogo.setImageResource(R.drawable.animal_unknown);
                 }
-//                holder.mainLogo.setImageResource(R.drawable.account);
+
                 holder.houseLogo.setImageResource(R.drawable.home);
                 holder.driveLogo.setImageResource(R.drawable.ambulance);
                 holder.setAnimalType(item.getAnimalType());
@@ -171,8 +174,9 @@ public class Database {
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO - add going to next intent
-
+                        Intent intent = new Intent(v.getContext(), DisplayEventActivity.class);
+                        intent.putExtra("event", event);
+                        v.getContext().startActivity(intent);
                     }
                 });
             }
