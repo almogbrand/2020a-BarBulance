@@ -3,6 +3,7 @@ package android.technion.com;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.technion.com.ui.events.EventsFragment;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -262,11 +264,15 @@ public class Database {
         FBAdapter.startListening();
 
     }
-    public void storeImageInDatabaseStorage(ImageView imageView, String photoID) {
+    public void storeImageInDatabaseStorage(ImageView imageView, final String photoID) {
 
         StorageReference storageRef = storage.getReference();
-        StorageReference userImagesRef = storageRef.child("images/" + photoID +".jpg");
-
+        StorageReference userImagesRef;
+        if(photoID.toLowerCase().contains("Facebook")){
+            userImagesRef = storageRef.child("facebookPics/" + photoID + ".jpg");
+        } else {
+            userImagesRef = storageRef.child("images/" + photoID + ".jpg");
+        }
         // Get the data from an ImageView as bytes
         imageView.setDrawingCacheEnabled(true);
         imageView.buildDrawingCache();
@@ -279,25 +285,49 @@ public class Database {
         uploadTask.addOnFailureListener(new OnFailureListener() {
             @Override
             public void onFailure(@NonNull Exception exception) {
-                // Handle unsuccessful uploads
-            }
+                Log.w(TAG, "Error loading Event photo");            }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                // taskSnapshot.getMetadata() contains file metadata such as size, content-type, etc.
-                // ...
+                Log.d(TAG, "Event photo added with ID: " + photoID);
             }
         });
 
     }
+    public void getImageFromDatabaseToImageView(final ImageView imageView, final String photoID) {
 
-    public void getUserPhoneNumber (String UID) {
+        StorageReference islandRef;
+        if(photoID.toLowerCase().contains("Facebook")){
+            islandRef = storage.getReference("facebookPics/" + photoID + ".jpg");
+        }else {
+            islandRef = storage.getReference("images/" + photoID + ".jpg");
+        }
+        final long ONE_MEGABYTE = 1024 * 1024;
+        islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
+            @Override
+            public void onSuccess(byte[] bytes) {
+                Bitmap bitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
+                imageView.setImageBitmap(bitmap);
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.w(TAG, "Error downloading Event photo with id:" + photoID);
+            }
+        });
+    }
+
+    public void getUserPhoneNumberToTextView (String UID, final TextView textView) {
         DocumentReference docRef = db.collection("Users").document(UID);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                //TODO see if possible to somehow get the phone number out.
+                if(user!=null) {
+                    textView.setText(user.getUserPhoneNumber());
+                } else {
+                    Log.w(TAG, "Error retrieving user");
+                }
             }
         });
     }
