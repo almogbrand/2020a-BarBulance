@@ -229,6 +229,7 @@ public class Database {
         FBAdapter.startListening();
 
     }
+
     public void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
 
         Query query = FirebaseFirestore.getInstance().collection("Fosters").orderBy("userID", Query.Direction.ASCENDING).limit(50);
@@ -260,6 +261,7 @@ public class Database {
         FBAdapter.startListening();
 
     }
+
     public void storeImageInDatabaseStorage(ImageView imageView, final String photoID) {
 
         StorageReference storageRef = storage.getReference();
@@ -274,7 +276,7 @@ public class Database {
         imageView.buildDrawingCache();
         Bitmap bitmap = ((BitmapDrawable) imageView.getDrawable()).getBitmap();
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 33, baos);
         byte[] data = baos.toByteArray();
 
         UploadTask uploadTask = userImagesRef.putBytes(data);
@@ -290,6 +292,7 @@ public class Database {
         });
 
     }
+
     public void getImageFromDatabaseToImageView(final ImageView imageView, final String photoID) {
 
         StorageReference islandRef;

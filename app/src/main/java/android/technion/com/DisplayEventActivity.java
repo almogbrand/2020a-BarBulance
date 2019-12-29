@@ -26,11 +26,13 @@ public class DisplayEventActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Database db = new Database();
+
         setContentView(R.layout.activity_display_event);
 
         event = (Event) getIntent().getSerializableExtra("event");
         displayEventImage = findViewById(R.id.displayEventImage);
-        // TODO: display the image
+        db.getImageFromDatabaseToImageView(displayEventImage,event.getPhotoID());
 
         displayEventNameText = findViewById(R.id.displayEventNameText);
         displayEventNameText.setText(event.getReporterId());
