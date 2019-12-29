@@ -158,15 +158,12 @@ public class FacebookActivity extends AppCompatActivity {
         super.onStart();
 
         //check if user is already signed in
-//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-//        FirebaseUser current = mAuth.getCurrentUser();
-//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current!=null;
-//        if(isLoggedIn) {
-//            Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
-//            startActivity(intent);
-//        }
-
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        FirebaseUser current = mAuth.getCurrentUser();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current!=null;
+        if(isLoggedIn) {
+            Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+            startActivity(intent);
+        }
     }
-
-
 }
