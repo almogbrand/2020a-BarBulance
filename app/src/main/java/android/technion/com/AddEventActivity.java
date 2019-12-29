@@ -42,7 +42,7 @@ public class AddEventActivity extends AppCompatActivity {
     private ImageView addEventImage;
     private static final int GALLERY = 1, CAMERA = 2;
     private String currentPhotoPath;
-    private String imageName;
+    private String imageName = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -138,7 +138,9 @@ public class AddEventActivity extends AppCompatActivity {
         Event event = new Event(location, name, phone, animalType, description, urgent, imageName);
         Database db = new Database();
         db.addEventToDatabase(event);
-        db.storeImageInDatabaseStorage(addEventImage, imageName);
+        if(!(imageName.equals(""))){
+            db.storeImageInDatabaseStorage(addEventImage, imageName);
+        }
         toast = Toast.makeText(getApplicationContext(),"Event Sent!", Toast.LENGTH_SHORT);
         toast.show();
 
