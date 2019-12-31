@@ -100,6 +100,13 @@ public class DisplayEventActivity extends AppCompatActivity {
             case R.id.action_edit:
                 intent = new Intent(DisplayEventActivity.this, AddEventActivity.class);
                 intent.putExtra("event", event);
+                finish();
+                startActivity(intent);
+                return true;
+            case R.id.action_delete:
+                // TODO: add here deletion from DB
+                intent = new Intent(DisplayEventActivity.this, MainActivity.class);
+                finish();
                 startActivity(intent);
                 return true;
             default:

@@ -35,4 +35,5 @@
     <string name="Credits_for_B"><a href="https://github.com/Templarian/MaterialDesign/blob/master/LICENSE/">Link</a></string>
     <string name="Credits_for_C"><a href="https://www.freepikcompany.com/legal#nav-flaticon/">Link</a></string>
     <string name="edit">edit</string>
+    <string name="delete">delete</string>
 </resources>
