@@ -51,14 +51,11 @@ public class About extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_about:
-                // TODO: add about activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
-                intent = new Intent(About.this, About.class);
-                this.finish();
-                startActivity(intent);
                 return true;
             case R.id.action_contact_us:
                 // TODO: add contact us activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
                 intent = new Intent(About.this, Contact.class);
+                this.finish();
                 startActivity(intent);
                 return true;
             case R.id.action_logout:
