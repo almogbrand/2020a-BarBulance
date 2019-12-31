@@ -30,6 +30,8 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static androidx.core.content.FileProvider.getUriForFile;
 
@@ -154,13 +156,22 @@ public class AddEventActivity extends AppCompatActivity {
             return true;
         }
 
-        Event event = new Event(location, name, phone, animalType, description, urgent, imageName);
+        if (!isValidPhone(phone)) {
+            addEventPhoneText.setError("Invalid phone number!");
+            return true;
+        }
+
+        Event newEvent = new Event(location, name, phone, animalType, description, urgent, imageName);
         Database db = new Database();
-        db.addEventToDatabase(event);
+        db.addEventToDatabase(newEvent);
         if(!(imageName.equals(""))){
             db.storeImageInDatabaseStorage(addEventImage, imageName);
         }
-        toast = Toast.makeText(getApplicationContext(),"Event Sent!", Toast.LENGTH_SHORT);
+        if(event != null) {
+            toast = Toast.makeText(getApplicationContext(), "Event Updated!", Toast.LENGTH_SHORT);
+        } else {
+            toast = Toast.makeText(getApplicationContext(), "Event Sent!", Toast.LENGTH_SHORT);
+        }
         toast.show();
 
         // check if user is already signed in
@@ -177,6 +188,13 @@ public class AddEventActivity extends AppCompatActivity {
         startActivity(intent);
 
         return true;
+    }
+
+    private boolean isValidPhone(String phone) {
+        String PHONE_PATTERN = "^\\d{9,10}$";
+        Pattern pattern = Pattern.compile(PHONE_PATTERN);
+        Matcher matcher = pattern.matcher(phone);
+        return matcher.matches();
     }
 
     @Override
