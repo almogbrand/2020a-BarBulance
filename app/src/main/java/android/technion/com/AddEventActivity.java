@@ -18,9 +18,14 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
+
+import com.facebook.AccessToken;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -158,7 +163,16 @@ public class AddEventActivity extends AppCompatActivity {
         toast = Toast.makeText(getApplicationContext(),"Event Sent!", Toast.LENGTH_SHORT);
         toast.show();
 
-        Intent intent = new Intent(AddEventActivity.this, MainActivity.class);
+        // check if user is already signed in
+        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current != null;
+        Intent intent;
+        if(isLoggedIn) {
+            intent = new Intent(AddEventActivity.this, MainActivity.class);
+        } else {
+            intent = new Intent(AddEventActivity.this, FacebookActivity.class);
+        }
         this.finish();
         startActivity(intent);
 
