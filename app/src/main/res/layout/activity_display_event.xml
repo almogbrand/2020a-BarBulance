@@ -45,6 +45,7 @@
                 android:id="@+id/displayEventAnimalTypeText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="@string/animal_type" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -87,6 +88,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/location"
+                android:focusable="false"
                 android:maxLength="16"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -110,6 +112,7 @@
                 android:id="@+id/displayEventDescriptionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Description" />
 
         </com.google.android.material.textfield.TextInputLayout>
@@ -134,6 +137,7 @@
                 android:id="@+id/displayEventNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Contact Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -157,6 +161,7 @@
                 android:id="@+id/displayEventPhoneText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Phone number" />
         </com.google.android.material.textfield.TextInputLayout>
 

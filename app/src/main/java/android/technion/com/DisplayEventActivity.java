@@ -1,6 +1,9 @@
 package android.technion.com;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -8,7 +11,9 @@ import android.widget.ScrollView;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.widget.NestedScrollView;
 
+import com.facebook.login.LoginManager;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class DisplayEventActivity extends AppCompatActivity {
     private NestedScrollView scrollview;
@@ -36,15 +41,19 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         displayEventNameText = findViewById(R.id.displayEventNameText);
         displayEventNameText.setText(event.getReporterId());
+        displayEventNameText.setKeyListener(null);
 
         displayEventPhoneText = findViewById(R.id.displayEventPhoneText);
         displayEventPhoneText.setText(event.getPhoneNumber());
+        displayEventPhoneText.setKeyListener(null);
 
         displayEventLocationText = findViewById(R.id.displayEventLocationText);
         displayEventLocationText.setText(event.getLocation());
+        displayEventLocationText.setKeyListener(null);
 
         displayEventAnimalTypeText = findViewById(R.id.displayEventAnimalTypeText);
         displayEventAnimalTypeText.setText(event.getAnimalType());
+        displayEventAnimalTypeText.setKeyListener(null);
 
         displayEventDescriptionText = findViewById(R.id.displayEventDescriptionText);
         String description = event.getDescription();
@@ -53,8 +62,10 @@ public class DisplayEventActivity extends AppCompatActivity {
         }  else {
             displayEventDescriptionText.setText(description);
         }
+        displayEventDescriptionText.setKeyListener(null);
 
         displayEventUrgentButton = findViewById(R.id.displayEventUrgentButton);
+        displayEventUrgentButton.setKeyListener(null);
         boolean urgent = event.getUrgent();
         if(urgent){
             displayEventUrgentButton.setText(R.string.urgent);
@@ -74,5 +85,25 @@ public class DisplayEventActivity extends AppCompatActivity {
                 scrollview.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.edit_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.action_edit:
+                intent = new Intent(DisplayEventActivity.this, AddEventActivity.class);
+                intent.putExtra("event", event);
+                startActivity(intent);
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

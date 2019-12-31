@@ -43,6 +43,7 @@ public class AddEventActivity extends AppCompatActivity {
     private static final int GALLERY = 1, CAMERA = 2;
     private String currentPhotoPath;
     private String imageName = "";
+    private Event event;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,6 +101,19 @@ public class AddEventActivity extends AppCompatActivity {
                 takePhotoFromCamera();
             }
         });
+
+        // in case of EDITING an existing event
+        Database db = new Database();
+        event = (Event) getIntent().getSerializableExtra("event");
+        if(event != null){
+            addEventNameText.setText(event.getReporterId());
+            addEventPhoneText.setText(event.getPhoneNumber());
+            addEventLocationText.setText(event.getLocation());
+            addEventAnimalType.getEditText().setText(event.getAnimalType());
+            addEventDescriptionText.setText(event.getDescription());
+            addEventUrgentSwitch.setChecked(event.getUrgent());
+            db.getImageFromDatabaseToImageView(addEventImage, event.getPhotoID());
+        }
     }
 
     @Override
