@@ -2,15 +2,14 @@ package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
-import android.app.Activity;
 import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -22,6 +21,7 @@ public class Contact extends AppCompatActivity {
     private EditText your_email;
     private EditText your_subject;
     private EditText your_message;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,47 @@ public class Contact extends AppCompatActivity {
         your_email       = (EditText) findViewById(R.id.contactEmail);
         your_subject     = (EditText) findViewById(R.id.contactSubject);
         your_message     = (EditText) findViewById(R.id.contactMessage);
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.setTitle(R.string.contact_us);
+        toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.add_event_send_menu);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_about:
+                        intent = new Intent(Contact.this, About.class);
+                        startActivity(intent);
+                        finish();
+                        return true;
+                    case R.id.action_contact_us:
+                        return true;
+                    case R.id.action_logout:
+                        FirebaseAuth.getInstance().signOut();
+                        LoginManager.getInstance().logOut();
+                        intent = new Intent(Contact.this, FacebookActivity.class);
+                        finish();
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_send:
+                        sendEmail();
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 
     // validating email
@@ -89,38 +130,4 @@ public class Contact extends AppCompatActivity {
         /* Send it off to the Activity-Chooser */
         startActivity(Intent.createChooser(sendEmail, "Send mail..."));
     }
-
-    ////////////////////////////////////////////////////////////////////////////////////
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
-        getMenuInflater().inflate(R.menu.add_event_send_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.action_about:
-                intent = new Intent(Contact.this, About.class);
-                startActivity(intent);
-                this.finish();
-                return true;
-            case R.id.action_contact_us:
-                return true;
-            case R.id.action_logout:
-                FirebaseAuth.getInstance().signOut();
-                LoginManager.getInstance().logOut();
-                intent = new Intent(Contact.this, FacebookActivity.class);
-                this.finish();
-                startActivity(intent);
-                return true;
-            case R.id.action_send:
-                sendEmail();
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
 }

@@ -14,6 +14,10 @@
         android:layout_height="match_parent"
         tools:context="android.technion.com.displayEventActivity">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
         <ImageView
             android:id="@+id/displayEventImage"
             android:layout_width="match_parent"
@@ -23,7 +27,7 @@
             android:visibility="visible"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             tools:srcCompat="@android:color/background_light" />
 
         <com.google.android.material.textfield.TextInputLayout

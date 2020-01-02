@@ -12,6 +12,10 @@
         android:layout_height="match_parent"
         tools:context="android.technion.com.AddEventActivity">
 
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/addEventName"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -24,7 +28,7 @@
             android:layout_marginRight="24dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
             app:startIconDrawable="@drawable/account"
             app:errorEnabled="true"
             app:errorIconDrawable="@drawable/alert_circle_outline">
