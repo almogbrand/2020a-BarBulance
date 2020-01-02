@@ -1,6 +1,8 @@
 package android.technion.com;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -51,11 +53,38 @@ public class AddEventActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private String imageName = "";
     private Event event;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
+
+        Database db = new Database();
+        event = (Event) getIntent().getSerializableExtra("event");
+
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.back);
+        if(event != null){
+            toolbar.setTitle(R.string.edit_event);
+        } else {
+            toolbar.setTitle(R.string.add_event);
+        }
+        toolbar.inflateMenu(R.menu.add_event_send_menu);
+
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                return onSendEvent(item);
+            }
+        });
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
                 R.array.animals_array, R.layout.add_event_dropdown_item);
@@ -110,8 +139,6 @@ public class AddEventActivity extends AppCompatActivity {
         });
 
         // in case of EDITING an existing event
-        Database db = new Database();
-        event = (Event) getIntent().getSerializableExtra("event");
         if(event != null){
             addEventNameText.setText(event.getReporterId());
             addEventPhoneText.setText(event.getPhoneNumber());
@@ -123,14 +150,7 @@ public class AddEventActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.add_event_send_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onSendEvent(MenuItem item) {
         String name = addEventNameText.getText().toString();
         String phone = addEventPhoneText.getText().toString();
         String location = addEventLocationText.getText().toString();

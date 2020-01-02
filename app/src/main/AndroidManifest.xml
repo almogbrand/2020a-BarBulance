@@ -21,16 +21,18 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".DisplayEventActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
-
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity
             android:name=".Contact"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/contact_us"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".AddEventActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize" />
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".FacebookActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -55,7 +57,8 @@
 
         <activity
             android:name=".About"
-            android:label="@string/about"/>
+            android:label="@string/about"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name="com.facebook.FacebookActivity"
             android:configChanges="keyboard|keyboardHidden|screenLayout|screenSize|orientation"

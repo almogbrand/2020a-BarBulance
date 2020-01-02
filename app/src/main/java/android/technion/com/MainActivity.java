@@ -41,12 +41,10 @@ public class MainActivity extends AppCompatActivity {
         Intent intent;
         switch (item.getItemId()) {
             case R.id.action_about:
-                // TODO: add about activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
                 intent = new Intent(MainActivity.this, About.class);
                 startActivity(intent);
                 return true;
             case R.id.action_contact_us:
-                // TODO: add contact us activity + SAME IN ABUT PAGE + SAME IN CONTACT US PAGE
                 intent = new Intent(MainActivity.this, Contact.class);
                 startActivity(intent);
                 return true;

@@ -4,11 +4,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 
 import com.facebook.login.LoginManager;
@@ -27,6 +29,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     private Button displayEventPickupButton;
     private Button displayEventFosterButton;
     private Event event;
+    private Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -85,32 +88,38 @@ public class DisplayEventActivity extends AppCompatActivity {
                 scrollview.fullScroll(ScrollView.FOCUS_DOWN);
             }
         });
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.edit_menu, menu);
-        return true;
-    }
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        toolbar.setNavigationIcon(R.drawable.back);
+        toolbar.inflateMenu(R.menu.edit_menu);
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        Intent intent;
-        switch (item.getItemId()) {
-            case R.id.action_edit:
-                intent = new Intent(DisplayEventActivity.this, AddEventActivity.class);
-                intent.putExtra("event", event);
+        toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 finish();
-                startActivity(intent);
-                return true;
-            case R.id.action_delete:
-                // TODO: add here deletion from DB
-                intent = new Intent(DisplayEventActivity.this, MainActivity.class);
-                finish();
-                startActivity(intent);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
-        }
+            }
+        });
+
+        toolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                Intent intent;
+                switch (item.getItemId()) {
+                    case R.id.action_edit:
+                        intent = new Intent(DisplayEventActivity.this, AddEventActivity.class);
+                        intent.putExtra("event", event);
+                        startActivity(intent);
+                        return true;
+                    case R.id.action_delete:
+                        // TODO: add here deletion from DB
+                        intent = new Intent(DisplayEventActivity.this, MainActivity.class);
+                        finish();
+                        startActivity(intent);
+                        return true;
+                    default:
+                        return false;
+                }
+            }
+        });
     }
 }
