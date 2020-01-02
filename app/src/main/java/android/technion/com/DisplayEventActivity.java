@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
@@ -30,11 +29,12 @@ public class DisplayEventActivity extends AppCompatActivity {
     private Button displayEventFosterButton;
     private Event event;
     private Toolbar toolbar;
+    private Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Database db = new Database();
+        db = new Database();
 
         setContentView(R.layout.activity_display_event);
 
@@ -112,6 +112,7 @@ public class DisplayEventActivity extends AppCompatActivity {
                         return true;
                     case R.id.action_delete:
                         // TODO: add here deletion from DB
+                        db.removeEventFromDataBase(event);
                         intent = new Intent(DisplayEventActivity.this, MainActivity.class);
                         finish();
                         startActivity(intent);

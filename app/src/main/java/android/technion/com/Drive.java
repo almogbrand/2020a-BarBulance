@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 public class Drive {
    final String collection="Drives";
 
-
+    String driveDbId;
     String driverID;
     String driverPhoneNumber;
     String fromLocation;
