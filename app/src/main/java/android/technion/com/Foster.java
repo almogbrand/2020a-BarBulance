@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 public class Foster {
     final String collection="Fosters";
 
+    String fosterDbId;
     String location;
     double timeThatCanFosterHours;
     String userID;

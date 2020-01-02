@@ -70,6 +70,10 @@ public class Database {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "Drive added with ID: " + documentReference.getId());
+                db.collection("Drives").document(documentReference.getId())
+                        .update(
+                                "driveDbId", documentReference.getId()
+                        );
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -86,6 +90,10 @@ public class Database {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "Foster added with ID: " + documentReference.getId());
+                db.collection("Fosters").document(documentReference.getId())
+                        .update(
+                                "fosterDbId", documentReference.getId()
+                        );
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
@@ -272,9 +280,9 @@ public class Database {
         StorageReference storageRef = storage.getReference();
         StorageReference userImagesRef;
         if(photoID.toLowerCase().contains("Facebook")){
-            userImagesRef = storageRef.child("facebookPics/" + photoID + ".jpg");
+            userImagesRef = storageRef.child("facebookPics/" + photoID);
         } else {
-            userImagesRef = storageRef.child("images/" + photoID + ".jpg");
+            userImagesRef = storageRef.child("images/" + photoID);
         }
         // Get the data from an ImageView as bytes
         imageView.setDrawingCacheEnabled(true);
@@ -302,9 +310,9 @@ public class Database {
 
         StorageReference islandRef;
         if(photoID.toLowerCase().contains("Facebook")){
-            islandRef = storage.getReference("facebookPics/" + photoID + ".jpg");
+            islandRef = storage.getReference("facebookPics/" + photoID );
         }else {
-            islandRef = storage.getReference("images/" + photoID + ".jpg");
+            islandRef = storage.getReference("images/" + photoID);
         }
         final long ONE_MEGABYTE = 1024 * 1024;
         islandRef.getBytes(ONE_MEGABYTE).addOnSuccessListener(new OnSuccessListener<byte[]>() {
@@ -332,6 +340,97 @@ public class Database {
                 } else {
                     Log.w(TAG, "Error retrieving user");
                 }
+            }
+        });
+    }
+
+    public void removeEventFromDataBase(Event event) {
+        db.collection("Events").document(event.getDatabaseID())
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "event successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting event", e);
+                    }
+                });
+        //Delete the photo from the FireStore Storage platform as well
+        StorageReference storageRef = storage.getReference();
+        StorageReference desertRef = storageRef.child("images/" + event.getPhotoID());
+        desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "event image successfully deleted!");            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.w(TAG, "Error deleting event image");
+            }
+        });
+    }
+    public void removeDriveFromDataBase(String driveDatabaseId) {
+        db.collection("Drives").document(driveDatabaseId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "drive successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting drive", e);
+                    }
+                });
+    }
+    public void removeFosterFromDataBase(String fosterDatabaseId) {
+        db.collection("Fosters").document(fosterDatabaseId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "foster successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting foster", e);
+                    }
+                });
+    }
+    public void removeUserFromDataBase(String userUId) {
+        db.collection("Users").document(userUId)
+                .delete()
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Log.d(TAG, "user successfully deleted!");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error deleting user", e);
+                    }
+                });
+        //Delete the photo from the FireStore Storage platform as well
+        StorageReference storageRef = storage.getReference();
+        StorageReference desertRef = storageRef.child(userUId + "Facebook");
+        desertRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void aVoid) {
+                Log.d(TAG, "user image successfully deleted!");            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                Log.w(TAG, "Error deleting user image");
             }
         });
     }
