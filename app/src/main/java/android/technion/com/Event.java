@@ -14,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Event implements Serializable {
     final String collection = "Events";
 
+    String databaseID;
     String location;
     String reporterId;
     String phoneNumber;
@@ -25,6 +26,8 @@ public class Event implements Serializable {
     List<Foster> fosters;
 
     public Event(String location, String reporterId, String phoneNumber, String animalType , String description, Boolean urgent, String photoID) {
+
+        this.databaseID="";
         this.location = location;
         this.reporterId = reporterId;
         this.animalType = animalType;

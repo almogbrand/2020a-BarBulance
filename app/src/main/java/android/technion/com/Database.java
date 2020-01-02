@@ -45,11 +45,16 @@ public class Database {
         storage = FirebaseStorage.getInstance();
     }
 
-    public void addEventToDatabase(Event event) {
+    public void addEventToDatabase(final Event event) {
+        final String databaseID;
         db.collection("Events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "Event added with ID: " + documentReference.getId());
+                db.collection("Events").document(documentReference.getId())
+                        .update(
+                                "databaseID", documentReference.getId()
+                        );
             }
         })
                 .addOnFailureListener(new OnFailureListener() {
