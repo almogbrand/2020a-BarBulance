@@ -37,7 +37,7 @@ public class Contact extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setTitle(R.string.contact_us);
         toolbar.inflateMenu(R.menu.main_menu);
-        toolbar.inflateMenu(R.menu.add_event_send_menu);
+        toolbar.inflateMenu(R.menu.send_menu);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

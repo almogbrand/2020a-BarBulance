@@ -10,7 +10,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -70,7 +69,7 @@ public class AddEventActivity extends AppCompatActivity {
         } else {
             toolbar.setTitle(R.string.add_event);
         }
-        toolbar.inflateMenu(R.menu.add_event_send_menu);
+        toolbar.inflateMenu(R.menu.send_menu);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
