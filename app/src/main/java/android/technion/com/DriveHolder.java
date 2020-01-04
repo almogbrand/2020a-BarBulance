@@ -1,10 +1,14 @@
 package android.technion.com;
 
+import android.content.Context;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.squareup.picasso.Picasso;
 
 public class DriveHolder extends RecyclerView.ViewHolder{
 
@@ -38,5 +42,8 @@ public class DriveHolder extends RecyclerView.ViewHolder{
     }
     public void setDriverID(String str) {
         driverID.setText(str);
+    }
+    public void setDriversProfilePic(Uri uri) {
+        Picasso.with(itemView.getContext()).load(uri).into(driverLogo);
     }
 }

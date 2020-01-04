@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -199,7 +200,7 @@ public class Database {
 
     public void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
 
-        Query query = FirebaseFirestore.getInstance().collection("Drives").orderBy("driverID", Query.Direction.ASCENDING).limit(50);
+        Query query = FirebaseFirestore.getInstance().collection("Drives").orderBy("driverFullName", Query.Direction.ASCENDING).limit(50);
         FirestoreRecyclerOptions<Drive> options =
                 new FirestoreRecyclerOptions
                         .Builder<Drive>()
@@ -224,7 +225,8 @@ public class Database {
                 holder.setDriveFromLocation(item.getFromLocation());
                 holder.setDriveTime(item.getDateOfRide());
                 holder.setDriveToLocation(item.getToLocation());
-                holder.setDriverID(item.getDriverID());
+                holder.setDriverID(item.getDriverFullName());
+                holder.setDriversProfilePic((Uri.parse(item.getDriverProfilePicUri())));
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -275,12 +277,14 @@ public class Database {
 
     }
 
+
     public void storeImageInDatabaseStorage(ImageView imageView, final String photoID) {
 
         StorageReference storageRef = storage.getReference();
         StorageReference userImagesRef;
         if(photoID.toLowerCase().contains("Facebook")){
             userImagesRef = storageRef.child("facebookPics/" + photoID);
+
         } else {
             userImagesRef = storageRef.child("images/" + photoID);
         }
@@ -455,8 +459,8 @@ public class Database {
         });
         return events;
     }
-    public Drive getDriveFromDatabase(String driverID) {
-        DocumentReference docRef = db.collection("Drives").document(driverID);
+    public Drive getDriveFromDatabase(String driverFullName) {
+        DocumentReference docRef = db.collection("Drives").document(driverFullName);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {//change to oncomplete and check for null
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
