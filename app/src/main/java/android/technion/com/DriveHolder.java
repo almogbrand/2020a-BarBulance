@@ -1,6 +1,5 @@
 package android.technion.com;
 
-import android.content.Context;
 import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
@@ -22,11 +21,11 @@ public class DriveHolder extends RecyclerView.ViewHolder{
 
     public DriveHolder(View v ) {
         super(v);
-        driverLogo = v.findViewById(R.id.driverlogo);
-        driverID = v.findViewById(R.id.driverID);
-        driveFromLocation = v.findViewById(R.id.drivefromlocation);
-        driveToLocation = v.findViewById(R.id.drivetolocation);
-        driveTime = v.findViewById(R.id.drivetime);
+        driverLogo = v.findViewById(R.id.rideImageView);
+        driverID = v.findViewById(R.id.rideDriver);
+        driveFromLocation = v.findViewById(R.id.rideFromLocation);
+        driveToLocation = v.findViewById(R.id.rideToLocation);
+        driveTime = v.findViewById(R.id.rideTime);
         itemView = v;
     }
 

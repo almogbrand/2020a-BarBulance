@@ -5,118 +5,169 @@
     android:layout_width="match_parent"
     android:layout_height="100dp">
 
-    <ImageView
-        android:id="@+id/driverlogo"
-        android:layout_width="49dp"
-        android:layout_height="38dp"
-        android:contentDescription="@string/person"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.04"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/account" />
-
-    <TextView
-        android:id="@+id/drivetime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/rideImageView"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
-        android:text="@string/textview"
-        android:textSize="14sp"
+        android:contentDescription="@string/person"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/driverlogo"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6" />
+        app:layout_constraintVertical_bias="0.5"
+        app:civ_border_width="2dp"
+        app:civ_border_color="@color/colorPrimaryDark" />
+
+    <!--    <ImageView-->
+    <!--        android:id="@+id/rideImageView"-->
+    <!--        android:layout_width="56dp"-->
+    <!--        android:layout_height="56dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginLeft="16dp"-->
+    <!--        android:contentDescription="@string/person"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.5" />-->
 
     <TextView
-        android:id="@+id/drivefromlocation"
+        android:id="@+id/rideDriver"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/textview"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
+
+    <ImageView
+        android:id="@+id/rideTimeLogo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="42dp"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideFromLocation"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/clock_outline" />
+
+    <TextView
+        android:id="@+id/rideTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginLeft="36dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:layout_marginBottom="39dp"
         android:text="@string/textview"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/drivetime"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintStart_toEndOf="@+id/rideTimeLogo"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_weight="3" />
 
     <TextView
-        android:id="@+id/drivetolocation"
-        android:layout_width="wrap_content"
+        android:id="@+id/rideFromLocation"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginLeft="32dp"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
         android:text="@string/textview"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideFromLocationLogo"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_weight="3" />
+
+    <TextView
+        android:id="@+id/rideToLocation"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:maxLines="1"
+        android:text="@string/textview"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/drivefromlocation"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61" />
+        app:layout_constraintStart_toEndOf="@+id/rideToLocationLogo"
+        app:layout_constraintTop_toBottomOf="@+id/rideFromLocation" />
 
     <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:id="@+id/rideToLocationLogo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="4dp"
         android:contentDescription="@string/location"
+        android:tint="@color/colorSecondaryText"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/drivetolocation"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.61"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideFromLocationLogo"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/map_marker" />
 
     <ImageView
-        android:id="@+id/imageView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="4dp"
-        android:layout_marginRight="4dp"
+        android:id="@+id/rideFromLocationLogo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="90dp"
+        android:layout_marginLeft="90dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="19dp"
         android:contentDescription="@string/location"
+        android:tint="@color/colorSecondaryText"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/drivefromlocation"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.6"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/map_marker" />
-
-    <ImageView
-        android:id="@+id/imageView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        android:contentDescription="@string/call"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/drivetolocation"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/phone" />
-
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:contentDescription="@string/add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/imageView4"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/plus_circle_outline" />
 
     <TextView
-        android:id="@+id/driverID"
+        android:id="@+id/rideFrom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/textview"
-        app:layout_constraintBottom_toTopOf="@+id/drivefromlocation"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.15"
-        app:layout_constraintStart_toEndOf="@+id/driverlogo"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/from"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/rideTo"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/rideTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:text="@string/to"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideFrom" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
