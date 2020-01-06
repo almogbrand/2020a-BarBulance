@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ScrollView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -41,7 +42,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         event = (Event) getIntent().getSerializableExtra("event");
         displayEventImage = findViewById(R.id.displayEventImage);
-        db.getImageFromDatabaseToImageView(displayEventImage,event.getPhotoID());
+        db.getImageFromDatabaseToImageView(displayEventImage, event.getPhotoID());
 
         displayEventNameText = findViewById(R.id.displayEventNameText);
         displayEventNameText.setText(event.getReporterId());
@@ -112,8 +113,10 @@ public class DisplayEventActivity extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     case R.id.action_delete:
-                        // TODO: add here deletion from DB
                         db.removeEventFromDataBase(event);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Event Removed!", Toast.LENGTH_SHORT);
+                        toast.show();
+
                         intent = new Intent(DisplayEventActivity.this, MainActivity.class);
                         finish();
                         startActivity(intent);

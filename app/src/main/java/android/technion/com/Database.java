@@ -27,6 +27,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
+import java.io.Serializable;
+
 import static android.content.ContentValues.TAG;
 
 
@@ -223,16 +225,16 @@ public class Database {
             @Override
             public void onBindViewHolder(DriveHolder holder, int position, final Drive item) {
                 holder.setDriveFromLocation(item.getFromLocation());
-                holder.setDriveTime(item.getDateOfRide());
+                holder.setDriveTime(item.getDate());
                 holder.setDriveToLocation(item.getToLocation());
                 holder.setDriverID(item.getDriverFullName());
                 holder.setDriversProfilePic((Uri.parse(item.getDriverProfilePicUri())));
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        //TODO - add going to next intent
-
-
+                        Intent intent = new Intent(v.getContext(), DisplayRideActivity.class);
+                        intent.putExtra("drive", item);
+                        v.getContext().startActivity(intent);
                     }
                 });
             }
@@ -242,7 +244,6 @@ public class Database {
         recyclerV.setLayoutManager(layoutManager);
         recyclerV.setAdapter(FBAdapter);
         FBAdapter.startListening();
-
     }
 
     public void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
@@ -377,6 +378,7 @@ public class Database {
             }
         });
     }
+
     public void removeDriveFromDataBase(String driveDatabaseId) {
         db.collection("Drives").document(driveDatabaseId)
                 .delete()
@@ -393,6 +395,7 @@ public class Database {
                     }
                 });
     }
+
     public void removeFosterFromDataBase(String fosterDatabaseId) {
         db.collection("Fosters").document(fosterDatabaseId)
                 .delete()
@@ -409,6 +412,7 @@ public class Database {
                     }
                 });
     }
+
     public void removeUserFromDataBase(String userUId) {
         db.collection("Users").document(userUId)
                 .delete()

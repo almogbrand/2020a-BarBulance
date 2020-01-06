@@ -19,14 +19,17 @@
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
+        <activity
+            android:name=".DisplayRideActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DisplayEventActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".MainActivity" />
         <activity
-            android:name=".Contact"
+            android:name=".ContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:label="@string/contact_us"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -38,10 +41,9 @@
             android:name=".AddRideActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
-
         <activity
             android:name=".FacebookActivity"
-            android:theme="@style/AppTheme.NoActionBar" >
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -64,7 +66,7 @@
             android:value="@string/facebook_app_id" />
 
         <activity
-            android:name=".About"
+            android:name=".AboutActivity"
             android:label="@string/about"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity

@@ -156,17 +156,17 @@ public class AddEventActivity extends AppCompatActivity {
         String animalType = addEventAnimalType.getEditText().getText().toString();
         String description = addEventDescriptionText.getText().toString();
         Toast toast;
-        if(name.equals("") || phone.equals("") || location.equals("") || animalType.equals("")){
-            if(name.equals("")){
+        if(name.isEmpty() || phone.isEmpty() || location.isEmpty() || animalType.isEmpty()){
+            if(name.isEmpty()){
                 addEventNameText.setError("Required");
             }
-            if(phone.equals("")) {
+            if(phone.isEmpty()) {
                 addEventPhoneText.setError("Required");
             }
-            if(location.equals("")) {
+            if(location.isEmpty()) {
                 addEventLocationText.setError("Required");
             }
-            if(animalType.equals("")){
+            if(animalType.isEmpty()){
                 addEventAnimalType.setError("Required");
             }
 
@@ -183,10 +183,11 @@ public class AddEventActivity extends AppCompatActivity {
         Event newEvent = new Event(location, name, phone, animalType, description, urgent, imageName);
         Database db = new Database();
         db.addEventToDatabase(newEvent);
-        if(!(imageName.equals(""))){
+        if(!(imageName.isEmpty())){
             db.storeImageInDatabaseStorage(addEventImage, imageName);
         }
         if(event != null) {
+            db.removeEventFromDataBase(event);
             toast = Toast.makeText(getApplicationContext(), "Event Updated!", Toast.LENGTH_SHORT);
         } else {
             toast = Toast.makeText(getApplicationContext(), "Event Sent!", Toast.LENGTH_SHORT);

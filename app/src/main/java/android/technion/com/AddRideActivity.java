@@ -37,11 +37,10 @@ public class AddRideActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         if(drive != null){
-//            toolbar.setTitle(R.string.edit_event);
+            toolbar.setTitle("Edit Ride");
         } else {
             toolbar.setTitle(R.string.add_ride);
         }
-        toolbar.setTitle(R.string.add_ride);
         toolbar.inflateMenu(R.menu.send_menu);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -67,12 +66,12 @@ public class AddRideActivity extends AppCompatActivity {
 
         // in case of EDITING an existing ride
         if(drive != null){
-//            addEventNameText.setText(event.getReporterId());
-//            addEventPhoneText.setText(event.getPhoneNumber());
-//            addEventLocationText.setText(event.getLocation());
-//            addEventAnimalType.getEditText().setText(event.getAnimalType());
-//            addEventDescriptionText.setText(event.getDescription());
-//            addEventUrgentSwitch.setChecked(event.getUrgent());
+            addRideNameText.setText(drive.getDriverFullName());
+            addRidePhoneText.setText(drive.getDriverPhoneNumber());
+            addRideDateText.setText(drive.getDate());
+            addRideTimeText.setText(drive.getTime());
+            addRideFromLocationText.setText(drive.getFromLocation());
+            addRideToLocationText.setText(drive.getToLocation());
         }
     }
 
@@ -119,10 +118,11 @@ public class AddRideActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
         Drive newRide = new Drive(currentUser.getUid(),currentUser.getPhotoUrl().toString(),
-                name, phone, fromLocation, toLocation, time);
+                name, phone, fromLocation, toLocation, date, time);
         db.addDriveToDatabase(newRide);
 
         if(drive != null) {
+            db.removeDriveFromDataBase(drive.getDriveDbId());
             toast = Toast.makeText(getApplicationContext(), "Ride Updated!", Toast.LENGTH_SHORT);
         } else {
             toast = Toast.makeText(getApplicationContext(), "Ride Sent!", Toast.LENGTH_SHORT);

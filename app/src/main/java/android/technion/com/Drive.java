@@ -2,6 +2,8 @@ package android.technion.com;
 
 import android.net.Uri;
 
+import java.io.Serializable;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,8 +11,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class Drive {
-   final String collection="Drives";
+public class Drive implements Serializable {
+    final String collection="Drives";
 
     String driveDbId;
     String driverProfilePicUri;
@@ -18,6 +20,6 @@ public class Drive {
     String driverPhoneNumber;
     String fromLocation;
     String toLocation;
-    String dateOfRide;
-
+    String date;
+    String time;
 }

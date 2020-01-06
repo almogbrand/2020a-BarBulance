@@ -37,9 +37,10 @@
     <string name="Credits_for_A"><a href="https://github.com/rzwitserloot/lombok/blob/master/LICENSE/">Link</a></string>
     <string name="Credits_for_B"><a href="https://github.com/Templarian/MaterialDesign/blob/master/LICENSE/">Link</a></string>
     <string name="Credits_for_C"><a href="https://www.freepikcompany.com/legal#nav-flaticon/">Link</a></string>
-    <string name="edit">edit</string>
-    <string name="delete">delete</string>
-    <string name="title_activity_main2">Main2Activity</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
     <string name="time">Time</string>
     <string name="date">Date</string>
+    <string name="add_emergency_event">Add Emergency Event</string>
+    <string name="chat">Chat</string>
 </resources>
