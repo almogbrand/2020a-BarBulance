@@ -45,7 +45,7 @@
             android:id="@+id/addEventPhone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
@@ -56,7 +56,9 @@
             app:layout_constraintTop_toBottomOf="@id/addEventName"
             app:startIconDrawable="@drawable/phone"
             app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline">
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:helperText="Example: 0541234567 or 048123456"
+            app:helperTextEnabled="true" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addEventPhoneText"
@@ -70,7 +72,7 @@
             android:id="@+id/addEventLocation"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
@@ -81,7 +83,9 @@
             app:layout_constraintTop_toBottomOf="@id/addEventPhone"
             app:startIconDrawable="@drawable/map_marker"
             app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline">
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:counterEnabled="true"
+            app:counterMaxLength="16" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addEventLocationText"
@@ -108,7 +112,7 @@
             <TextView
                 android:id="@+id/addEventUrgentText"
                 android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginStart="12dp"
                 android:layout_marginLeft="12dp"
                 android:gravity="center_vertical"
@@ -121,8 +125,8 @@
 
             <Switch
                 android:id="@+id/addEventUrgentSwitch"
-                android:layout_width="150dp"
-                android:layout_height="0dp"
+                android:layout_width="227dp"
+                android:layout_height="39dp"
                 android:switchMinWidth="140dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

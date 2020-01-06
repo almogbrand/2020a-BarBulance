@@ -45,7 +45,7 @@
             android:id="@+id/addRidePhone"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
@@ -56,7 +56,9 @@
             app:layout_constraintTop_toBottomOf="@id/addRideName"
             app:startIconDrawable="@drawable/phone"
             app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline">
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:helperTextEnabled="true"
+            app:helperText="Example: 0541234567 or 048123456" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addRidePhoneText"
@@ -116,7 +118,7 @@
             android:id="@+id/addRideFromLocation"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
@@ -127,7 +129,9 @@
             app:layout_constraintTop_toBottomOf="@id/addRideTime"
             app:startIconDrawable="@drawable/map_marker"
             app:errorEnabled="true"
-            app:errorIconDrawable="@drawable/alert_circle_outline">
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:counterEnabled="true"
+            app:counterMaxLength="16" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addRideFromLocationText"
@@ -142,7 +146,7 @@
             android:id="@+id/addRideToLocation"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="0dp"
-            android:layout_height="56dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
             android:layout_marginLeft="24dp"
             android:layout_marginTop="16dp"
@@ -156,7 +160,9 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/addRideFromLocation"
             app:layout_constraintVertical_bias="0.0"
-            app:startIconDrawable="@drawable/map_marker">
+            app:startIconDrawable="@drawable/map_marker"
+            app:counterEnabled="true"
+            app:counterMaxLength="16" >
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/addRideToLocationText"

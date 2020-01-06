@@ -67,9 +67,32 @@ public class DisplayRideActivity extends AppCompatActivity {
         displayRideToLocationText.setKeyListener(null);
 
         displayRideCallButton = findViewById(R.id.displayRideCallButton);
-        // TODO: set action onClick call
+        displayRideCallButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Intent.ACTION_DIAL);
+                intent.setData(Uri.parse("tel:" + drive.getDriverPhoneNumber()));
+                startActivity(intent);
+            }
+        });
+
         displayRideChatButton = findViewById(R.id.displayRideChatButton);
-        // TODO: set action onClick chat
+        displayRideChatButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String storedPhoneNumber = drive.getDriverPhoneNumber();
+                if(storedPhoneNumber.length() != 10){
+                    Toast toast = Toast.makeText(getApplicationContext(), "Can't send message to home number!", Toast.LENGTH_LONG);
+                    toast.show();
+                    return;
+                }
+                String phone = "972" + storedPhoneNumber.substring(1);
+                String url = "https://api.whatsapp.com/send?phone=" + phone;
+                Intent intent = new Intent(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse(url));
+                startActivity(intent);
+            }
+        });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
