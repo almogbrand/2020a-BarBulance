@@ -2,11 +2,18 @@ package android.technion.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.technion.com.ui.rides.RidesFragment;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -14,6 +21,7 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
+import java.util.Calendar;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,6 +35,8 @@ public class AddRideActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
     private Drive drive;
+    private TimePickerDialog timePicker;
+    private DatePickerDialog datePicker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +74,53 @@ public class AddRideActivity extends AppCompatActivity {
         addRideTimeText = findViewById(R.id.addRideTimeText);
         addRideFromLocationText = findViewById(R.id.addRideFromLocationText);
         addRideToLocationText = findViewById(R.id.addRideToLocationText);
+
+        addRideTimeText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int hour = calendar.get(Calendar.HOUR_OF_DAY);
+                int minutes = calendar.get(Calendar.MINUTE);
+                // time picker dialog
+                timePicker = new TimePickerDialog(AddRideActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
+                            @Override
+                            public void onTimeSet(TimePicker tp, int sHour, int sMinute) {
+                                String str;
+                                if(sHour < 10 && sMinute < 10) {
+                                    str = "0" + sHour + ":0" + sMinute;
+                                } else if(sHour < 10 && sMinute >= 10){
+                                    str = "0" + sHour + ":" + sMinute;
+                                } else if(sHour >= 10 && sMinute < 10){
+                                    str = sHour + ":0" + sMinute;
+                                } else {
+                                    str = sHour + ":" + sMinute;
+                                }
+                                addRideTimeText.setText(str);
+                            }
+                        }, hour, minutes, true);
+                timePicker.show();
+            }
+        });
+
+        addRideDateText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final Calendar calendar = Calendar.getInstance();
+                int day = calendar.get(Calendar.DAY_OF_MONTH);
+                int month = calendar.get(Calendar.MONTH);
+                int year = calendar.get(Calendar.YEAR);
+                // date picker dialog
+                datePicker = new DatePickerDialog(AddRideActivity.this,
+                        new DatePickerDialog.OnDateSetListener() {
+                            @Override
+                            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                                addRideDateText.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
+                            }
+                        }, year, month, day);
+                datePicker.show();
+            }
+        });
 
         // in case of EDITING an existing ride
         if(drive != null){
@@ -133,6 +190,10 @@ public class AddRideActivity extends AppCompatActivity {
         Intent intent = new Intent(AddRideActivity.this, MainActivity.class);
         this.finish();
         startActivity(intent);
+//        RidesFragment rf = new RidesFragment();
+//        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+//        transaction.replace(R.id.mobile_navigation, rf);
+//        transaction.commit();
 
         return true;
     }

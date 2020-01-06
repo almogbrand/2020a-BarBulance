@@ -225,7 +225,7 @@ public class Database {
             @Override
             public void onBindViewHolder(DriveHolder holder, int position, final Drive item) {
                 holder.setDriveFromLocation(item.getFromLocation());
-                holder.setDriveTime(item.getDate());
+                holder.setDriveTime(item.getTime());
                 holder.setDriveToLocation(item.getToLocation());
                 holder.setDriverID(item.getDriverFullName());
                 holder.setDriversProfilePic((Uri.parse(item.getDriverProfilePicUri())));

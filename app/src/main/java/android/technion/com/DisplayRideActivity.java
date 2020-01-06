@@ -98,6 +98,7 @@ public class DisplayRideActivity extends AppCompatActivity {
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.inflateMenu(R.menu.edit_menu);
 
+
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

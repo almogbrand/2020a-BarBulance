@@ -32,7 +32,6 @@ public class DriveHolder extends RecyclerView.ViewHolder{
     public void setDriveFromLocation(String str) {
         driveFromLocation.setText(str);
     }
-
     public void setDriveToLocation(String str) {
         driveToLocation.setText(str);
     }

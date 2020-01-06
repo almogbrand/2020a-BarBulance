@@ -2,6 +2,7 @@ package android.technion.com;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,8 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.technion.com.ui.events.EventsFragment;
+import android.technion.com.ui.user.UserFragment;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
