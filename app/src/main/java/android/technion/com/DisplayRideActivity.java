@@ -120,10 +120,7 @@ public class DisplayRideActivity extends AppCompatActivity {
                         db.removeDriveFromDataBase(drive.getDriveDbId());
                         Toast toast = Toast.makeText(getApplicationContext(), "Ride Removed!", Toast.LENGTH_SHORT);
                         toast.show();
-
-//                        intent = new Intent(DisplayRideActivity.this, MainActivity.class);
                         finish();
-//                        startActivity(intent);
                         return true;
                     default:
                         return false;

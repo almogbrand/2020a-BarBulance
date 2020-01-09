@@ -116,10 +116,7 @@ public class DisplayEventActivity extends AppCompatActivity {
                         db.removeEventFromDataBase(event);
                         Toast toast = Toast.makeText(getApplicationContext(), "Event Removed!", Toast.LENGTH_SHORT);
                         toast.show();
-
-//                        intent = new Intent(DisplayEventActivity.this, MainActivity.class);
                         finish();
-//                        startActivity(intent);
                         return true;
                     default:
                         return false;

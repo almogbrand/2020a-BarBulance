@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
                 FirebaseAuth.getInstance().signOut();
                 LoginManager.getInstance().logOut();
                 intent = new Intent(MainActivity.this, FacebookActivity.class);
-                this.finish();
+                finishAffinity();
                 startActivity(intent);
                 return true;
             default:

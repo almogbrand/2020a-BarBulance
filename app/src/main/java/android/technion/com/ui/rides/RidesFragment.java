@@ -46,17 +46,12 @@ public class RidesFragment extends Fragment {
         });
 
         db = new Database();
-//        mAuth = FirebaseAuth.getInstance();
-//        final FirebaseUser currentUser = mAuth.getCurrentUser();
         ridesFab = root.findViewById(R.id.ridesFab);
-//        final Drive drive = new Drive(currentUser.getUid(),currentUser.getPhotoUrl().toString(), "Dani Ginsberg", "0542344156", "Longer text", "Qwerty1234", "Today");
         ridesFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getActivity(), AddRideActivity.class);
                 startActivity(intent);
-//                db.addDriveToDatabase(drive);
-//                Toast.makeText(getApplicationContext(), "in onclick", Toast.LENGTH_SHORT).show();
             }
         });
 
