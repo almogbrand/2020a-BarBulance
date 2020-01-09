@@ -197,17 +197,19 @@ public class AddEventActivity extends AppCompatActivity {
         }
         toast.show();
 
-        // check if user is already signed in
-        AccessToken accessToken = AccessToken.getCurrentAccessToken();
-        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current != null;
 
-        if(isLoggedIn) {
-            this.finish();
-        } else {
-            this.finish();
-        }
+//        // check if user is already signed in - UNNECESSARY!!!!
+//        AccessToken accessToken = AccessToken.getCurrentAccessToken();
+//        FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
+//        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current != null;
+//
+//        if(isLoggedIn) {
+//            this.finish();
+//        } else {
+//            this.finish();
+//        }
 
+        this.finish();
         return true;
     }
 
