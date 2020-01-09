@@ -121,9 +121,9 @@ public class DisplayRideActivity extends AppCompatActivity {
                         Toast toast = Toast.makeText(getApplicationContext(), "Ride Removed!", Toast.LENGTH_SHORT);
                         toast.show();
 
-                        intent = new Intent(DisplayRideActivity.this, MainActivity.class);
+//                        intent = new Intent(DisplayRideActivity.this, MainActivity.class);
                         finish();
-                        startActivity(intent);
+//                        startActivity(intent);
                         return true;
                     default:
                         return false;

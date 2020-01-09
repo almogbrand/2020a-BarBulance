@@ -201,14 +201,12 @@ public class AddEventActivity extends AppCompatActivity {
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         FirebaseUser current = FirebaseAuth.getInstance().getCurrentUser();
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current != null;
-        Intent intent;
+
         if(isLoggedIn) {
-            intent = new Intent(AddEventActivity.this, MainActivity.class);
+            this.finish();
         } else {
-            intent = new Intent(AddEventActivity.this, FacebookActivity.class);
+            this.finish();
         }
-        this.finish();
-        startActivity(intent);
 
         return true;
     }

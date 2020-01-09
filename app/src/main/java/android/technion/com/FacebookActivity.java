@@ -119,6 +119,7 @@ public class FacebookActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(FacebookActivity.this, AddEventActivity.class);
+//                finish();
                 startActivity(intent);
             }
         });
@@ -163,6 +164,7 @@ public class FacebookActivity extends AppCompatActivity {
         boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current!=null;
         if(isLoggedIn) {
             Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+            finish();
             startActivity(intent);
         }
     }

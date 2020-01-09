@@ -187,9 +187,9 @@ public class AddRideActivity extends AppCompatActivity {
         }
         toast.show();
 
-        Intent intent = new Intent(AddRideActivity.this, MainActivity.class);
+//        Intent intent = new Intent(AddRideActivity.this, MainActivity.class);
         this.finish();
-        startActivity(intent);
+//        startActivity(intent);
 //        RidesFragment rf = new RidesFragment();
 //        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
 //        transaction.replace(R.id.mobile_navigation, rf);

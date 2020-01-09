@@ -27,7 +27,8 @@
             android:name=".DisplayEventActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:launchMode="singleTop" />
         <activity
             android:name=".ContactActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
