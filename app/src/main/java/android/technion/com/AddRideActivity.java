@@ -175,12 +175,14 @@ public class AddRideActivity extends AppCompatActivity {
         Database db = new Database();
         mAuth = FirebaseAuth.getInstance();
         final FirebaseUser currentUser = mAuth.getCurrentUser();
-        Drive newRide = new Drive(currentUser.getUid(),currentUser.getPhotoUrl().toString(),
+
+        Drive newRide = new Drive(currentUser.getUid(), currentUser.getPhotoUrl().toString(),
                 name, phone, fromLocation, toLocation, date, time);
+
         db.addDriveToDatabase(newRide);
 
         if(drive != null) {
-            db.removeDriveFromDataBase(drive.getDriveDbId());
+            db.removeDriveFromDataBase(drive.getDatabaseID());
             toast = Toast.makeText(getApplicationContext(), "Ride Updated!", Toast.LENGTH_SHORT);
         } else {
             toast = Toast.makeText(getApplicationContext(), "Ride Sent!", Toast.LENGTH_SHORT);

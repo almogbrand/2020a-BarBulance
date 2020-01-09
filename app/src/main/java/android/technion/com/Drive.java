@@ -14,7 +14,8 @@ import lombok.NoArgsConstructor;
 public class Drive implements Serializable {
     final String collection="Drives";
 
-    String driveDbId;
+    String databaseID;
+    String driverId;
     String driverProfilePicUri;
     String driverFullName;
     String driverPhoneNumber;
@@ -22,4 +23,18 @@ public class Drive implements Serializable {
     String toLocation;
     String date;
     String time;
+
+    public Drive(String driverId, String driverProfilePicUri, String driverFullName,
+                 String driverPhoneNumber, String fromLocation,  String toLocation, String date, String time){
+
+        this.databaseID = "";
+        this.driverId = driverId;
+        this.driverProfilePicUri = driverProfilePicUri;
+        this.driverFullName = driverFullName;
+        this.driverPhoneNumber = driverPhoneNumber;
+        this.fromLocation = fromLocation;
+        this.toLocation = toLocation;
+        this.date = date;
+        this.time = time;
+    }
 }

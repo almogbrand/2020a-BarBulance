@@ -68,14 +68,14 @@ public class Database {
                 });
     }
 
-    public void addDriveToDatabase(Drive drive){
+    public void addDriveToDatabase(final Drive drive){
         db.collection("Drives").add(drive).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
                 Log.d(TAG, "Drive added with ID: " + documentReference.getId());
                 db.collection("Drives").document(documentReference.getId())
                         .update(
-                                "driveDbId", documentReference.getId()
+                                "databaseID", documentReference.getId()
                         );
             }
         })
@@ -109,7 +109,7 @@ public class Database {
 
     public void addUserToDatabase(final User user) {
         DocumentReference mFirestoreUsers = db.collection("Users").document(user.getUID());
-       mFirestoreUsers.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
+        mFirestoreUsers.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override
             public void onSuccess(Void avoid) {
                 Log.d(TAG, "User added");

@@ -33,6 +33,7 @@ public class FacebookActivity extends AppCompatActivity {
     private static final String TAG = "FacebookLogin";
     private TextView mStatusTextView;
     private TextView mDetailTextView;
+    private Database db;
     private FirebaseAuth mAuth;
     private CallbackManager mCallbackManager;
 
@@ -52,6 +53,8 @@ public class FacebookActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
+                            User barbulanceUser = new User(user.getEmail(), user.getPhoneNumber(), user.getUid());
+                            db.addUserToDatabase(barbulanceUser);
 
                             Intent next = new Intent(FacebookActivity.this, MainActivity.class);
                             finish();
@@ -77,6 +80,7 @@ public class FacebookActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_facebook);
 
+        db = new Database();
         mAuth = FirebaseAuth.getInstance();
 
         // Initialize Facebook Login button

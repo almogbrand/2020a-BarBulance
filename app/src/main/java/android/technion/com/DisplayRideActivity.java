@@ -13,6 +13,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.squareup.picasso.Picasso;
 
 
@@ -29,13 +31,12 @@ public class DisplayRideActivity extends AppCompatActivity {
     private Drive drive;
     private Toolbar toolbar;
     private Database db;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_ride);
-
-        db = new Database();
 
         drive = (Drive) getIntent().getSerializableExtra("drive");
 
@@ -96,8 +97,13 @@ public class DisplayRideActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.inflateMenu(R.menu.edit_menu);
 
+        db = new Database();
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser.getUid().equals(drive.getDriverId())){
+            toolbar.inflateMenu(R.menu.edit_menu);
+        }
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
@@ -117,7 +123,7 @@ public class DisplayRideActivity extends AppCompatActivity {
                         startActivity(intent);
                         return true;
                     case R.id.action_delete:
-                        db.removeDriveFromDataBase(drive.getDriveDbId());
+                        db.removeDriveFromDataBase(drive.getDatabaseID());
                         Toast toast = Toast.makeText(getApplicationContext(), "Ride Removed!", Toast.LENGTH_SHORT);
                         toast.show();
                         finish();
