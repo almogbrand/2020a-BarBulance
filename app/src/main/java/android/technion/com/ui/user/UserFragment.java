@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.technion.com.R;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.textservice.TextInfo;
@@ -32,8 +34,6 @@ import com.squareup.picasso.Picasso;
 
 import java.net.URL;
 
-
-
 public class UserFragment extends Fragment {
     private UserViewModel notificationsViewModel;
     private FirebaseAuth mAuth;
@@ -53,25 +53,23 @@ public class UserFragment extends Fragment {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            {
-                //Update name field from Facebook's data
-                user_name = currentUser.getDisplayName();    // CHANGE TO db FIELD
-                TextView name_view = root.findViewById(R.id.userName);
-                name_view.setText(user_name);
-                name_view.setFocusable(false);
+            //Update name field from Facebook's data
+            user_name = currentUser.getDisplayName();    // CHANGE TO db FIELD
+            TextView name_view = root.findViewById(R.id.userName);
+            name_view.setText(user_name);
+            name_view.setFocusable(false);
 
-                //Update Email field from Facebook's data
-                user_email = currentUser.getEmail();    // CHANGE TO db FIELD
-                TextView email_view = root.findViewById(R.id.userEmail);
-                email_view.setText(user_email);
-                email_view.setFocusable(false);
+            //Update Email field from Facebook's data
+            user_email = currentUser.getEmail();    // CHANGE TO db FIELD
+            TextView email_view = root.findViewById(R.id.userEmail);
+            email_view.setText(user_email);
+            email_view.setFocusable(false);
 
-                //Update user profile picture
-                ImageView imgView = root.findViewById(R.id.profile_image);
-                Uri imgUri = currentUser.getPhotoUrl();
-                imgView.setImageURI(imgUri);
-                Picasso.with(getActivity()).load(imgUri).into(imgView);
-            }
+            //Update user profile picture
+            ImageView imgView = root.findViewById(R.id.profile_image);
+            Uri imgUri = currentUser.getPhotoUrl();
+            imgView.setImageURI(imgUri);
+            Picasso.with(getActivity()).load(imgUri).into(imgView);
         }
 
         return root;

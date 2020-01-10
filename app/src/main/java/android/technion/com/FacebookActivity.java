@@ -53,7 +53,7 @@ public class FacebookActivity extends AppCompatActivity {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
                             FirebaseUser user = mAuth.getCurrentUser();
-                            User barbulanceUser = new User(user.getEmail(), user.getPhoneNumber(), user.getUid());
+                            User barbulanceUser = new User(user.getDisplayName(), user.getEmail(), user.getPhoneNumber(), user.getUid());
                             db.addUserToDatabase(barbulanceUser);
 
                             Intent next = new Intent(FacebookActivity.this, MainActivity.class);
@@ -89,7 +89,7 @@ public class FacebookActivity extends AppCompatActivity {
         //check if user is already signed in
         AccessToken accessToken = AccessToken.getCurrentAccessToken();
         FirebaseUser current = mAuth.getCurrentUser();
-        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current!=null;
+        boolean isLoggedIn = accessToken != null && !accessToken.isExpired() && current != null;
         if(isLoggedIn) {
             Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
             finish();

@@ -6,6 +6,8 @@ import android.technion.com.AddEventActivity;
 import android.technion.com.Database;
 import android.technion.com.R;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,6 +28,8 @@ public class EventsFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
         eventsViewModel =
                 ViewModelProviders.of(this).get(EventsViewModel.class);
         View root = inflater.inflate(R.layout.fragment_events, container, false);
@@ -56,5 +60,13 @@ public class EventsFragment extends Fragment {
         });
 
         return root;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_edit);
+        if(item != null){
+            item.setVisible(false);
+        }
     }
 }

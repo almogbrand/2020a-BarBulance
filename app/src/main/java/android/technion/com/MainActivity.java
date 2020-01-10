@@ -3,6 +3,7 @@ package android.technion.com;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import com.facebook.login.LoginManager;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -13,6 +14,8 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
+
+import java.util.zip.Inflater;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -54,6 +57,10 @@ public class MainActivity extends AppCompatActivity {
                 LoginManager.getInstance().logOut();
                 intent = new Intent(MainActivity.this, FacebookActivity.class);
                 finishAffinity();
+                startActivity(intent);
+                return true;
+            case R.id.action_edit:
+                intent = new Intent(MainActivity.this, EditUserActivity.class);
                 startActivity(intent);
                 return true;
             default:

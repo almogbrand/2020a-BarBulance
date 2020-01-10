@@ -19,7 +19,8 @@
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditUserActivity"></activity>
+        <activity android:name=".EditUserActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".DisplayRideActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

@@ -7,6 +7,8 @@ import android.technion.com.Database;
 import android.technion.com.Drive;
 import android.technion.com.R;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,6 +36,8 @@ public class RidesFragment extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
+        setHasOptionsMenu(true);
         ridesViewModel =
                 ViewModelProviders.of(this).get(RidesViewModel.class);
         View root = inflater.inflate(R.layout.fragment_rides, container, false);
@@ -64,5 +68,13 @@ public class RidesFragment extends Fragment {
         }
 
         return root;
+    }
+
+    @Override
+    public void onPrepareOptionsMenu(Menu menu) {
+        MenuItem item = menu.findItem(R.id.action_edit);
+        if(item != null){
+            item.setVisible(false);
+        }
     }
 }
