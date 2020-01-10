@@ -35,13 +35,12 @@ import java.net.URL;
 
 
 public class UserFragment extends Fragment {
-
     private UserViewModel notificationsViewModel;
     private FirebaseAuth mAuth;
 
     //TEMP - TO BE DELETED AFTER CONNECTING TO db
-     String user_name = "";
-     String user_email = "";
+    String user_name = "";
+    String user_email = "";
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -51,17 +50,8 @@ public class UserFragment extends Fragment {
         notificationsViewModel =
                 ViewModelProviders.of(this).get(UserViewModel.class);
         View root = inflater.inflate(R.layout.fragment_user, container, false);
-//        final TextView textView = root.findViewById(R.id.text_notifications);
-//        notificationsViewModel.getText().observe(this, new Observer<String>() {
-//            @Override
-//            public void onChanged(@Nullable String s) {
-//                textView.setText(s);
-//            }
-//        });
-
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if(currentUser != null) {
             {
                 //Update name field from Facebook's data
@@ -92,15 +82,9 @@ public class UserFragment extends Fragment {
         super.onStart();
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
-
         if(currentUser != null){
             user_name = currentUser.getDisplayName();
         }
-//        if(!currentUser.getDisplayName().equals(null)){
-//            user_name = currentUser.getDisplayName();
-//        }
-
-
 
     }
 }

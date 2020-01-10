@@ -10,23 +10,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <Button
-            android:id="@+id/updateUserProfileButton"
-            android:layout_width="wrap_content"
-            android:layout_height="56dp"
-            android:layout_marginStart="104dp"
-            android:layout_marginLeft="104dp"
-            android:layout_marginTop="24dp"
-            android:layout_marginEnd="105dp"
-            android:layout_marginRight="105dp"
-            android:layout_marginBottom="24dp"
-            android:text="Update User Profile"
-            android:textSize="16sp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/userPhoneFrame"
-            app:layout_constraintVertical_bias="1.0" />
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/userNameFrame"
@@ -49,6 +35,7 @@
                 android:id="@+id/userName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Full Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -73,6 +60,7 @@
                 android:id="@+id/userEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Email" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -97,6 +85,7 @@
                 android:id="@+id/userPhone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:focusable="false"
                 android:hint="Phone number" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -104,12 +93,12 @@
             android:id="@+id/profile_image"
             android:layout_width="96dp"
             android:layout_height="96dp"
-            android:layout_marginTop="32dp"
-            app:civ_border_color="@color/colorPrimaryDark"
+            android:layout_marginTop="24dp"
+            app:civ_border_color="@color/colorPrimary"
             app:civ_border_width="2dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/toolbar" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
