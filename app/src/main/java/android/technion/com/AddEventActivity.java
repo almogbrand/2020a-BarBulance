@@ -14,9 +14,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
@@ -25,6 +27,9 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.sucho.placepicker.Constants;
+import com.sucho.placepicker.MapType;
+import com.sucho.placepicker.PlacePicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -39,6 +44,9 @@ public class AddEventActivity extends AppCompatActivity {
     private TextInputEditText addEventNameText;
     private TextInputEditText addEventPhoneText;
     private TextInputEditText addEventLocationText;
+
+    private Button addLocationButton;
+
     private TextInputLayout addEventAnimalType;
     private TextInputEditText addEventDescriptionText;
     private Switch addEventUrgentSwitch;
@@ -65,6 +73,9 @@ public class AddEventActivity extends AppCompatActivity {
         addEventNameText = findViewById(R.id.addEventNameText);
         addEventPhoneText = findViewById(R.id.addEventPhoneText);
         addEventLocationText = findViewById(R.id.addEventLocationText);
+
+        addLocationButton = findViewById(R.id.addLocationButton);
+
         addEventAnimalType = findViewById(R.id.addEventAnimalType);
         addEventDescriptionText = findViewById(R.id.addEventDescriptionText);
         addEventUrgentSwitch = findViewById(R.id.addEventUrgentSwitch);
@@ -102,6 +113,29 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+        addLocationButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new PlacePicker.IntentBuilder()
+                        .setLatLong(40.748672, -73.985628)  // Initial Latitude and Longitude the Map will load into
+                        .showLatLong(true)  // Show Coordinates in the Activity
+                        .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                        .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
+                        .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
+                        .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
+                        .setMarkerImageImageColor(R.color.colorPrimary)
+                        .setFabColor(R.color.colorAccent)
+                        .setPrimaryTextColor(R.color.colorPrimaryText) // Change text color of Shortened Address
+                        .setSecondaryTextColor(R.color.colorSecondaryText) // Change text color of full Address
+                        .setMapRawResourceStyle(R.raw.style_json)  //Set Map Style (https://mapstyle.withgoogle.com/)
+                        .setMapType(MapType.NORMAL)
+                        .onlyCoordinates(true)  //Get only Coordinates from Place Picker
+                        .build(AddEventActivity.this);
+
+                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
+            }
+        });
+
         addEventFabCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +145,11 @@ public class AddEventActivity extends AppCompatActivity {
 
         // in case of EDITING an existing event
         Database db = new Database();
+        User user = new User("dani@gins.co.il","0544444444","123");
+        db.addUserToDatabase(user);
+        TextView textView=findViewById(R.id.textView10);
+        db.getUserPhoneNumberToTextView("123",textView);
+
         event = (Event) getIntent().getSerializableExtra("event");
         if(event != null){
             addEventNameText.setText(event.getReporterId());
@@ -258,4 +297,5 @@ public class AddEventActivity extends AppCompatActivity {
         Intent galleryIntent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         startActivityForResult(galleryIntent, GALLERY);
     }
+
 }
