@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.technion.com.Database;
 import android.technion.com.R;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -37,15 +38,18 @@ import java.net.URL;
 public class UserFragment extends Fragment {
     private UserViewModel notificationsViewModel;
     private FirebaseAuth mAuth;
+    private Database db;
+    private String uid;
 
-    //TEMP - TO BE DELETED AFTER CONNECTING TO db
-    String user_name = "";
-    String user_email = "";
+    private TextInputEditText userName;
+    private TextInputEditText userEmail;
+    private TextInputEditText userPhone;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         mAuth = FirebaseAuth.getInstance();
+        db = new Database();
 
         notificationsViewModel =
                 ViewModelProviders.of(this).get(UserViewModel.class);
@@ -53,17 +57,24 @@ public class UserFragment extends Fragment {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            //Update name field from Facebook's data
-            user_name = currentUser.getDisplayName();    // CHANGE TO db FIELD
-            TextView name_view = root.findViewById(R.id.userName);
-            name_view.setText(user_name);
-            name_view.setFocusable(false);
+            uid = currentUser.getUid();
 
-            //Update Email field from Facebook's data
-            user_email = currentUser.getEmail();    // CHANGE TO db FIELD
-            TextView email_view = root.findViewById(R.id.userEmail);
-            email_view.setText(user_email);
-            email_view.setFocusable(false);
+            userName = root.findViewById(R.id.userName);
+            userName.setText(currentUser.getDisplayName());
+            userName.setKeyListener(null);
+
+            userEmail = root.findViewById(R.id.userEmail);
+            userEmail.setText(currentUser.getEmail());
+            userEmail.setKeyListener(null);
+
+//          TODO: fix phone number display
+            userPhone = root.findViewById(R.id.userPhone);
+            TextView textView = new TextView(getContext());
+            db.getUserPhoneNumberToTextView(uid, textView);
+            Toast toast = Toast.makeText(getContext(), textView.getText().toString(), Toast.LENGTH_LONG);
+            toast.show();
+            userPhone.setText(textView.getText());
+            userPhone.setKeyListener(null);
 
             //Update user profile picture
             ImageView imgView = root.findViewById(R.id.profile_image);
@@ -81,8 +92,7 @@ public class UserFragment extends Fragment {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            user_name = currentUser.getDisplayName();
+//            user_name = currentUser.getDisplayName();
         }
-
     }
 }
