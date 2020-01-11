@@ -41,18 +41,20 @@ public class EditUserActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-            uid = currentUser.getUid();
-
             editUserName = findViewById(R.id.editUserName);
-            editUserName.setText(currentUser.getDisplayName());
-
             editUserEmail = findViewById(R.id.editUserEmail);
-            editUserEmail.setText(currentUser.getEmail());
-
             editUserPhone = findViewById(R.id.editUserPhone);
-            TextView textView = new TextView(getBaseContext());
-            db.getUserPhoneNumberToTextView(uid, textView);
-            editUserPhone.setText(textView.getText().toString());
+
+            uid = currentUser.getUid();
+            TextView result = new TextView(getBaseContext());
+            db.checkUserExists(uid, result);
+            if(result.getText().toString().equals("true")){
+                db.getUserToTextViews(uid, editUserName, editUserEmail, editUserPhone);
+            } else {
+                editUserName.setText(currentUser.getDisplayName());
+                editUserEmail.setText(currentUser.getEmail());
+                editUserPhone.setText(currentUser.getPhoneNumber());
+            }
 
             ImageView imgView = findViewById(R.id.editUserImage);
             Uri imgUri = currentUser.getPhotoUrl();
@@ -109,7 +111,7 @@ public class EditUserActivity extends AppCompatActivity {
         }
 
         User newUser = new User(name, email, phone, uid);
-        db.removeUserFromDataBase(uid);
+//        db.removeUserFromDataBase(uid);
         db.addUserToDatabase(newUser);
         toast = Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT);
         toast.show();
@@ -123,5 +125,15 @@ public class EditUserActivity extends AppCompatActivity {
         Pattern pattern = Pattern.compile(PHONE_PATTERN);
         Matcher matcher = pattern.matcher(phone);
         return matcher.matches();
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is signed in (non-null) and update UI accordingly.
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            db.getUserToTextViews(uid, editUserName, editUserEmail, editUserPhone);
+        }
     }
 }

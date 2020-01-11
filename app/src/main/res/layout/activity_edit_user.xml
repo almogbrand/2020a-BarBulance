@@ -13,7 +13,9 @@
 
         <include
             android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
+            layout="@layout/toolbar_layout"
+            tools:layout_editor_absoluteX="192dp"
+            tools:layout_editor_absoluteY="47dp" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/editUserNameFrame"

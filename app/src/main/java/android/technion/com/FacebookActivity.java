@@ -52,9 +52,9 @@ public class FacebookActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            User barbulanceUser = new User(user.getDisplayName(), user.getEmail(), user.getPhoneNumber(), user.getUid());
-                            db.addUserToDatabase(barbulanceUser);
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            User barbulanceUser = new User(user.getDisplayName(), user.getEmail(), user.getPhoneNumber(), user.getUid());
+//                            db.addUserToDatabase(barbulanceUser);
 
                             Intent next = new Intent(FacebookActivity.this, MainActivity.class);
                             finish();

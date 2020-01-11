@@ -44,6 +44,7 @@ public class UserFragment extends Fragment {
     private TextInputEditText userName;
     private TextInputEditText userEmail;
     private TextInputEditText userPhone;
+    private TextView userText;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -57,24 +58,25 @@ public class UserFragment extends Fragment {
 
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null) {
-            uid = currentUser.getUid();
-
             userName = root.findViewById(R.id.userName);
-            userName.setText(currentUser.getDisplayName());
             userName.setKeyListener(null);
 
             userEmail = root.findViewById(R.id.userEmail);
-            userEmail.setText(currentUser.getEmail());
             userEmail.setKeyListener(null);
 
-//          TODO: fix phone number display
             userPhone = root.findViewById(R.id.userPhone);
-            TextView textView = new TextView(getContext());
-            db.getUserPhoneNumberToTextView(uid, textView);
-            Toast toast = Toast.makeText(getContext(), textView.getText().toString(), Toast.LENGTH_LONG);
-            toast.show();
-            userPhone.setText(textView.getText());
             userPhone.setKeyListener(null);
+
+            uid = currentUser.getUid();
+            TextView result = new TextView(getContext());
+            db.checkUserExists(uid, result);
+            if(result.getText().toString().equals("true")){
+                db.getUserToTextViews(uid, userName, userEmail, userPhone);
+            } else {
+                userName.setText(currentUser.getDisplayName());
+                userEmail.setText(currentUser.getEmail());
+                userPhone.setText(currentUser.getPhoneNumber());
+            }
 
             //Update user profile picture
             ImageView imgView = root.findViewById(R.id.profile_image);
@@ -92,7 +94,8 @@ public class UserFragment extends Fragment {
         // Check if user is signed in (non-null) and update UI accordingly.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser != null){
-//            user_name = currentUser.getDisplayName();
+//            user_name = currentUser.getDisplayName()
+            db.getUserToTextViews(uid, userName, userEmail, userPhone);
         }
     }
 }

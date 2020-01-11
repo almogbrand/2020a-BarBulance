@@ -17,8 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -334,14 +336,37 @@ public class Database {
         });
     }
 
-    public void getUserPhoneNumberToTextView (String UID, final TextView textView) {
+    public void checkUserExists (String UID, final TextView result){
+        DocumentReference docRef = db.collection("Users").document(UID);
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Log.d(TAG, "Document exists!");
+                        result.setText("true");
+                    } else {
+                        Log.d(TAG, "Document does not exist!");
+                        result.setText("false");
+                    }
+                } else {
+                    Log.d(TAG, "Failed with: ", task.getException());
+                }
+            }
+        });
+    }
+
+    public void getUserToTextViews (String UID, final TextView name, final TextView email, final TextView phone) {
         DocumentReference docRef = db.collection("Users").document(UID);
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 User user = documentSnapshot.toObject(User.class);
-                if(user!=null) {
-                    textView.setText(user.getUserPhoneNumber());
+                if(user != null) {
+                    name.setText(user.getUserName());
+                    email.setText(user.getUserEmail());
+                    phone.setText(user.getUserPhoneNumber());
                 } else {
                     Log.w(TAG, "Error retrieving user");
                 }
