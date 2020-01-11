@@ -2,6 +2,7 @@ package android.technion.com;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.MenuItem;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -36,7 +37,7 @@ public class ContactActivity extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         toolbar.setTitle(R.string.contact_us);
-        toolbar.inflateMenu(R.menu.main_menu);
+        toolbar.inflateMenu(R.menu.main_without_edit_menu);
         toolbar.inflateMenu(R.menu.send_menu);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
