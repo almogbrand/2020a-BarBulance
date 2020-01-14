@@ -46,13 +46,13 @@ public class MainActivity extends AppCompatActivity {
         NavigationUI.setupWithNavController(navView, navController);
 
         //add user to db
-        db = new Database();
-        mAuth = FirebaseAuth.getInstance();
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            user = new User(currentUser.getDisplayName(),currentUser.getEmail(),"",currentUser.getUid(),"");
-            db.addUserToDatabase(user);
-        }
+//        db = new Database();
+//        mAuth = FirebaseAuth.getInstance();
+//        FirebaseUser currentUser = mAuth.getCurrentUser();
+//        if(currentUser != null){
+//            user = new User(currentUser.getDisplayName(),currentUser.getEmail(),"",currentUser.getUid(),"");
+//            db.addUserToDatabase(user);
+//        }
     }
 
     @Override
