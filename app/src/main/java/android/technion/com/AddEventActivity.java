@@ -1,6 +1,9 @@
 package android.technion.com;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -22,11 +25,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.sucho.placepicker.AddressData;
 import com.sucho.placepicker.Constants;
 import com.sucho.placepicker.MapType;
 import com.sucho.placepicker.PlacePicker;
@@ -38,6 +46,7 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.ContentValues.TAG;
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class AddEventActivity extends AppCompatActivity {
@@ -117,7 +126,7 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new PlacePicker.IntentBuilder()
-                        .setLatLong(40.748672, -73.985628)  // Initial Latitude and Longitude the Map will load into
+                        .setLatLong(32.109333, 34.855499)  // Initial Latitude and Longitude the Map will load into
                         .showLatLong(true)  // Show Coordinates in the Activity
                         .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
                         .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
@@ -129,9 +138,7 @@ public class AddEventActivity extends AppCompatActivity {
                         .setSecondaryTextColor(R.color.colorSecondaryText) // Change text color of full Address
                         .setMapRawResourceStyle(R.raw.style_json)  //Set Map Style (https://mapstyle.withgoogle.com/)
                         .setMapType(MapType.NORMAL)
-                        .onlyCoordinates(true)  //Get only Coordinates from Place Picker
                         .build(AddEventActivity.this);
-
                 startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
             }
         });
@@ -145,10 +152,6 @@ public class AddEventActivity extends AppCompatActivity {
 
         // in case of EDITING an existing event
         Database db = new Database();
-        User user = new User("dani@gins.co.il","0544444444","123");
-        db.addUserToDatabase(user);
-        TextView textView=findViewById(R.id.textView10);
-        db.getUserPhoneNumberToTextView("123",textView);
 
         event = (Event) getIntent().getSerializableExtra("event");
         if(event != null){
@@ -261,7 +264,29 @@ public class AddEventActivity extends AppCompatActivity {
             Bitmap imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);
             addEventImage.setImageBitmap(imageBitmap);
         }
-    }
+        else if(requestCode==Constants.PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
+                TextView textView=findViewById(R.id.textView10);
+                if(!addressData.getAddressList().isEmpty()) {
+                    textView.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                }
+//                db.collection("Addresses").add(addressData).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                    @Override
+//                    public void onSuccess(DocumentReference documentReference) {
+//                        Log.d(TAG, "Address added with ID: " + documentReference.getId());
+//                    }
+//                })
+//                        .addOnFailureListener(new OnFailureListener() {
+//                            @Override
+//                            public void onFailure(@NonNull Exception e) {
+//                                Log.w(TAG, "Error adding Event", e);
+//                            }
+//                        });
+            }
+        }
+        }
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

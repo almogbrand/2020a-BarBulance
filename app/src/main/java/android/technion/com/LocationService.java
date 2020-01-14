@@ -1,6 +1,7 @@
 package android.technion.com;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
@@ -19,18 +20,20 @@ import static android.content.ContentValues.TAG;
 
 public class LocationService extends AppCompatActivity {
 
+    Context controller;
     Activity activity;
     AddressData addressData;
     private FirebaseFirestore db;
 
-    public LocationService(Activity activity) {
+    public LocationService(Activity activity, Context context) {
         this.activity = activity;
+        this.controller = context;
         this.db=FirebaseFirestore.getInstance();
     }
 
     public void startLocationIntent(){
         Intent intent = new PlacePicker.IntentBuilder()
-                .setLatLong(40.748672, -73.985628)  // Initial Latitude and Longitude the Map will load into
+                .setLatLong(32.109333, 34.855499)  // Initial Latitude and Longitude the Map will load into
                 .showLatLong(true)  // Show Coordinates in the Activity
                 .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
                 .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
@@ -43,9 +46,11 @@ public class LocationService extends AppCompatActivity {
                 .setMapRawResourceStyle(R.raw.style_json)  //Set Map Style (https://mapstyle.withgoogle.com/)
                 .setMapType(MapType.NORMAL)
                 .onlyCoordinates(true)  //Get only Coordinates from Place Picker
-                .build(this.activity);
+                .build(activity);
 
-        startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
+        activity.startActivityForResult(intent,Constants.PLACE_PICKER_REQUEST);
+//        ((Activity) controller).startActivityForResult(intent,Constants.PLACE_PICKER_REQUEST);
+//        startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

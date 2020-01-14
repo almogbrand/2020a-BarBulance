@@ -16,8 +16,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
@@ -436,16 +438,15 @@ public class Database {
     }
 
 
-    /*
-    public List<Event> getEventFromDatabase(String eventID) {
-        final Event[] eventToReturn = {new Event()};
+   /*
+    public Event getEventFromDatabase(String eventID) {
         DocumentReference docRef = db.collection("Events").document(eventID);
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> documentSnapshot) { // change to oncomplete and check for null
 
                 if(documentSnapshot.isSuccessful()) {
-                    events.add(documentSnapshot.getResult().toObject(Event.class));
+                    Event event = documentSnapshot.getResult().toObject(Event.class);
                 }
                 else {
 
@@ -453,7 +454,7 @@ public class Database {
                 // anything we want to do with this event
             }
         });
-        return events;
+        return event;
     }
     public Drive getDriveFromDatabase(String driverID) {
         DocumentReference docRef = db.collection("Drives").document(driverID);
