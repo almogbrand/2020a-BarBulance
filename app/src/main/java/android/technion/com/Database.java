@@ -25,6 +25,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -110,17 +112,31 @@ public class Database {
     }
 
     public void addUserToDatabase(final User user) {
-        DocumentReference mFirestoreUsers = db.collection("Users").document(user.getUID());
-        mFirestoreUsers.set(user).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void avoid) {
-                Log.d(TAG, "User added");
-            }
-        })
-                .addOnFailureListener(new OnFailureListener() {
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding User", e);
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w(TAG, "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        // Get new Instance ID token
+                        String token = task.getResult().getToken();
+                        User NewUser= new User(user.getUserName(),user.getUserEmail(),user.getUserPhoneNumber(),user.getUID(),token);
+                        DocumentReference mFirestoreUsers = db.collection("Users").document(NewUser.getUID());
+                        mFirestoreUsers.set(NewUser).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void avoid) {
+                                Log.d(TAG, "User added");
+                            }
+                        })
+                                .addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.w(TAG, "Error adding User", e);
+                                    }
+                                });
                     }
                 });
     }

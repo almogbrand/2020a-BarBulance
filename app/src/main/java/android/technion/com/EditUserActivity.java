@@ -110,7 +110,7 @@ public class EditUserActivity extends AppCompatActivity {
             return true;
         }
 
-        User newUser = new User(name, email, phone, uid);
+        User newUser = new User(name, email, phone, uid, "");
 //        db.removeUserFromDataBase(uid);
         db.addUserToDatabase(newUser);
         toast = Toast.makeText(getApplicationContext(), "Profile Updated!", Toast.LENGTH_SHORT);

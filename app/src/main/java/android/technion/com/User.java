@@ -12,4 +12,5 @@ public class User {
     String userEmail;
     String userPhoneNumber;
     String UID;
+    String FCMToken;
 }
