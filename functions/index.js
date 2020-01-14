@@ -16,27 +16,30 @@ exports.notification = functions.firestore.document('Events/{EventId}').onCreate
         .get()
         .then(userDocs => {
             let payload;
-            let token;
+            var tokens = [];
            userDocs.forEach(userDoc => {
-				if(userDoc.data() !== ""){
-					token = userDoc.data().fcmtoken;
+			   if(userDoc.data() !== ""){
+					const token = userDoc.data().fcmtoken;
+					if (token!== "") {
+						tokens.push(token);
+					}
 				}
 			});
-		//	console.log('token is ' + token.toString());
+			
+			//console.log('token is ' + token.toString());
 			payload = {
 				data: {
 					title: animalType + ' in ' + location + ' needs your help!',
 					body: snap.data().description,
 					sound: 'default'
-					event_id: context.params.some-document;
 				}
 			};
-            return admin.messaging().sendToDevice(token, payload).then(response =>{
-       //         console.log("Successfully sent request message to " +"\nResponse: ", response,
-        //            "\npayload:", payload, "\ntoken:", token);
+            return admin.messaging().sendToDevice(tokens, payload).then(response =>{
+				//console.log("Successfully sent request message to " +"\nResponse: ", response,
+				//"\npayload:", payload, "\ntoken:", token);
                 return response;
 			}).catch(error=>{
-		//		console.log("Error sending notification", error);
+				//console.log("Error sending notification", error);
 			})
 
 		})
