@@ -93,6 +93,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/location"
                 android:inputType="textPostalAddress"
+                android:focusable="false"
                 android:maxLength="16"/>
         </com.google.android.material.textfield.TextInputLayout>
 

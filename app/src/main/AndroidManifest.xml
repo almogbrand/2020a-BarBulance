@@ -11,6 +11,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:minSdkVersion="16" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
 
     <application
         android:allowBackup="true"
@@ -96,6 +97,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAB3_3sqDmbcy_XkmAMziUTN7M5f059V5I"/>
+
     </application>
 
 </manifest>

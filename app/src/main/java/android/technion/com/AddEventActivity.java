@@ -1,34 +1,50 @@
 package android.technion.com;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.technion.com.ui.events.EventsFragment;
 import android.technion.com.ui.user.UserFragment;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.os.Bundle;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.facebook.AccessToken;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.sucho.placepicker.AddressData;
+import com.sucho.placepicker.Constants;
+import com.sucho.placepicker.MapType;
+import com.sucho.placepicker.PlacePicker;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,12 +53,17 @@ import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static android.content.ContentValues.TAG;
 import static androidx.core.content.FileProvider.getUriForFile;
 
 public class AddEventActivity extends AppCompatActivity {
     private TextInputEditText addEventNameText;
     private TextInputEditText addEventPhoneText;
     private TextInputEditText addEventLocationText;
+
+    private Location userLastKnownLocation;
+    private FusedLocationProviderClient fusedLocationClient;
+
     private TextInputLayout addEventAnimalType;
     private TextInputEditText addEventDescriptionText;
     private Switch addEventUrgentSwitch;
@@ -109,6 +130,19 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            userLastKnownLocation = location;
+                        }
+                    }
+                });
+
         addEventImage = findViewById(R.id.addEventImage);
         addEventFabGallery = findViewById(R.id.addEventFabGallery);
         addEventFabCamera = findViewById(R.id.addEventFabCamera);
@@ -130,6 +164,34 @@ public class AddEventActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 choosePhotoFromGallary();
+            }
+        });
+
+        addEventLocationText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double latitude=32.109333;
+                double longitude=34.855499;
+                if(userLastKnownLocation!=null) {
+                    latitude=userLastKnownLocation.getLatitude();
+                    longitude=userLastKnownLocation.getLongitude();
+                }
+                    Intent intent = new PlacePicker.IntentBuilder()
+                            .setLatLong(latitude, longitude)  // Initial Latitude and Longitude the Map will load into
+                            .showLatLong(true)  // Show Coordinates in the Activity
+                            .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                            .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
+                            .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
+                            .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
+                            .setMarkerImageImageColor(R.color.colorPrimary)
+                            .setFabColor(R.color.colorAccent)
+                            .setPrimaryTextColor(R.color.colorPrimaryText) // Change text color of Shortened Address
+                            .setSecondaryTextColor(R.color.colorSecondaryText) // Change text color of full Address
+                            .setMapRawResourceStyle(R.raw.style_json)  //Set Map Style (https://mapstyle.withgoogle.com/)
+                            .setMapType(MapType.NORMAL)
+                            .build(AddEventActivity.this);
+
+                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
             }
         });
 
@@ -246,7 +308,16 @@ public class AddEventActivity extends AppCompatActivity {
             Bitmap imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);
             addEventImage.setImageBitmap(imageBitmap);
         }
-    }
+        else if(requestCode==Constants.PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
+                if(!addressData.getAddressList().isEmpty()) {
+                    addEventLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                }
+            }
+        }
+        }
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
