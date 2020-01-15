@@ -84,6 +84,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/location"
                 android:inputType="textPostalAddress"
+                android:focusable="false"
                 android:maxLength="16"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -243,29 +244,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/addEventDescription"
             tools:srcCompat="@android:color/background_light" />
-
-        <Button
-            android:id="@+id/addLocationButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/location"
-            app:layout_constraintBottom_toBottomOf="@+id/addEventImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/addEventImage"
-            app:layout_constraintTop_toTopOf="@+id/addEventImage"
-            app:layout_constraintVertical_bias="0.0" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/phone_number"
-            android:textSize="30sp"
-            app:layout_constraintBottom_toBottomOf="@+id/addEventImage"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="@+id/addEventImage"
-            app:layout_constraintTop_toBottomOf="@+id/addLocationButton"
-            app:layout_constraintVertical_bias="0.0" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
