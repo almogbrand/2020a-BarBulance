@@ -21,6 +21,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FacebookAuthProvider;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import androidx.appcompat.app.AppCompatActivity;
 import java.util.Arrays;
@@ -52,9 +55,45 @@ public class FacebookActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithCredential:success");
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            User barbulanceUser = new User(user.getDisplayName(), user.getEmail(), user.getPhoneNumber(), user.getUid());
-//                            db.addUserToDatabase(barbulanceUser);
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            final String uid = user.getUid();
+
+                            FirebaseFirestore db2;
+                            db2 = FirebaseFirestore.getInstance();
+                            DocumentReference usersRef = db2.collection("Users").document(uid);
+                            usersRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentSnapshot document = task.getResult();
+                                        if (document.exists()) {
+
+                                            //update only token
+                                            Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                                            String email = document.get("userEmail").toString();
+                                            String name = document.get("userName").toString();
+                                            String phone = document.get("userPhoneNumber").toString();
+                                            //String email = document.get("fcmtoken").toString();
+                                            User user = new User(name,email,phone,uid,"");
+                                            db.addUserToDatabase(user);
+
+                                        } else {
+
+                                            //add new user
+                                            Log.d(TAG, "No such document");
+                                            FirebaseUser user = mAuth.getCurrentUser();
+                                            String name = user.getDisplayName();
+                                            String email = user.getEmail();
+                                            String phone = user.getPhoneNumber();
+                                            if(phone == null){ phone = ""; }
+                                            User barbulanceUser = new User(name, email, phone, uid, "");
+                                            db.addUserToDatabase(barbulanceUser);
+                                        }
+                                    } else {
+                                        Log.d(TAG, "get failed with ", task.getException());
+                                    }
+                                }
+                            });
 
                             Intent next = new Intent(FacebookActivity.this, MainActivity.class);
                             finish();

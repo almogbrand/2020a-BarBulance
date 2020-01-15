@@ -42,7 +42,9 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         event = (Event) getIntent().getSerializableExtra("event");
         displayEventImage = findViewById(R.id.displayEventImage);
-        db.getImageFromDatabaseToImageView(displayEventImage, event.getPhotoID());
+        if(event.getPhotoID() != ""){
+            db.getImageFromDatabaseToImageView(displayEventImage, event.getPhotoID());
+        }
 
         displayEventNameText = findViewById(R.id.displayEventNameText);
         displayEventNameText.setText(event.getReporterId());
