@@ -4,11 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.technion.com.ui.rides.RidesFragment;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,8 +25,16 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.sucho.placepicker.AddressData;
+import com.sucho.placepicker.Constants;
+import com.sucho.placepicker.MapType;
+import com.sucho.placepicker.PlacePicker;
 
+import java.io.IOException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -122,6 +135,63 @@ public class AddRideActivity extends AppCompatActivity {
             }
         });
 
+        addRideFromLocationText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double latitude=32.109333;
+                double longitude=34.855499;
+//                if(userLastKnownLocation!=null) {
+//                    latitude=userLastKnownLocation.getLatitude();
+//                    longitude=userLastKnownLocation.getLongitude();
+//                }
+                Intent intent = new PlacePicker.IntentBuilder()
+                        .setLatLong(latitude, longitude)  // Initial Latitude and Longitude the Map will load into
+                        .showLatLong(true)  // Show Coordinates in the Activity
+                        .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                        .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
+                        .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
+                        .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
+                        .setMarkerImageImageColor(R.color.colorPrimary)
+                        .setFabColor(R.color.colorAccent)
+                        .setPrimaryTextColor(R.color.colorPrimaryText) // Change text color of Shortened Address
+                        .setSecondaryTextColor(R.color.colorSecondaryText) // Change text color of full Address
+                        .setMapRawResourceStyle(R.raw.style_json)  //Set Map Style (https://mapstyle.withgoogle.com/)
+                        .setMapType(MapType.NORMAL)
+                        .build(AddRideActivity.this);
+
+                startActivityForResult(intent, Constants.PLACE_PICKER_REQUEST);
+            }
+        });
+
+        addRideToLocationText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                double latitude=32.109333;
+                double longitude=34.855499;
+//                if(userLastKnownLocation!=null) {
+//                    latitude=userLastKnownLocation.getLatitude();
+//                    longitude=userLastKnownLocation.getLongitude();
+//                }
+                Intent intent = new PlacePicker.IntentBuilder()
+                        .setLatLong(latitude, longitude)  // Initial Latitude and Longitude the Map will load into
+                        .showLatLong(true)  // Show Coordinates in the Activity
+                        .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                        .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
+                        .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
+                        .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
+                        .setMarkerImageImageColor(R.color.colorPrimary)
+                        .setFabColor(R.color.colorAccent)
+                        .setPrimaryTextColor(R.color.colorPrimaryText) // Change text color of Shortened Address
+                        .setSecondaryTextColor(R.color.colorSecondaryText) // Change text color of full Address
+                        .setMapRawResourceStyle(R.raw.style_json)  //Set Map Style (https://mapstyle.withgoogle.com/)
+                        .setMapType(MapType.NORMAL)
+                        .build(AddRideActivity.this);
+
+                startActivityForResult(intent, 101);
+            }
+        });
+
+
         // in case of EDITING an existing ride
         if(drive != null){
             addRideNameText.setText(drive.getDriverFullName());
@@ -130,6 +200,29 @@ public class AddRideActivity extends AppCompatActivity {
             addRideTimeText.setText(drive.getTime());
             addRideFromLocationText.setText(drive.getFromLocation());
             addRideToLocationText.setText(drive.getToLocation());
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode==Constants.PLACE_PICKER_REQUEST) {
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
+                if(!addressData.getAddressList().isEmpty()) {
+                    addRideFromLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                }
+            }
+        }
+        else if(requestCode==101){
+            if (resultCode == Activity.RESULT_OK && data != null) {
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
+                if(!addressData.getAddressList().isEmpty()) {
+                    addRideToLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                }
+            }
         }
     }
 
