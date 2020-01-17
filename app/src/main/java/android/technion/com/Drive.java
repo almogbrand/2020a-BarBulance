@@ -23,6 +23,7 @@ public class Drive implements Serializable {
     String toLocation;
     String date;
     String time;
+    String eventID;
 
     public Drive(String driverId, String driverProfilePicUri, String driverFullName,
                  String driverPhoneNumber, String fromLocation,  String toLocation, String date, String time){

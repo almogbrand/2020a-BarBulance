@@ -485,7 +485,51 @@ public class Database {
             }
         });
     }
+    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList,String eventID) {
 
+        Query query = FirebaseFirestore.getInstance().collection("Drives").whereEqualTo("eventID",eventID).limit(10);
+        FirestoreRecyclerOptions<Drive> options =
+                new FirestoreRecyclerOptions
+                        .Builder<Drive>()
+                        .setQuery(query,Drive.class)
+                        .build();
+        recyclerV = recyclerList;
+
+        FBAdapter = new FirestoreRecyclerAdapter<Drive, DriveHolder>(options){
+
+            @Override
+            public DriveHolder onCreateViewHolder(ViewGroup parent,
+                                                  int viewType) {
+
+                View v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.driveholder_row, parent, false);
+
+                return  new DriveHolder(v);
+            }
+
+            @Override
+            public void onBindViewHolder(DriveHolder holder, int position, final Drive item) {
+                holder.setDriveFromLocation(item.getFromLocation());
+                holder.setDriveTime(item.getTime());
+                holder.setDriveToLocation(item.getToLocation());
+                holder.setDriverID(item.getDriverFullName());
+                holder.setDriversProfilePic((Uri.parse(item.getDriverProfilePicUri())));
+                holder.itemView.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), DisplayRideActivity.class);
+                        intent.putExtra("drive", item);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
+        };
+
+        layoutManager = new LinearLayoutManager(context);
+        recyclerV.setLayoutManager(layoutManager);
+        recyclerV.setAdapter(FBAdapter);
+        FBAdapter.startListening();
+    }
 
    /*
     public Event getEventFromDatabase(String eventID) {
