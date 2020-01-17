@@ -31,6 +31,9 @@ import android.widget.Toast;
 
 import com.facebook.AccessToken;
 import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -50,6 +53,7 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -77,6 +81,10 @@ public class AddEventActivity extends AppCompatActivity {
     private String imageName = "";
     private Event event;
     private Toolbar toolbar;
+
+
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,6 +138,9 @@ public class AddEventActivity extends AppCompatActivity {
             }
         });
 
+
+
+
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
         fusedLocationClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
@@ -139,6 +150,23 @@ public class AddEventActivity extends AppCompatActivity {
                         if (location != null) {
                             // Logic to handle location object
                             userLastKnownLocation = location;
+                        }else {
+                            locationRequest = LocationRequest.create();
+                            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                            locationRequest.setInterval(20 * 1000);
+                            locationCallback = new LocationCallback() {
+                                @Override
+                                public void onLocationResult(LocationResult locationResult) {
+                                    if (locationResult == null) {
+                                        return;
+                                    }
+                                    for (Location location : locationResult.getLocations()) {
+                                        if (location != null) {
+                                            userLastKnownLocation=location;
+                                        }
+                                    }
+                                }
+                            };
                         }
                     }
                 });
