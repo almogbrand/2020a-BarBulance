@@ -485,9 +485,9 @@ public class Database {
             }
         });
     }
-    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList,String eventID) {
+    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList, String eventID) {
 
-        Query query = FirebaseFirestore.getInstance().collection("Drives").whereEqualTo("eventID",eventID).limit(10);
+        Query query = FirebaseFirestore.getInstance().collection("Drives").whereEqualTo("eventID", eventID).limit(10);
         FirestoreRecyclerOptions<Drive> options =
                 new FirestoreRecyclerOptions
                         .Builder<Drive>()

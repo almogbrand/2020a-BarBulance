@@ -1,7 +1,10 @@
 package android.technion.com;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.ContextThemeWrapper;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -80,7 +83,38 @@ public class DisplayEventActivity extends AppCompatActivity {
         }
 
         displayEventPickupButton = findViewById(R.id.displayEventPickupButton);
-        // TODO: set action onClick pickup
+        displayEventPickupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(DisplayEventActivity.this, R.style.AlertDialogCustom));
+                alertDialogBuilder.setMessage("Are you sure you want to pickup " + event.getAnimalType() + " from " + event.getLocation() + "?");
+                alertDialogBuilder.setPositiveButton("Ok",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                Intent intent = new Intent(DisplayEventActivity.this, PickUpActivity.class);
+                                intent.putExtra("event", event);
+                                startActivity(intent);
+                            }
+                        });
+
+                alertDialogBuilder.setNegativeButton("Cancel",
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+                Button okButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+                okButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+                Button cancelButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+                cancelButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+            }
+        });
+
         displayEventFosterButton = findViewById(R.id.displayEventFosterButton);
         // TODO: set action onClick foster
 

@@ -11,7 +11,7 @@
         android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:minSdkVersion="16" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:allowBackup="true"
@@ -20,12 +20,16 @@
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <service android:name=".MyCoolService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".PickUpActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".EditUserActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -97,10 +101,10 @@
                 <data android:scheme="@string/fb_login_protocol_scheme" />
             </intent-filter>
         </activity>
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyAB3_3sqDmbcy_XkmAMziUTN7M5f059V5I"/>
-
+            android:value="AIzaSyAB3_3sqDmbcy_XkmAMziUTN7M5f059V5I" />
     </application>
 
 </manifest>
