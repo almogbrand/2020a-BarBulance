@@ -49,17 +49,6 @@ public class FosterActivity extends AppCompatActivity {
             }
         });
 
-
-        mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
-
-//        Foster foster = new Foster(currentUser.getUid(), currentUser.getPhotoUrl().toString(),
-//                "Lilit Yeknow", "0543191515",
-//                "Haifa, Israel", "15/1/2020", "13:20",
-//                "15/1/2020", "13:30", "RAneUAut8fL09u6zxwVq");
-//
-//        db.addFosterToDatabase(foster);
-
         RecyclerView recyclerView = findViewById(R.id.eventFosterList);
         db.setUpRecyclerViewFosterListFromCertainEvent(FosterActivity.this, recyclerView, event.getDatabaseID());
     }
