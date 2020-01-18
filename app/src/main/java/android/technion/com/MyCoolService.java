@@ -71,7 +71,7 @@ public class MyCoolService extends FirebaseMessagingService {
         Map<String, Object> data = new HashMap<>();
         data.put("token", token);
 
-        db.collection("users").document(mAuth.getCurrentUser().getUid())
+        db.collection("Users").document(mAuth.getCurrentUser().getUid())
                 .set(data, SetOptions.merge());
     }
 
