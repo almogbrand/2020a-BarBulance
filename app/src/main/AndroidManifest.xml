@@ -28,6 +28,9 @@
         </service>
 
         <activity
+            android:name=".AddFosterActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".FosterActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
