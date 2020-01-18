@@ -486,9 +486,10 @@ public class Database {
         });
     }
 
-    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList, String eventID) {
+    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList, final Event event) {
 
-        Query query = FirebaseFirestore.getInstance().collection("Drives").whereEqualTo("eventID", eventID).limit(10);
+        Query query = FirebaseFirestore.getInstance().collection("Drives")
+                .whereEqualTo("eventID", event.getDatabaseID()).limit(10);
         FirestoreRecyclerOptions<Drive> options =
                 new FirestoreRecyclerOptions
                         .Builder<Drive>()
@@ -519,6 +520,7 @@ public class Database {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(v.getContext(), DisplayRideActivity.class);
+                        intent.putExtra("event", event);
                         intent.putExtra("drive", item);
                         v.getContext().startActivity(intent);
                     }
@@ -532,8 +534,10 @@ public class Database {
         FBAdapter.startListening();
     }
 
-    public void setUpRecyclerViewFosterListFromCertainEvent(final Context context, RecyclerView recyclerList, String eventID) {
-        Query query = FirebaseFirestore.getInstance().collection("Fosters").whereEqualTo("eventID", eventID).limit(10);
+    public void setUpRecyclerViewFosterListFromCertainEvent(final Context context, RecyclerView recyclerList, final Event event) {
+        Query query = FirebaseFirestore.getInstance()
+                .collection("Fosters")
+                .whereEqualTo("eventID", event.getDatabaseID()).limit(10);
         FirestoreRecyclerOptions<Foster> options =
                 new FirestoreRecyclerOptions
                         .Builder<Foster>()
@@ -563,7 +567,8 @@ public class Database {
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Intent intent = new Intent(v.getContext(), DisplayRideActivity.class);
+                        Intent intent = new Intent(v.getContext(), DisplayFosterActivity.class);
+                        intent.putExtra("event", event);
                         intent.putExtra("foster", item);
                         v.getContext().startActivity(intent);
                     }

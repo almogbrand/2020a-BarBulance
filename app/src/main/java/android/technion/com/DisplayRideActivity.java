@@ -29,6 +29,7 @@ public class DisplayRideActivity extends AppCompatActivity {
     private Button displayRideCallButton;
     private Button displayRideChatButton;
     private Drive drive;
+    private Event event;
     private Toolbar toolbar;
     private Database db;
     private FirebaseAuth mAuth;
@@ -38,6 +39,7 @@ public class DisplayRideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_display_ride);
 
+        event = (Event) getIntent().getSerializableExtra("event");
         drive = (Drive) getIntent().getSerializableExtra("drive");
 
         displayRideImageView = findViewById(R.id.displayRideImageView);
@@ -119,6 +121,7 @@ public class DisplayRideActivity extends AppCompatActivity {
                 switch (item.getItemId()) {
                     case R.id.action_edit:
                         intent = new Intent(DisplayRideActivity.this, AddRideActivity.class);
+                        intent.putExtra("event", event);
                         intent.putExtra("drive", drive);
                         startActivity(intent);
                         return true;

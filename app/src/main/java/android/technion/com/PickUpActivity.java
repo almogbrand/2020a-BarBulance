@@ -47,7 +47,7 @@ public class PickUpActivity extends AppCompatActivity {
         });
 
         RecyclerView recyclerView = findViewById(R.id.eventRidesList);
-        db.setUpRecyclerViewDrivesListFromCertainEvent(PickUpActivity.this, recyclerView, event.getDatabaseID());
+        db.setUpRecyclerViewDrivesListFromCertainEvent(PickUpActivity.this, recyclerView, event);
     }
 
 }

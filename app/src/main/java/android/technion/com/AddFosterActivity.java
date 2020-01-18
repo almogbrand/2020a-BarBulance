@@ -202,7 +202,7 @@ public class AddFosterActivity extends AppCompatActivity {
             }
         });
 
-        // in case of EDITING an existing ride
+        // in case of EDITING an existing foster
         if(foster != null){
             addFosterNameText.setText(foster.getFosterFullName());
             addFosterPhoneText.setText(foster.getFosterPhoneNumber());
@@ -292,7 +292,10 @@ public class AddFosterActivity extends AppCompatActivity {
         }
         toast.show();
 
-        finish();
+        Intent intent = new Intent(AddFosterActivity.this, FosterActivity.class);
+        intent.putExtra("event", event);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         return true;
     }
 

@@ -9,15 +9,12 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 
 public class FosterActivity extends AppCompatActivity {
     private FloatingActionButton eventFosterFab;
     private Toolbar toolbar;
     private Event event;
     private Database db;
-    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,11 +42,12 @@ public class FosterActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(FosterActivity.this, AddFosterActivity.class);
                 intent.putExtra("event", event);
+                finish();
                 startActivity(intent);
             }
         });
 
         RecyclerView recyclerView = findViewById(R.id.eventFosterList);
-        db.setUpRecyclerViewFosterListFromCertainEvent(FosterActivity.this, recyclerView, event.getDatabaseID());
+        db.setUpRecyclerViewFosterListFromCertainEvent(FosterActivity.this, recyclerView, event);
     }
 }

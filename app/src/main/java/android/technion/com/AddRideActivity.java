@@ -292,15 +292,15 @@ public class AddRideActivity extends AppCompatActivity {
         }
         toast.show();
 
+        Intent intent;
         if(event != null){
-            Intent intent = new Intent(AddRideActivity.this, PickUpActivity.class);
+            intent = new Intent(AddRideActivity.this, PickUpActivity.class);
             intent.putExtra("event", event);
-            startActivity(intent);
         } else {
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-            startActivity(intent);
+            intent = new Intent(getApplicationContext(), MainActivity.class);
         }
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        startActivity(intent);
         return true;
     }
 
