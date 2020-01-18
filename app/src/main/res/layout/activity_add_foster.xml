@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context="android.technion.com.AddFosterActivity">
+
+        <include
+            android:id="@+id/toolbar"
+            layout="@layout/toolbar_layout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterName"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/toolbar"
+            app:startIconDrawable="@drawable/account"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterNameText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/full_name" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterPhone"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addFosterName"
+            app:startIconDrawable="@drawable/phone"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:helperTextEnabled="true"
+            app:helperText="Example: 0541234567 or 048123456" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterPhoneText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/phone_number"
+                android:inputType="phone" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterLocation"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/addFosterPhone"
+            app:startIconDrawable="@drawable/map_marker"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:counterEnabled="true"
+            app:counterMaxLength="32" >
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterLocationText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/location"
+                android:inputType="textPostalAddress"
+                android:focusable="false"
+                android:maxLength="32"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/addFosterFromText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:text="@string/from"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addFosterLocation" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterFromDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:layout_constraintEnd_toStartOf="@+id/addFosterFromTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addFosterFromText"
+            app:startIconDrawable="@drawable/calendar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterFromDateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterFromTime"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addFosterFromDate"
+            app:layout_constraintTop_toBottomOf="@+id/addFosterFromText"
+            app:startIconDrawable="@drawable/clock_outline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterFromTimeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/time" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/addFosterUntilText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="28dp"
+            android:layout_marginLeft="28dp"
+            android:layout_marginTop="16dp"
+            android:gravity="center_vertical"
+            android:text="@string/until"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addFosterFromDate" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterUntilDate"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="24dp"
+            android:layout_marginLeft="24dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="24dp"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/addFosterUntilTime"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/addFosterUntilText"
+            app:layout_constraintVertical_bias="0.0"
+            app:startIconDrawable="@drawable/calendar">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterUntilDateText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/date" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/addFosterUntilTime"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="24dp"
+            android:layout_marginRight="24dp"
+            app:errorEnabled="true"
+            app:errorIconDrawable="@drawable/alert_circle_outline"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/addFosterUntilDate"
+            app:layout_constraintTop_toBottomOf="@+id/addFosterUntilText"
+            app:startIconDrawable="@drawable/clock_outline">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/addFosterUntilTimeText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:hint="@string/time" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

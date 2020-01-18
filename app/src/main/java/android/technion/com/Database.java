@@ -101,7 +101,7 @@ public class Database {
                 Log.d(TAG, "Foster added with ID: " + documentReference.getId());
                 db.collection("Fosters").document(documentReference.getId())
                         .update(
-                                "fosterDbId", documentReference.getId()
+                                "databaseID", documentReference.getId()
                         );
             }
         })
@@ -266,37 +266,37 @@ public class Database {
         FBAdapter.startListening();
     }
 
-    public void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
-
-        Query query = FirebaseFirestore.getInstance().collection("Fosters").orderBy("userID", Query.Direction.ASCENDING).limit(50);
-        FirestoreRecyclerOptions<Foster> options = new FirestoreRecyclerOptions.Builder<Foster>().setQuery(query,Foster.class).build();
-        recyclerV = recyclerList;
-
-        FBAdapter = new FirestoreRecyclerAdapter<Foster, DataHolder>(options){
-
-            @Override
-            public DataHolder onCreateViewHolder(ViewGroup parent,
-                                                 int viewType) {
-
-                View v = LayoutInflater.from(parent.getContext())
-                        .inflate(R.layout.data_holderrow, parent, false);
-
-                return  new DataHolder(v);
-            }
-
-            @Override
-            public void onBindViewHolder(DataHolder holder, int position, Foster item) {
-                holder.setValue(item.getUserID());
-                holder.setLetter(item.getLocation());
-            }
-        };
-
-        layoutManager = new LinearLayoutManager(context);
-        recyclerV.setLayoutManager(layoutManager);
-        recyclerV.setAdapter(FBAdapter);
-        FBAdapter.startListening();
-
-    }
+//    public void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
+//
+//        Query query = FirebaseFirestore.getInstance().collection("Fosters").orderBy("userID", Query.Direction.ASCENDING).limit(50);
+//        FirestoreRecyclerOptions<Foster> options = new FirestoreRecyclerOptions.Builder<Foster>().setQuery(query,Foster.class).build();
+//        recyclerV = recyclerList;
+//
+//        FBAdapter = new FirestoreRecyclerAdapter<Foster, DataHolder>(options){
+//
+//            @Override
+//            public DataHolder onCreateViewHolder(ViewGroup parent,
+//                                                 int viewType) {
+//
+//                View v = LayoutInflater.from(parent.getContext())
+//                        .inflate(R.layout.data_holderrow, parent, false);
+//
+//                return  new DataHolder(v);
+//            }
+//
+//            @Override
+//            public void onBindViewHolder(DataHolder holder, int position, Foster item) {
+//                holder.setValue(item.getUserID());
+//                holder.setLetter(item.getLocation());
+//            }
+//        };
+//
+//        layoutManager = new LinearLayoutManager(context);
+//        recyclerV.setLayoutManager(layoutManager);
+//        recyclerV.setAdapter(FBAdapter);
+//        FBAdapter.startListening();
+//
+//    }
 
 
     public void storeImageInDatabaseStorage(ImageView imageView, final String photoID) {
@@ -485,9 +485,11 @@ public class Database {
             }
         });
     }
-    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList,String eventID) {
 
-        Query query = FirebaseFirestore.getInstance().collection("Drives").whereEqualTo("eventID",eventID).limit(10);
+    public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList, final Event event) {
+
+        Query query = FirebaseFirestore.getInstance().collection("Drives")
+                .whereEqualTo("eventID", event.getDatabaseID()).limit(10);
         FirestoreRecyclerOptions<Drive> options =
                 new FirestoreRecyclerOptions
                         .Builder<Drive>()
@@ -518,6 +520,7 @@ public class Database {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(v.getContext(), DisplayRideActivity.class);
+                        intent.putExtra("event", event);
                         intent.putExtra("drive", item);
                         v.getContext().startActivity(intent);
                     }
@@ -531,52 +534,51 @@ public class Database {
         FBAdapter.startListening();
     }
 
-   /*
-    public Event getEventFromDatabase(String eventID) {
-        DocumentReference docRef = db.collection("Events").document(eventID);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> documentSnapshot) { // change to oncomplete and check for null
+    public void setUpRecyclerViewFosterListFromCertainEvent(final Context context, RecyclerView recyclerList, final Event event) {
+        Query query = FirebaseFirestore.getInstance()
+                .collection("Fosters")
+                .whereEqualTo("eventID", event.getDatabaseID()).limit(10);
+        FirestoreRecyclerOptions<Foster> options =
+                new FirestoreRecyclerOptions
+                        .Builder<Foster>()
+                        .setQuery(query, Foster.class)
+                        .build();
+        recyclerV = recyclerList;
 
-                if(documentSnapshot.isSuccessful()) {
-                    Event event = documentSnapshot.getResult().toObject(Event.class);
-                }
-                else {
+        FBAdapter = new FirestoreRecyclerAdapter<Foster, FosterHolder>(options){
 
-                }
-                // anything we want to do with this event
-            }
-        });
-        return event;
-    }
-    public Drive getDriveFromDatabase(String driverFullName) {
-        DocumentReference docRef = db.collection("Drives").document(driverFullName);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {//change to oncomplete and check for null
             @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                drive2 = documentSnapshot.toObject(Drive.class);
-                drive2.setFromLocation("aaaaaa");
-//                db.collection("")
-                //what we want to do with this drive
-            }
-        });
-        return drive2;
-    }
+            public FosterHolder onCreateViewHolder(ViewGroup parent,
+                                                  int viewType) {
 
-    Drive getDrive2(){
-        return drive2;
-    }
-    public void getFosterFromDatabase(String fosterID) {
-        DocumentReference docRef = db.collection("Fosters").document(fosterID);
-        docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {// change to oncomplete and check for null
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                Foster foster = documentSnapshot.toObject(Foster.class);
-                // what we want to do with this foster class
+                View v = LayoutInflater.from(parent.getContext())
+                        .inflate(R.layout.fosterholder_row, parent, false);
+
+                return new FosterHolder(v);
             }
-        });
+
+            @Override
+            public void onBindViewHolder(FosterHolder holder, int position, final Foster item) {
+                holder.setFosterLocation(item.getLocation());
+                holder.setFosterTime(item.getUntilTime());
+                holder.setFosterDate(item.getUntilDate());
+                holder.setFosterPerson(item.getFosterFullName());
+                holder.setFosterProfilePic((Uri.parse(item.getFosterProfilePicUri())));
+                holder.itemView.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), DisplayFosterActivity.class);
+                        intent.putExtra("event", event);
+                        intent.putExtra("foster", item);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+            }
+        };
+
+        layoutManager = new LinearLayoutManager(context);
+        recyclerV.setLayoutManager(layoutManager);
+        recyclerV.setAdapter(FBAdapter);
+        FBAdapter.startListening();
     }
-    //add get for each of the objects
-    //add update for all objects
-*/
 }

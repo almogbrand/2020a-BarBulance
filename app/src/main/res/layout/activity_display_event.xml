@@ -1,212 +1,220 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/displayEventScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fillViewport="true">
+    android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar_layout" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/displayEventScrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:context="android.technion.com.displayEventActivity">
+        android:layout_height="wrap_content"
+        android:fillViewport="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <include
-            android:id="@+id/toolbar"
-            layout="@layout/toolbar_layout" />
-
-        <ImageView
-            android:id="@+id/displayEventImage"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:src="@drawable/logo"
-            android:visibility="visible"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/toolbar"
-            tools:srcCompat="@android:color/background_light" />
+            android:layout_height="match_parent"
+            tools:context="android.technion.com.displayEventActivity">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/displayEventAnimalType"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginRight="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/displayEventUrgentButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayEventImage"
-            app:startIconDrawable="@drawable/rabbit">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/displayEventAnimalTypeText"
+            <ImageView
+                android:id="@+id/displayEventImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="@string/animal_type" />
-        </com.google.android.material.textfield.TextInputLayout>
+                android:adjustViewBounds="true"
+                android:src="@drawable/logo"
+                android:visibility="visible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:srcCompat="@android:color/background_light" />
 
-        <Button
-            android:id="@+id/displayEventUrgentButton"
-            android:layout_width="wrap_content"
-            android:layout_height="0dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="12dp"
-            android:drawableLeft="@drawable/alert_circle_outline"
-            android:drawableTint="@color/colorIcons"
-            android:text="@string/nonurgent"
-            android:textSize="14sp"
-            android:backgroundTint="@color/colorSecondaryText"
-            app:iconPadding="8dp"
-            app:layout_constraintBottom_toTopOf="@+id/displayEventLocation"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayEventImage" />
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/displayEventAnimalType"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginRight="16dp"
+                app:layout_constraintEnd_toStartOf="@+id/displayEventUrgentButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayEventImage"
+                app:startIconDrawable="@drawable/rabbit">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/displayEventLocation"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:inputType="textPostalAddress"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/displayEventAnimalType"
-            app:startIconDrawable="@drawable/map_marker">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/displayEventAnimalTypeText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="@string/animal_type" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/displayEventLocationText"
-                android:layout_width="match_parent"
+            <Button
+                android:id="@+id/displayEventUrgentButton"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="12dp"
+                android:backgroundTint="@color/colorSecondaryText"
+                android:drawableLeft="@drawable/alert_circle_outline"
+                android:drawableTint="@color/colorIcons"
+                android:text="@string/nonurgent"
+                android:textSize="14sp"
+                app:iconPadding="8dp"
+                app:layout_constraintBottom_toTopOf="@+id/displayEventLocation"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayEventImage" />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/displayEventLocation"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:inputType="textPostalAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/displayEventAnimalType"
+                app:startIconDrawable="@drawable/map_marker">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/displayEventLocationText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="@string/location"
+                    android:maxLength="16" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/displayEventDescription"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:hint="@string/location"
-                android:focusable="false"
-                android:maxLength="16"/>
-        </com.google.android.material.textfield.TextInputLayout>
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:inputType="textMultiLine"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/displayEventLocation"
+                app:startIconDrawable="@drawable/text">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/displayEventDescription"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:inputType="textMultiLine"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/displayEventLocation"
-            app:startIconDrawable="@drawable/text" >
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/displayEventDescriptionText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Description" />
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/displayEventDescriptionText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="Description" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/displayEventName"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:inputType="textPersonName"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayEventDescription"
+                app:startIconDrawable="@drawable/account">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/displayEventName"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:inputType="textPersonName"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayEventDescription"
-            app:startIconDrawable="@drawable/account">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/displayEventNameText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Contact Name" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/displayEventNameText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="Contact Name" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/displayEventPhone"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:inputType="phone"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/displayEventName"
+                app:startIconDrawable="@drawable/phone">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/displayEventPhone"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:inputType="phone"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/displayEventName"
-            app:startIconDrawable="@drawable/phone">
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/displayEventPhoneText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:focusable="false"
+                    android:hint="Phone number" />
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/displayEventPhoneText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:focusable="false"
-                android:hint="Phone number" />
-        </com.google.android.material.textfield.TextInputLayout>
+            <Button
+                android:id="@+id/displayEventPickupButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginLeft="24dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:drawableLeft="@drawable/ambulance"
+                android:drawableTint="@color/colorIcons"
+                android:text="@string/pickup"
+                android:textSize="16sp"
+                app:iconPadding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/displayEventFosterButton"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/displayEventPhone"
+                app:layout_constraintVertical_bias="0.0" />
 
-        <Button
-            android:id="@+id/displayEventPickupButton"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="24dp"
-            android:layout_marginLeft="24dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:drawableLeft="@drawable/ambulance"
-            android:drawableTint="@color/colorIcons"
-            android:text="@string/pickup"
-            android:textSize="16sp"
-            app:iconPadding="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toStartOf="@+id/displayEventFosterButton"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/displayEventPhone"
-            app:layout_constraintVertical_bias="0.0" />
+            <Button
+                android:id="@+id/displayEventFosterButton"
+                android:layout_width="0dp"
+                android:layout_height="56dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="24dp"
+                android:layout_marginRight="24dp"
+                android:layout_marginBottom="16dp"
+                android:drawableLeft="@drawable/home"
+                android:drawableTint="@color/colorIcons"
+                android:text="@string/foster"
+                android:textSize="16sp"
+                app:iconPadding="4dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/displayEventPickupButton"
+                app:layout_constraintTop_toBottomOf="@+id/displayEventPhone" />
 
-        <Button
-            android:id="@+id/displayEventFosterButton"
-            android:layout_width="0dp"
-            android:layout_height="56dp"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_marginTop="16dp"
-            android:layout_marginEnd="24dp"
-            android:layout_marginRight="24dp"
-            android:layout_marginBottom="16dp"
-            android:drawableLeft="@drawable/home"
-            android:drawableTint="@color/colorIcons"
-            android:text="@string/foster"
-            android:textSize="16sp"
-            app:iconPadding="4dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/displayEventPickupButton"
-            app:layout_constraintTop_toBottomOf="@+id/displayEventPhone" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
+</LinearLayout>

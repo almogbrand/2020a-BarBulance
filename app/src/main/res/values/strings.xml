@@ -19,6 +19,7 @@
     <string name="sample_text">Sample</string>
     <string name="from">From:</string>
     <string name="to">To:</string>
+    <string name="until">Until:</string>
     <string name="textview">TextView</string>
     <string name="person">person</string>
     <string name="location">Location</string>

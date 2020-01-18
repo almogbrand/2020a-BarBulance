@@ -48,6 +48,7 @@ public class AddRideActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
     private Drive drive;
+    private Event event;
     private TimePickerDialog timePicker;
     private DatePickerDialog datePicker;
 
@@ -57,6 +58,7 @@ public class AddRideActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_ride);
 
         drive = (Drive) getIntent().getSerializableExtra("drive");
+        event = (Event) getIntent().getSerializableExtra("event");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
@@ -135,6 +137,9 @@ public class AddRideActivity extends AppCompatActivity {
             }
         });
 
+        if(event != null){
+            addRideFromLocationText.setText(event.getLocation());
+        }
         addRideFromLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -272,6 +277,11 @@ public class AddRideActivity extends AppCompatActivity {
         Drive newRide = new Drive(currentUser.getUid(), currentUser.getPhotoUrl().toString(),
                 name, phone, fromLocation, toLocation, date, time);
 
+        // in case of adding ride to specific event
+        if(event != null){
+            newRide.setEventID(event.getDatabaseID());
+        }
+
         db.addDriveToDatabase(newRide);
 
         if(drive != null) {
@@ -282,7 +292,13 @@ public class AddRideActivity extends AppCompatActivity {
         }
         toast.show();
 
-        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        Intent intent;
+        if(event != null){
+            intent = new Intent(AddRideActivity.this, PickUpActivity.class);
+            intent.putExtra("event", event);
+        } else {
+            intent = new Intent(getApplicationContext(), MainActivity.class);
+        }
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         return true;
