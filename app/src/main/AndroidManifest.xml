@@ -20,6 +20,7 @@
         android:roundIcon="@mipmap/ic_launcher_new"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".FosterActivity"></activity>
 
         <service android:name=".MyCoolService">
             <intent-filter>
@@ -29,7 +30,7 @@
 
         <activity
             android:name=".PickUpActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".EditUserActivity"
             android:theme="@style/AppTheme.NoActionBar" />

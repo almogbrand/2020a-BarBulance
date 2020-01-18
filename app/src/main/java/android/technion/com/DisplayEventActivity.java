@@ -5,7 +5,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextThemeWrapper;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,10 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
-
-import com.facebook.login.LoginManager;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class DisplayEventActivity extends AppCompatActivity {
     private NestedScrollView scrollview;
@@ -86,37 +82,48 @@ public class DisplayEventActivity extends AppCompatActivity {
         displayEventPickupButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(DisplayEventActivity.this, R.style.AlertDialogCustom));
-                alertDialogBuilder.setMessage("Are you sure you want to pickup " + event.getAnimalType() + " from " + event.getLocation() + "?");
-                alertDialogBuilder.setPositiveButton("Ok",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                Intent intent = new Intent(DisplayEventActivity.this, PickUpActivity.class);
-                                intent.putExtra("event", event);
-                                startActivity(intent);
-                            }
-                        });
+                Intent intent = new Intent(DisplayEventActivity.this, PickUpActivity.class);
+                intent.putExtra("event", event);
+                startActivity(intent);
 
-                alertDialogBuilder.setNegativeButton("Cancel",
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                dialog.dismiss();
-                            }
-                        });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-                Button okButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-                okButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
-                Button cancelButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-                cancelButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+//                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(new ContextThemeWrapper(DisplayEventActivity.this, R.style.AlertDialogCustom));
+//                alertDialogBuilder.setMessage("Are you sure you want to pickup " + event.getAnimalType() + " from " + event.getLocation() + "?");
+//                alertDialogBuilder.setPositiveButton("Ok",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                Intent intent = new Intent(DisplayEventActivity.this, PickUpActivity.class);
+//                                intent.putExtra("event", event);
+//                                startActivity(intent);
+//                            }
+//                        });
+//
+//                alertDialogBuilder.setNegativeButton("Cancel",
+//                        new DialogInterface.OnClickListener() {
+//                            @Override
+//                            public void onClick(DialogInterface dialog, int which) {
+//                                dialog.dismiss();
+//                            }
+//                        });
+//
+//                AlertDialog alertDialog = alertDialogBuilder.create();
+//                alertDialog.show();
+//                Button okButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
+//                okButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
+//                Button cancelButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
+//                cancelButton.setTextColor(getResources().getColor(R.color.colorPrimaryDark));
             }
         });
 
         displayEventFosterButton = findViewById(R.id.displayEventFosterButton);
-        // TODO: set action onClick foster
+        displayEventFosterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(DisplayEventActivity.this, FosterActivity.class);
+                intent.putExtra("event", event);
+                startActivity(intent);
+            }
+        });
 
         // to start at the bottom of the activity
         scrollview = findViewById(R.id.displayEventScrollView);
