@@ -31,6 +31,7 @@ public class AddFosterActivity extends AppCompatActivity {
     private TextInputEditText addFosterNameText;
     private TextInputEditText addFosterPhoneText;
     private TextInputEditText addFosterLocationText;
+    private TextInputEditText addFosterLocationCity;
     private TextInputEditText addFosterFromDateText;
     private TextInputEditText addFosterFromTimeText;
     private TextInputEditText addFosterUntilDateText;
@@ -75,6 +76,7 @@ public class AddFosterActivity extends AppCompatActivity {
         addFosterNameText = findViewById(R.id.addFosterNameText);
         addFosterPhoneText = findViewById(R.id.addFosterPhoneText);
         addFosterLocationText = findViewById(R.id.addFosterLocationText);
+        addFosterLocationCity = new TextInputEditText(AddFosterActivity.this);
         addFosterFromDateText = findViewById(R.id.addFosterFromDateText);
         addFosterFromTimeText = findViewById(R.id.addFosterFromTimeText);
         addFosterUntilDateText = findViewById(R.id.addFosterUntilDateText);
@@ -207,6 +209,7 @@ public class AddFosterActivity extends AppCompatActivity {
             addFosterNameText.setText(foster.getFosterFullName());
             addFosterPhoneText.setText(foster.getFosterPhoneNumber());
             addFosterLocationText.setText(foster.getLocation());
+            addFosterLocationCity.setText(foster.getLocationCity());
             addFosterFromDateText.setText(foster.getFromDate());
             addFosterFromTimeText.setText(foster.getFromTime());
             addFosterUntilDateText.setText(foster.getUntilDate());
@@ -223,6 +226,7 @@ public class AddFosterActivity extends AppCompatActivity {
                 AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
                 if(!addressData.getAddressList().isEmpty()) {
                     addFosterLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                    addFosterLocationCity.setText(addressData.getAddressList().get(0).getLocality());
                 }
             }
         }
@@ -232,6 +236,7 @@ public class AddFosterActivity extends AppCompatActivity {
         String name = addFosterNameText.getText().toString();
         String phone = addFosterPhoneText.getText().toString();
         String location = addFosterLocationText.getText().toString();
+        String city = addFosterLocationCity.getText().toString();
         String fromDate = addFosterFromDateText.getText().toString();
         String fromTime = addFosterFromTimeText.getText().toString();
         String untilDate = addFosterUntilDateText.getText().toString();
@@ -279,7 +284,7 @@ public class AddFosterActivity extends AppCompatActivity {
         // in case of adding ride to specific event
         if(event != null){
             Foster newFoster = new Foster(currentUser.getUid(), currentUser.getPhotoUrl().toString(),
-                    name, phone, location, fromDate, fromTime, untilDate, untilTime, event.getDatabaseID());
+                    name, phone, location, city, fromDate, fromTime, untilDate, untilTime, event.getDatabaseID());
 
             db.addFosterToDatabase(newFoster);
         }

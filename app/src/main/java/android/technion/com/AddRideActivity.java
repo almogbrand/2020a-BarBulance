@@ -44,7 +44,9 @@ public class AddRideActivity extends AppCompatActivity {
     private TextInputEditText addRideDateText;
     private TextInputEditText addRideTimeText;
     private TextInputEditText addRideFromLocationText;
+    private TextInputEditText addRideFromCity;
     private TextInputEditText addRideToLocationText;
+    private TextInputEditText addRideToCity;
     private FirebaseAuth mAuth;
     private Toolbar toolbar;
     private Drive drive;
@@ -88,7 +90,9 @@ public class AddRideActivity extends AppCompatActivity {
         addRideDateText = findViewById(R.id.addRideDateText);
         addRideTimeText = findViewById(R.id.addRideTimeText);
         addRideFromLocationText = findViewById(R.id.addRideFromLocationText);
+        addRideFromCity = new TextInputEditText(AddRideActivity.this);
         addRideToLocationText = findViewById(R.id.addRideToLocationText);
+        addRideToCity = new TextInputEditText(AddRideActivity.this);
 
         addRideTimeText.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -204,28 +208,32 @@ public class AddRideActivity extends AppCompatActivity {
             addRideDateText.setText(drive.getDate());
             addRideTimeText.setText(drive.getTime());
             addRideFromLocationText.setText(drive.getFromLocation());
+            addRideFromCity.setText(drive.getFromCity());
             addRideToLocationText.setText(drive.getToLocation());
+            addRideToCity.setText(drive.getToCity());
         }
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode==Constants.PLACE_PICKER_REQUEST) {
+        if(requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
                 if(!addressData.getAddressList().isEmpty()) {
                     addRideFromLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                    addRideFromCity.setText(addressData.getAddressList().get(0).getLocality());
                 }
             }
         }
-        else if(requestCode==101){
+        else if(requestCode == 101){
             if (resultCode == Activity.RESULT_OK && data != null) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
                 if(!addressData.getAddressList().isEmpty()) {
                     addRideToLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                    addRideToCity.setText(addressData.getAddressList().get(0).getLocality());
                 }
             }
         }
@@ -237,7 +245,9 @@ public class AddRideActivity extends AppCompatActivity {
         String date = addRideDateText.getText().toString();
         String time = addRideTimeText.getText().toString();
         String fromLocation = addRideFromLocationText.getText().toString();
+        String fromCity = addRideFromCity.getText().toString();
         String toLocation = addRideToLocationText.getText().toString();
+        String toCity = addRideToCity.getText().toString();
         Toast toast;
         if(name.isEmpty() || phone.isEmpty() || date.isEmpty() || time.isEmpty()
                 || fromLocation.isEmpty() || toLocation.isEmpty()){
@@ -275,7 +285,7 @@ public class AddRideActivity extends AppCompatActivity {
         final FirebaseUser currentUser = mAuth.getCurrentUser();
 
         Drive newRide = new Drive(currentUser.getUid(), currentUser.getPhotoUrl().toString(),
-                name, phone, fromLocation, toLocation, date, time);
+                name, phone, fromLocation, fromCity, toLocation, toCity, date, time);
 
         // in case of adding ride to specific event
         if(event != null){

@@ -10,7 +10,7 @@
         <item>Owl</item>
         <item>Snake</item>
         <item>Turtle</item>
-        <item>Unknown</item>
+        <item>Other</item>
     </string-array>
 </resources>
 

@@ -16,6 +16,7 @@ public class Event implements Serializable {
 
     String databaseID;
     String location;
+    String locationCity;
     String reporterId;
     String phoneNumber;
     String animalType;
@@ -25,10 +26,10 @@ public class Event implements Serializable {
     List<Drive> drives;
     List<Foster> fosters;
 
-    public Event(String location, String reporterId, String phoneNumber, String animalType , String description, Boolean urgent, String photoID) {
-
+    public Event(String location, String locationCity, String reporterId, String phoneNumber, String animalType , String description, Boolean urgent, String photoID) {
         this.databaseID="";
         this.location = location;
+        this.locationCity = locationCity;
         this.reporterId = reporterId;
         this.animalType = animalType;
         this.phoneNumber = phoneNumber;
@@ -38,5 +39,4 @@ public class Event implements Serializable {
         this.drives = new ArrayList<>();
         this.fosters = new ArrayList<>();
     }
-
 }

@@ -60,6 +60,7 @@ public class AddEventActivity extends AppCompatActivity {
     private TextInputEditText addEventNameText;
     private TextInputEditText addEventPhoneText;
     private TextInputEditText addEventLocationText;
+    private TextInputEditText addEventLocationCity;
 
     private Location userLastKnownLocation;
     private FusedLocationProviderClient fusedLocationClient;
@@ -117,6 +118,7 @@ public class AddEventActivity extends AppCompatActivity {
         addEventNameText = findViewById(R.id.addEventNameText);
         addEventPhoneText = findViewById(R.id.addEventPhoneText);
         addEventLocationText = findViewById(R.id.addEventLocationText);
+        addEventLocationCity = new TextInputEditText(AddEventActivity.this);
         addEventAnimalType = findViewById(R.id.addEventAnimalType);
         addEventDescriptionText = findViewById(R.id.addEventDescriptionText);
         addEventUrgentSwitch = findViewById(R.id.addEventUrgentSwitch);
@@ -207,6 +209,7 @@ public class AddEventActivity extends AppCompatActivity {
             addEventNameText.setText(event.getReporterId());
             addEventPhoneText.setText(event.getPhoneNumber());
             addEventLocationText.setText(event.getLocation());
+            addEventLocationCity.setText(event.getLocationCity());
             addEventAnimalType.getEditText().setText(event.getAnimalType());
             addEventDescriptionText.setText(event.getDescription());
             addEventUrgentSwitch.setChecked(event.getUrgent());
@@ -218,6 +221,7 @@ public class AddEventActivity extends AppCompatActivity {
         String name = addEventNameText.getText().toString();
         String phone = addEventPhoneText.getText().toString();
         String location = addEventLocationText.getText().toString();
+        String locationCity = addEventLocationCity.getText().toString();
         String animalType = addEventAnimalType.getEditText().getText().toString();
         String description = addEventDescriptionText.getText().toString();
         Toast toast;
@@ -245,7 +249,7 @@ public class AddEventActivity extends AppCompatActivity {
             return true;
         }
 
-        Event newEvent = new Event(location, name, phone, animalType, description, urgent, imageName);
+        Event newEvent = new Event(location, locationCity, name, phone, animalType, description, urgent, imageName);
         Database db = new Database();
         db.addEventToDatabase(newEvent);
         if(!(imageName.isEmpty())){
@@ -307,17 +311,17 @@ public class AddEventActivity extends AppCompatActivity {
         } else if (requestCode == CAMERA && resultCode == RESULT_OK) {
             Bitmap imageBitmap = BitmapFactory.decodeFile(currentPhotoPath);
             addEventImage.setImageBitmap(imageBitmap);
-        }
-        else if(requestCode==Constants.PLACE_PICKER_REQUEST) {
+        } else if (requestCode == Constants.PLACE_PICKER_REQUEST) {
             if (resultCode == Activity.RESULT_OK && data != null) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
                 AddressData addressData = data.getParcelableExtra(Constants.ADDRESS_INTENT);
                 if(!addressData.getAddressList().isEmpty()) {
                     addEventLocationText.setText(addressData.getAddressList().get(0).getAddressLine(0));
+                    addEventLocationCity.setText(addressData.getAddressList().get(0).getLocality());
                 }
             }
         }
-        }
+    }
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());

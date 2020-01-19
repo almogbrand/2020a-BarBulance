@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -33,7 +32,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
-import java.io.Serializable;
 
 import static android.content.ContentValues.TAG;
 
@@ -196,13 +194,13 @@ public class Database {
                         holder.mainLogo.setImageResource(R.drawable.animal_turtle);
                         break;
                     default:
-                        holder.mainLogo.setImageResource(R.drawable.animal_unknown);
+                        holder.mainLogo.setImageResource(R.drawable.animal_other);
                 }
 
                 holder.houseLogo.setImageResource(R.drawable.home);
                 holder.driveLogo.setImageResource(R.drawable.ambulance);
                 holder.setAnimalType(item.getAnimalType());
-                holder.setEventLocation(item.getLocation());
+                holder.setEventLocation(item.getLocationCity());
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -244,9 +242,9 @@ public class Database {
 
             @Override
             public void onBindViewHolder(DriveHolder holder, int position, final Drive item) {
-                holder.setDriveFromLocation(item.getFromLocation());
+                holder.setDriveFromLocation(item.getFromCity());
                 holder.setDriveTime(item.getTime());
-                holder.setDriveToLocation(item.getToLocation());
+                holder.setDriveToLocation(item.getToCity());
                 holder.setDriverID(item.getDriverFullName());
                 holder.setDriversProfilePic((Uri.parse(item.getDriverProfilePicUri())));
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
@@ -511,9 +509,9 @@ public class Database {
 
             @Override
             public void onBindViewHolder(DriveHolder holder, int position, final Drive item) {
-                holder.setDriveFromLocation(item.getFromLocation());
+                holder.setDriveFromLocation(item.getFromCity());
                 holder.setDriveTime(item.getTime());
-                holder.setDriveToLocation(item.getToLocation());
+                holder.setDriveToLocation(item.getToCity());
                 holder.setDriverID(item.getDriverFullName());
                 holder.setDriversProfilePic((Uri.parse(item.getDriverProfilePicUri())));
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
@@ -559,7 +557,7 @@ public class Database {
 
             @Override
             public void onBindViewHolder(FosterHolder holder, int position, final Foster item) {
-                holder.setFosterLocation(item.getLocation());
+                holder.setFosterLocation(item.getLocationCity());
                 holder.setFosterTime(item.getUntilTime());
                 holder.setFosterDate(item.getUntilDate());
                 holder.setFosterPerson(item.getFosterFullName());

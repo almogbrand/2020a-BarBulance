@@ -19,6 +19,7 @@ public class Foster implements Serializable {
     String fosterFullName;
     String fosterPhoneNumber;
     String location;
+    String locationCity;
     String fromDate;
     String fromTime;
     String untilDate;
@@ -26,8 +27,8 @@ public class Foster implements Serializable {
     String eventID;
 
     public Foster(String fosterId, String fosterProfilePicUri, String fosterFullName,
-                  String fosterPhoneNumber, String location,  String fromDate, String fromTime,
-                  String untilDate, String untilTime, String eventID){
+                  String fosterPhoneNumber, String location, String locationCity, String fromDate,
+                  String fromTime, String untilDate, String untilTime, String eventID){
 
         this.databaseID = "";
         this.fosterId = fosterId;
@@ -35,6 +36,7 @@ public class Foster implements Serializable {
         this.fosterFullName = fosterFullName;
         this.fosterPhoneNumber = fosterPhoneNumber;
         this.location = location;
+        this.locationCity = locationCity;
         this.fromDate = fromDate;
         this.fromTime = fromTime;
         this.untilDate = untilDate;
