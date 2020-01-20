@@ -20,7 +20,13 @@ if needed. Volunteers will be able to get news and updates about the rescued ani
 * [Terms And Conditions](https://drive.google.com/file/d/1ltqBoesiGGdJzDELnN6xiPKTmhzjwYxQ/view?usp=sharing) - Our Terms And Conditions
 
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Open Source License
-* [Gradle](https://gradle.org/) - Dependency Management * [Gradle](https://gradle.org/) - Dependency Management
+* [Firebase](https://firebase.google.com/) - User auth, Firestore database & storage, Google Cloud Services [Terms of Service](https://firebase.google.com/terms)
+* [Gradle](https://gradle.org/) - Dependency Management [Gradle](https://gradle.org/) - Dependency Management
+* [Gradle](https://gradle.org/) - Dependency Management [Gradle](https://gradle.org/) - Dependency Management
+* [Gradle](https://gradle.org/) - Dependency Management [Gradle](https://gradle.org/) - Dependency Management
+* [Gradle](https://gradle.org/) - Dependency Management [Gradle](https://gradle.org/) - Dependency Management
+* [Gradle](https://gradle.org/) - Dependency Management [Gradle](https://gradle.org/) - Dependency Management
+* [Gradle](https://gradle.org/) - Dependency Management [Gradle](https://gradle.org/) - Dependency Management
 
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Authors
 [Lilit Yenokyan](https://github.com/ylilit), [Dani Ginsberg](https://github.com/daniginsberg) and [Almog Brand](https://github.com/almogbrand).
