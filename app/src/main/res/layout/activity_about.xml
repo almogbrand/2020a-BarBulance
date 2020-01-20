@@ -26,7 +26,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="About Us"
+            android:text="About The App"
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
@@ -43,7 +43,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="BarBulance is an application for animal lovers who wish to report the location and condition of injured wild animals and, if possible, offer themselves to transport them to veterinary clinics. Volunteers can get notifications about injured wild animals, open new calls to inform the other volunteers and the clinics, and volunteer to provide transportation. App managers will be in charge of volunteers, be able to edit incident reports, manage issues of endangered species and more. In addition, the volunteers will be able to offer their regularly travelled routes and spontaneous trips to transport animals if needed. Volunteers will be able to get news and updates about the rescued animals and the organization."
+            android:text="@string/app_description"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -76,7 +76,7 @@
             android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:gravity="center"
-            android:text="Lilit Yenokyan, Dani Ginsberg and Almog Brand"
+            android:text="@string/developers"
             android:textSize="18sp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -101,13 +101,29 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textView7" />
 
-        <LinearLayout
-            android:id="@+id/LinearLayout1"
+        <TextView
+            android:id="@+id/textGraphicDesigner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="60dp"
             android:layout_marginLeft="60dp"
             android:layout_marginTop="16dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/editText"
+            android:gravity="center"
+            android:text="Hadas Cohen Graphic Designer"
+            android:textSize="16sp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayout10"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="100dp"
             android:layout_marginEnd="60dp"
             android:layout_marginRight="60dp"
             android:orientation="horizontal"
@@ -116,7 +132,7 @@
             app:layout_constraintTop_toBottomOf="@+id/editText">
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/textLombok"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -128,13 +144,13 @@
                 app:layout_constraintTop_toBottomOf="@+id/editText" />
 
             <TextView
-                android:id="@+id/link1"
+                android:id="@+id/link10"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/Credits_for_A"
-                android:textColorLink="#4CAF50"
+                android:textColorLink="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -151,10 +167,10 @@
             android:orientation="horizontal"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/LinearLayout1">
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayout10">
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/textMaterialDesign"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -169,7 +185,7 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/Credits_for_B"
-                android:textColorLink="#4CAF50"
+                android:textColorLink="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 
@@ -193,7 +209,7 @@
             app:layout_constraintVertical_bias="0.0">
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/textFreePikCompany"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -208,7 +224,45 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="@string/Credits_for_C"
-                android:textColorLink="#4CAF50"
+                android:textColorLink="@color/colorPrimaryDark"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/LinearLayout4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_marginLeft="60dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/LinearLayout3"
+            app:layout_constraintVertical_bias="0.0">
+
+            <TextView
+                android:id="@+id/textCircleImageView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="Circle Image View"
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/link4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/Credits_for_C"
+                android:textColorLink="@color/colorPrimaryDark"
                 android:textSize="16sp"
                 android:textStyle="bold" />
         </LinearLayout>
