@@ -90,7 +90,7 @@ public class MyCoolService extends FirebaseMessagingService {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.notification_icon);
         NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(this, channelId)
-                        .setSmallIcon(R.drawable.notification_icon)
+                        .setSmallIcon(R.drawable.notification_icon2)
                         .setLargeIcon(bitmap)
                         .setContentTitle(remoteMessage.getData().get("title"))
                         .setContentText(remoteMessage.getData().get("body"))
