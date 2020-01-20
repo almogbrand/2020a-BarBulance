@@ -22,10 +22,12 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
@@ -203,7 +205,7 @@ public class Database {
             }
 
             @Override
-            public void onBindViewHolder(EventHolder holder, int position, final Event item) {
+            public void onBindViewHolder(final EventHolder holder, int position, final Event item) {
                 String animal = item.getAnimalType();
                 switch (animal){
                     case "Bat":
@@ -238,7 +240,53 @@ public class Database {
                 }
 
                 holder.houseLogo.setImageResource(R.drawable.home);
+                final CollectionReference fostersRef = FirebaseFirestore.getInstance().collection( "Fosters");
+                Query query = fostersRef.whereEqualTo( "eventID", item.getDatabaseID());
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if(!task.getResult().isEmpty()){
+                                holder.houseLogo.setVisibility(View.VISIBLE);
+                            }
+                        }  else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+                holder.houseLogo.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), FosterActivity.class);
+                        intent.putExtra("event", item);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+
                 holder.driveLogo.setImageResource(R.drawable.ambulance);
+                final CollectionReference ridesRef = FirebaseFirestore.getInstance().collection( "Drives");
+                query = ridesRef.whereEqualTo( "eventID", item.getDatabaseID());
+                query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+                    @Override
+                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                        if (task.isSuccessful()) {
+                            if(!task.getResult().isEmpty()){
+                                holder.driveLogo.setVisibility(View.VISIBLE);
+                            }
+                        }  else {
+                            Log.d(TAG, "Error getting documents: ", task.getException());
+                        }
+                    }
+                });
+                holder.driveLogo.setOnClickListener( new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(v.getContext(), PickUpActivity.class);
+                        intent.putExtra("event", item);
+                        v.getContext().startActivity(intent);
+                    }
+                });
+
                 holder.setAnimalType(item.getAnimalType());
                 holder.setEventLocation(item.getLocationCity());
                 holder.itemView.setOnClickListener( new View.OnClickListener() {
