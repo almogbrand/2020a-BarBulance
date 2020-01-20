@@ -10,9 +10,6 @@ App managers will be in charge of volunteers, be able to edit incident reports, 
 In addition, the volunteers will be able to offer their regularly travelled routes and spontaneous trips to transport animals
 if needed. Volunteers will be able to get news and updates about the rescued animals and the organization.
 
-## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Features
-- Test - first line
-
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Privacy Policy
 * [Privacy Policy](https://drive.google.com/file/d/1eXcnTxZybJUCrKUYNX9Md-yOFhMUdXkH/view?usp=sharing) - Our Privacy Policy
 
