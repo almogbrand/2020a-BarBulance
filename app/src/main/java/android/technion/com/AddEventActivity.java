@@ -251,14 +251,15 @@ public class AddEventActivity extends AppCompatActivity {
 
         Event newEvent = new Event(location, locationCity, name, phone, animalType, description, urgent, imageName);
         Database db = new Database();
-        db.addEventToDatabase(newEvent);
+
         if(!(imageName.isEmpty())){
             db.storeImageInDatabaseStorage(addEventImage, imageName);
         }
         if(event != null) {
-            db.removeEventFromDataBase(event);
+            db.updateEventInDatabase(event, newEvent);
             toast = Toast.makeText(getApplicationContext(), "Event Updated!", Toast.LENGTH_SHORT);
         } else {
+            db.addEventToDatabase(newEvent);
             toast = Toast.makeText(getApplicationContext(), "Event Sent!", Toast.LENGTH_SHORT);
         }
         toast.show();

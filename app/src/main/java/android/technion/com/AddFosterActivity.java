@@ -286,16 +286,15 @@ public class AddFosterActivity extends AppCompatActivity {
             Foster newFoster = new Foster(currentUser.getUid(), currentUser.getPhotoUrl().toString(),
                     name, phone, location, city, fromDate, fromTime, untilDate, untilTime, event.getDatabaseID());
 
-            db.addFosterToDatabase(newFoster);
+            if(foster != null) {
+                db.updateFosterInDatabase(foster, newFoster);
+                toast = Toast.makeText(getApplicationContext(), "Foster Updated!", Toast.LENGTH_SHORT);
+            } else {
+                db.addFosterToDatabase(newFoster);
+                toast = Toast.makeText(getApplicationContext(), "Foster Sent!", Toast.LENGTH_SHORT);
+            }
+            toast.show();
         }
-
-        if(foster != null) {
-            db.removeFosterFromDataBase(foster.getDatabaseID());
-            toast = Toast.makeText(getApplicationContext(), "Foster Updated!", Toast.LENGTH_SHORT);
-        } else {
-            toast = Toast.makeText(getApplicationContext(), "Foster Sent!", Toast.LENGTH_SHORT);
-        }
-        toast.show();
 
         Intent intent = new Intent(AddFosterActivity.this, FosterActivity.class);
         intent.putExtra("event", event);
