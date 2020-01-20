@@ -16,6 +16,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.widget.NestedScrollView;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class DisplayEventActivity extends AppCompatActivity {
     private NestedScrollView scrollview;
@@ -31,6 +33,7 @@ public class DisplayEventActivity extends AppCompatActivity {
     private Event event;
     private Toolbar toolbar;
     private Database db;
+    private FirebaseAuth mAuth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +75,8 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         displayEventUrgentButton = findViewById(R.id.displayEventUrgentButton);
         displayEventUrgentButton.setKeyListener(null);
+
+
         boolean urgent = event.getUrgent();
         if(urgent){
             displayEventUrgentButton.setText(R.string.urgent);
@@ -135,8 +140,12 @@ public class DisplayEventActivity extends AppCompatActivity {
         });
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser.getUid().equals(event.getEventReporterDBID())){
+            toolbar.inflateMenu(R.menu.edit_menu);
+        }
         toolbar.setNavigationIcon(R.drawable.back);
-        toolbar.inflateMenu(R.menu.edit_menu);
 
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override

@@ -68,7 +68,7 @@ public class AddEventActivity extends AppCompatActivity {
     private TextInputEditText addEventPhoneText;
     private TextInputEditText addEventLocationText;
     private TextInputEditText addEventLocationCity;
-
+    private FirebaseAuth mAuth;
     private Location userLastKnownLocation;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -84,7 +84,7 @@ public class AddEventActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private String imageName = "";
     private Event event;
-    private FirebaseAuth mAuth;
+    private String eventReporterDBID;
     private Toolbar toolbar;
     private int locationRequestCode = 1000;
     private double latitude=32.776437;
@@ -105,7 +105,13 @@ public class AddEventActivity extends AppCompatActivity {
         if(event != null){
             imageName = event.getPhotoID();
         }
-
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            eventReporterDBID = currentUser.getUid();
+        } else {
+            eventReporterDBID = "";
+        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         if(event != null){
@@ -260,9 +266,9 @@ public class AddEventActivity extends AppCompatActivity {
             db.getImageFromDatabaseToImageView(addEventImage, event.getPhotoID());
         } else {
             mAuth = FirebaseAuth.getInstance();
-            FirebaseUser currentUser = mAuth.getCurrentUser();
+            FirebaseUser currentUser1 = mAuth.getCurrentUser();
             if(currentUser != null){
-                db.getUserToTextViews(currentUser.getUid(), addEventNameText, new TextView(AddEventActivity.this), addEventPhoneText);
+                db.getUserToTextViews(currentUser1.getUid(), addEventNameText, new TextView(AddEventActivity.this), addEventPhoneText);
             }
         }
     }
@@ -325,7 +331,7 @@ public class AddEventActivity extends AppCompatActivity {
             return true;
         }
 
-        Event newEvent = new Event(location, locationCity, name, phone, animalType, description, urgent, imageName);
+        Event newEvent = new Event(location, locationCity, name, phone, animalType, description, urgent, imageName,eventReporterDBID);
         Database db = new Database();
 
         if(!(imageName.isEmpty())){
