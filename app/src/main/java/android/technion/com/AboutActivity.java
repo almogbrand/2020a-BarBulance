@@ -22,18 +22,17 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
 
-        TextView textView1;
-        TextView textView2;
-        TextView textView3;
+        TextView textGraphicDesigner = findViewById(R.id.textGraphicDesigner);
+        textGraphicDesigner.setMovementMethod(LinkMovementMethod.getInstance());
 
-        textView1 = findViewById(R.id.link1);
-        textView1.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView textTermsAndConditions = findViewById(R.id.textTermsAndConditions);
+        textTermsAndConditions.setMovementMethod(LinkMovementMethod.getInstance());
 
-        textView2 = findViewById(R.id.link2);
-        textView2.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView textPrivacyPolicy = findViewById(R.id.textPrivacyPolicy);
+        textPrivacyPolicy.setMovementMethod(LinkMovementMethod.getInstance());
 
-        textView3 = findViewById(R.id.link3);
-        textView3.setMovementMethod(LinkMovementMethod.getInstance());
+        TextView textOpenSourceLicences = findViewById(R.id.textOpenSourceLicences);
+        textOpenSourceLicences.setMovementMethod(LinkMovementMethod.getInstance());
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
