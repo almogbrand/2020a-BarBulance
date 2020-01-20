@@ -23,8 +23,9 @@ public class Event implements Serializable {
     String description;
     Boolean urgent;
     String photoID;
+    String eventReporterDBID;
 
-    public Event(String location, String locationCity, String reporterId, String phoneNumber, String animalType , String description, Boolean urgent, String photoID) {
+    public Event(String location, String locationCity, String reporterId, String phoneNumber, String animalType , String description, Boolean urgent, String photoID, String eventReporterDBID) {
         this.databaseID="";
         this.location = location;
         this.locationCity = locationCity;
@@ -34,5 +35,6 @@ public class Event implements Serializable {
         this.description = description;
         this.urgent = urgent;
         this.photoID = photoID;
+        this.eventReporterDBID = eventReporterDBID;
     }
 }
