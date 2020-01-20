@@ -20,6 +20,7 @@ if needed. Volunteers will be able to get news and updates about the rescued ani
 * [Firebase](https://firebase.google.com/) - User auth, Firestore database & storage, Google Cloud Services [Terms of Service](https://firebase.google.com/terms)
 * [Facebook Developer](https://developers.facebook.com/) - Facebook users login [Platform Policy](https://developers.facebook.com/policy/)
 * [Google Cloud](https://cloud.google.com/) - Google Maps & Notifications services [Platform Terms of Service](https://cloud.google.com/maps-platform/terms/)
+* [PlacePicker](https://github.com/suchoX/PlacePicker) - Map Place Picker [License](https://github.com/suchoX/PlacePicker/blob/master/LICENSE)
 * [FreePikCompany](https://www.freepikcompany.com/) - Icons [Terms of use](https://www.freepikcompany.com/legal#nav-freepik-license)
 * [Lombok](https://projectlombok.org/) - Java Library [License](https://github.com/rzwitserloot/lombok/blob/master/LICENSE) 
 * [MaterialDesign](http://materialdesignicons.com/) - Material Design Icons [License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE) 
