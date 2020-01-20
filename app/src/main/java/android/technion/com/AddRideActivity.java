@@ -204,6 +204,7 @@ public class AddRideActivity extends AppCompatActivity {
 
         if(event != null){
             addRideFromLocationText.setText(event.getLocation());
+            addRideFromCity.setText(event.getLocationCity());
         }
         addRideFromLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
