@@ -24,8 +24,8 @@ if needed. Volunteers will be able to get news and updates about the rescued ani
 * [Facebook Login](https://developers.facebook.com/) - Facebook users login 
 * [Gradle](https://gradle.org/) - Dependency Management
 
-## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> Open Source License
+## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;&nbsp;Open Source License
 - Test - first line
 
-## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;Authors
+## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Authors
 [Lilit Yenokyan](https://github.com/ylilit), [Dani Ginsberg](https://github.com/daniginsberg) and [Almog Brand](https://github.com/almogbrand).
