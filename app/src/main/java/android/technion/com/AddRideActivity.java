@@ -18,6 +18,7 @@ import android.technion.com.ui.rides.RidesFragment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -59,6 +60,7 @@ public class AddRideActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ride);
 
+        Database db = new Database();
         drive = (Drive) getIntent().getSerializableExtra("drive");
         event = (Event) getIntent().getSerializableExtra("event");
 
@@ -211,6 +213,12 @@ public class AddRideActivity extends AppCompatActivity {
             addRideFromCity.setText(drive.getFromCity());
             addRideToLocationText.setText(drive.getToLocation());
             addRideToCity.setText(drive.getToCity());
+        } else {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                db.getUserToTextViews(currentUser.getUid(), addRideNameText, new TextView(AddRideActivity.this), addRidePhoneText);
+            }
         }
     }
 

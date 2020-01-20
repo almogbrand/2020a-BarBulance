@@ -4,7 +4,7 @@ apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle p
 android {
     signingConfigs {
         debug {
-            storeFile file('C:\\Users\\Almog\\Desktop\\AppKEY.jks')
+            storeFile file('C:\\Users\\Lilit\\Downloads\\AppKEY.jks')
             storePassword 'Hai_Bar_Bulance'
             keyAlias = 'Almog'
             keyPassword 'Barbulance'
