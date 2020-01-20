@@ -86,6 +86,9 @@ public class AddEventActivity extends AppCompatActivity {
 
         Database db = new Database();
         event = (Event) getIntent().getSerializableExtra("event");
+        if(event != null){
+            imageName = event.getPhotoID();
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
