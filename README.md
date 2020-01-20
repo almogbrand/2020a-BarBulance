@@ -4,7 +4,9 @@
 
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png"  height="40" width="40" vlign="center">  Content
 - [About](#About)
-- [Complementary Features](#features)
+- [Features](#features)
+- [Privacy Policy](#Privacy-Polic)
+- [Terms And Conditions](#Terms-And-Conditions)
 - [Built With](#built-with)
 - [Open Source License](#Open-Source-License)
 - [Authors](#authors)
@@ -18,6 +20,12 @@ In addition, the volunteers will be able to offer their regularly travelled rout
 if needed. Volunteers will be able to get news and updates about the rescued animals and the organization.
 
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Features
+- Test - first line
+
+## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Privacy Policy
+- Test - first line
+
+## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Terms And Conditions
 - Test - first line
 
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Open Source License
