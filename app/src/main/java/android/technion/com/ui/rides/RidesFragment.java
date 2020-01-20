@@ -63,8 +63,8 @@ public class RidesFragment extends Fragment {
 
         db.setUpRecyclerViewDrivesList(this.getContext(), recyclerView);
 
-        if(db.getFBAdapter().getItemCount() == 0){
-            ridesEmptyText.setVisibility(View.GONE);
+        if(db.getRidesFBAdapter().getItemCount() == 0){
+            ridesEmptyText.setVisibility(View.VISIBLE);
         }
 
         return root;

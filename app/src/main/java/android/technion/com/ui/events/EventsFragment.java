@@ -48,8 +48,8 @@ public class EventsFragment extends Fragment {
         Database db = new Database();
         db.setUpRecyclerViewEventsList(this.getContext(), recyclerView);
 
-        if(db.getFBAdapter().getItemCount() == 0){
-            text_empty.setVisibility(View.GONE);
+        if(db.getFEventsBAdapter().getItemCount() == 0){
+            text_empty.setVisibility(View.VISIBLE);
         }
 
         eventsViewModel.getText().observe(this, new Observer<String>() {

@@ -39,16 +39,26 @@ import static android.content.ContentValues.TAG;
 
 
 public class Database {
-    private FirestoreRecyclerAdapter FBAdapter;
     private RecyclerView recyclerV;
     private RecyclerView.LayoutManager layoutManager;
     private FirebaseFirestore db;
     private FirebaseStorage storage;
-
-    public FirestoreRecyclerAdapter getFBAdapter(){
-        return FBAdapter;
+    private FirestoreRecyclerAdapter eventsFBAdapter;
+    private FirestoreRecyclerAdapter ridesFBAdapter;
+    private FirestoreRecyclerAdapter ridesOfEventFBAdapter;
+    private FirestoreRecyclerAdapter fostersOfEventFBAdapter;
+    public FirestoreRecyclerAdapter getRidesFBAdapter(){
+        return ridesFBAdapter;
     }
-
+    public FirestoreRecyclerAdapter getFEventsBAdapter(){
+        return eventsFBAdapter;
+    }
+    public FirestoreRecyclerAdapter getFostersOfEventFBAdapter(){
+        return fostersOfEventFBAdapter;
+    }
+    public FirestoreRecyclerAdapter getRidesOfEventFBAdapter(){
+        return ridesOfEventFBAdapter;
+    }
     public Database() {
         db = FirebaseFirestore.getInstance();
         storage = FirebaseStorage.getInstance();
@@ -189,7 +199,7 @@ public class Database {
                         .build();
         recyclerV = recyclerList;
 
-        FBAdapter = new FirestoreRecyclerAdapter<Event, EventHolder>(options){
+        eventsFBAdapter = new FirestoreRecyclerAdapter<Event, EventHolder>(options){
 
             @Override
             public EventHolder onCreateViewHolder(ViewGroup parent,
@@ -299,8 +309,8 @@ public class Database {
 
         layoutManager = new LinearLayoutManager(context);
         recyclerV.setLayoutManager(layoutManager);
-        recyclerV.setAdapter(FBAdapter);
-        FBAdapter.startListening();
+        recyclerV.setAdapter(eventsFBAdapter);
+        eventsFBAdapter.startListening();
     }
 
     public void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
@@ -312,7 +322,7 @@ public class Database {
                         .build();
         recyclerV = recyclerList;
 
-        FBAdapter = new FirestoreRecyclerAdapter<Drive, DriveHolder>(options){
+        ridesFBAdapter = new FirestoreRecyclerAdapter<Drive, DriveHolder>(options){
 
             @Override
             public DriveHolder onCreateViewHolder(ViewGroup parent,
@@ -344,8 +354,8 @@ public class Database {
 
         layoutManager = new LinearLayoutManager(context);
         recyclerV.setLayoutManager(layoutManager);
-        recyclerV.setAdapter(FBAdapter);
-        FBAdapter.startListening();
+        recyclerV.setAdapter(ridesFBAdapter);
+        ridesFBAdapter.startListening();
     }
 
 //    public void setUpRecyclerViewFostersList(Context context, RecyclerView recyclerList) {
@@ -575,7 +585,7 @@ public class Database {
                         .build();
         recyclerV = recyclerList;
 
-        FBAdapter = new FirestoreRecyclerAdapter<Drive, DriveHolder>(options){
+        ridesOfEventFBAdapter = new FirestoreRecyclerAdapter<Drive, DriveHolder>(options){
 
             @Override
             public DriveHolder onCreateViewHolder(ViewGroup parent,
@@ -608,8 +618,8 @@ public class Database {
 
         layoutManager = new LinearLayoutManager(context);
         recyclerV.setLayoutManager(layoutManager);
-        recyclerV.setAdapter(FBAdapter);
-        FBAdapter.startListening();
+        recyclerV.setAdapter(ridesOfEventFBAdapter);
+        ridesOfEventFBAdapter.startListening();
     }
 
     public void setUpRecyclerViewFosterListFromCertainEvent(final Context context, RecyclerView recyclerList, final Event event) {
@@ -623,7 +633,7 @@ public class Database {
                         .build();
         recyclerV = recyclerList;
 
-        FBAdapter = new FirestoreRecyclerAdapter<Foster, FosterHolder>(options){
+        fostersOfEventFBAdapter = new FirestoreRecyclerAdapter<Foster, FosterHolder>(options){
 
             @Override
             public FosterHolder onCreateViewHolder(ViewGroup parent,
@@ -656,7 +666,7 @@ public class Database {
 
         layoutManager = new LinearLayoutManager(context);
         recyclerV.setLayoutManager(layoutManager);
-        recyclerV.setAdapter(FBAdapter);
-        FBAdapter.startListening();
+        recyclerV.setAdapter(fostersOfEventFBAdapter);
+        fostersOfEventFBAdapter.startListening();
     }
 }
