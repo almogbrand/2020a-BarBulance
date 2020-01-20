@@ -3,10 +3,13 @@ package android.technion.com;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.location.Location;
@@ -81,10 +84,13 @@ public class AddEventActivity extends AppCompatActivity {
     private String imageName = "";
     private Event event;
     private Toolbar toolbar;
-
-
+    private int locationRequestCode = 1000;
+    private double latitude=32.109333;
+    private double longitude=34.855499;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -139,6 +145,13 @@ public class AddEventActivity extends AppCompatActivity {
         });
 
 
+
+        // check permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    locationRequestCode);
+        }
 
 
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
@@ -198,8 +211,6 @@ public class AddEventActivity extends AppCompatActivity {
         addEventLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double latitude=32.109333;
-                double longitude=34.855499;
                 if(userLastKnownLocation!=null) {
                     latitude=userLastKnownLocation.getLatitude();
                     longitude=userLastKnownLocation.getLongitude();
@@ -239,6 +250,32 @@ public class AddEventActivity extends AppCompatActivity {
             addEventDescriptionText.setText(event.getDescription());
             addEventUrgentSwitch.setChecked(event.getUrgent());
             db.getImageFromDatabaseToImageView(addEventImage, event.getPhotoID());
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1000: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                latitude = location.getLatitude();
+                                longitude = location.getLongitude();
+                                userLastKnownLocation = location;
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
         }
     }
 
