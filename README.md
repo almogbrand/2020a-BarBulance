@@ -27,7 +27,7 @@ if needed. Volunteers will be able to get news and updates about the rescued ani
 * [Lombok](https://projectlombok.org/) - Java Library [License](https://github.com/rzwitserloot/lombok/blob/master/LICENSE) 
 * [MaterialDesign](http://materialdesignicons.com/) - Material Design Icons [License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE) 
 * [CircleImageView](https://github.com/hdodenhof/CircleImageView) - Circular Java ImageView [License](https://github.com/hdodenhof/CircleImageView/blob/master/LICENSE.txt) 
-* [Material Design](http://materialdesignicons.com/) - FONT SOMTHING [License](https://github.com/Templarian/MaterialDesign/blob/master/LICENSE) 
+* [Google Fonts](https://fonts.google.com/) - Aclonica Font [License](http://www.apache.org/licenses/LICENSE-2.0.html) 
 
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Authors
 [Lilit Yenokyan](https://github.com/ylilit), [Dani Ginsberg](https://github.com/daniginsberg) and [Almog Brand](https://github.com/almogbrand).
