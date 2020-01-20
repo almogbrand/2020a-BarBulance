@@ -28,13 +28,13 @@ if needed. Volunteers will be able to get news and updates about the rescued ani
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Terms And Conditions
 - Test - first line
 
-## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Open Source License
-- Test - first line
-
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Built With
 * [Firebase](https://firebase.google.com) - User authentication, Firestore storage and Google Cloud services
 * [Facebook Login](https://developers.facebook.com/) - Facebook users login 
 * [Gradle](https://gradle.org/) - Dependency Management
 
-## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Authors
+## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  Open Source License
+- Test - first line
+
+<img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40">  ##Authors
 [Lilit Yenokyan](https://github.com/ylilit), [Dani Ginsberg](https://github.com/daniginsberg) and [Almog Brand](https://github.com/almogbrand).
