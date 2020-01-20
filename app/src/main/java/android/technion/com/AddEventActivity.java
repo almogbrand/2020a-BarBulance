@@ -68,7 +68,7 @@ public class AddEventActivity extends AppCompatActivity {
     private TextInputEditText addEventPhoneText;
     private TextInputEditText addEventLocationText;
     private TextInputEditText addEventLocationCity;
-
+    private FirebaseAuth mAuth;
     private Location userLastKnownLocation;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -84,10 +84,11 @@ public class AddEventActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private String imageName = "";
     private Event event;
+    private String eventReporterDBID;
     private Toolbar toolbar;
     private int locationRequestCode = 1000;
-    private double latitude=32.109333;
-    private double longitude=34.855499;
+    private double latitude=32.776437;
+    private double longitude=35.022515;
     private LocationRequest locationRequest;
     private LocationCallback locationCallback;
 
@@ -99,11 +100,18 @@ public class AddEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
 
         Database db = new Database();
+
         event = (Event) getIntent().getSerializableExtra("event");
         if(event != null){
             imageName = event.getPhotoID();
         }
-
+        mAuth = FirebaseAuth.getInstance();
+        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser!=null){
+            eventReporterDBID = currentUser.getUid();
+        } else {
+            eventReporterDBID = "";
+        }
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
         if(event != null){
@@ -223,7 +231,7 @@ public class AddEventActivity extends AppCompatActivity {
                     Intent intent = new PlacePicker.IntentBuilder()
                             .setLatLong(latitude, longitude)  // Initial Latitude and Longitude the Map will load into
                             .showLatLong(true)  // Show Coordinates in the Activity
-                            .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                            .setMapZoom(18.0f)  // Map Zoom Level. Default: 14.0
                             .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
                             .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
                             .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
@@ -256,6 +264,12 @@ public class AddEventActivity extends AppCompatActivity {
             addEventDescriptionText.setText(event.getDescription());
             addEventUrgentSwitch.setChecked(event.getUrgent());
             db.getImageFromDatabaseToImageView(addEventImage, event.getPhotoID());
+        } else {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser1 = mAuth.getCurrentUser();
+            if(currentUser != null){
+                db.getUserToTextViews(currentUser1.getUid(), addEventNameText, new TextView(AddEventActivity.this), addEventPhoneText);
+            }
         }
     }
 
@@ -317,7 +331,7 @@ public class AddEventActivity extends AppCompatActivity {
             return true;
         }
 
-        Event newEvent = new Event(location, locationCity, name, phone, animalType, description, urgent, imageName);
+        Event newEvent = new Event(location, locationCity, name, phone, animalType, description, urgent, imageName,eventReporterDBID);
         Database db = new Database();
 
         if(!(imageName.isEmpty())){

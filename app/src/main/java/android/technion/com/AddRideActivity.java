@@ -1,16 +1,21 @@
 package android.technion.com;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -18,9 +23,16 @@ import android.technion.com.ui.rides.RidesFragment;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
+import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,12 +65,22 @@ public class AddRideActivity extends AppCompatActivity {
     private Event event;
     private TimePickerDialog timePicker;
     private DatePickerDialog datePicker;
+    private Location userLastKnownLocation;
+    private FusedLocationProviderClient fusedLocationClient;
+    private int locationRequestCode = 1000;
+    private double ulamShakufLatitude=32.776437;
+    private double ulamShakufLongitude=35.022515;
+    private double safariLatitude=32.045335;
+    private double safariongitude=34.822426;
+    private LocationRequest locationRequest;
+    private LocationCallback locationCallback;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_ride);
 
+        Database db = new Database();
         drive = (Drive) getIntent().getSerializableExtra("drive");
         event = (Event) getIntent().getSerializableExtra("event");
 
@@ -141,22 +163,60 @@ public class AddRideActivity extends AppCompatActivity {
             }
         });
 
+
+        // check permission
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION},
+                    locationRequestCode);
+        }
+
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationClient.getLastLocation()
+                .addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                    @Override
+                    public void onSuccess(Location location) {
+                        // Got last known location. In some rare situations this can be null.
+                        if (location != null) {
+                            // Logic to handle location object
+                            userLastKnownLocation = location;
+                        }else {
+                            locationRequest = LocationRequest.create();
+                            locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
+                            locationRequest.setInterval(20 * 1000);
+                            locationCallback = new LocationCallback() {
+                                @Override
+                                public void onLocationResult(LocationResult locationResult) {
+                                    if (locationResult == null) {
+                                        return;
+                                    }
+                                    for (Location location : locationResult.getLocations()) {
+                                        if (location != null) {
+                                            userLastKnownLocation=location;
+                                        }
+                                    }
+                                }
+                            };
+                        }
+                    }
+                });
+
         if(event != null){
             addRideFromLocationText.setText(event.getLocation());
+            addRideFromCity.setText(event.getLocationCity());
         }
         addRideFromLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double latitude=32.109333;
-                double longitude=34.855499;
-//                if(userLastKnownLocation!=null) {
-//                    latitude=userLastKnownLocation.getLatitude();
-//                    longitude=userLastKnownLocation.getLongitude();
-//                }
+                if(userLastKnownLocation!=null) {
+                    ulamShakufLatitude=userLastKnownLocation.getLatitude();
+                    ulamShakufLongitude=userLastKnownLocation.getLongitude();
+                }
                 Intent intent = new PlacePicker.IntentBuilder()
-                        .setLatLong(latitude, longitude)  // Initial Latitude and Longitude the Map will load into
+                        .setLatLong(ulamShakufLatitude, ulamShakufLongitude)  // Initial Latitude and Longitude the Map will load into
                         .showLatLong(true)  // Show Coordinates in the Activity
-                        .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                        .setMapZoom(18.0f)  // Map Zoom Level. Default: 14.0
                         .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
                         .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
                         .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
@@ -175,16 +235,10 @@ public class AddRideActivity extends AppCompatActivity {
         addRideToLocationText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                double latitude=32.109333;
-                double longitude=34.855499;
-//                if(userLastKnownLocation!=null) {
-//                    latitude=userLastKnownLocation.getLatitude();
-//                    longitude=userLastKnownLocation.getLongitude();
-//                }
                 Intent intent = new PlacePicker.IntentBuilder()
-                        .setLatLong(latitude, longitude)  // Initial Latitude and Longitude the Map will load into
+                        .setLatLong(safariLatitude, safariongitude)  // Initial Latitude and Longitude the Map will load into
                         .showLatLong(true)  // Show Coordinates in the Activity
-                        .setMapZoom(12.0f)  // Map Zoom Level. Default: 14.0
+                        .setMapZoom(18.0f)  // Map Zoom Level. Default: 14.0
                         .setAddressRequired(true) // Set If return only Coordinates if cannot fetch Address for the coordinates. Default: True
                         .hideMarkerShadow(true) // Hides the shadow under the map marker. Default: False
                         .setMarkerDrawable(R.drawable.map_marker) // Change the default Marker Image
@@ -211,6 +265,12 @@ public class AddRideActivity extends AppCompatActivity {
             addRideFromCity.setText(drive.getFromCity());
             addRideToLocationText.setText(drive.getToLocation());
             addRideToCity.setText(drive.getToCity());
+        } else {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                db.getUserToTextViews(currentUser.getUid(), addRideNameText, new TextView(AddRideActivity.this), addRidePhoneText);
+            }
         }
     }
 
@@ -311,6 +371,32 @@ public class AddRideActivity extends AppCompatActivity {
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(intent);
         return true;
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case 1000: {
+                // If request is cancelled, the result arrays are empty.
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    fusedLocationClient.getLastLocation().addOnSuccessListener(this, new OnSuccessListener<Location>() {
+                        @Override
+                        public void onSuccess(Location location) {
+                            if (location != null) {
+                                ulamShakufLatitude = location.getLatitude();
+                                ulamShakufLongitude = location.getLongitude();
+                                userLastKnownLocation = location;
+                            }
+                        }
+                    });
+                } else {
+                    Toast.makeText(this, "Permission denied", Toast.LENGTH_SHORT).show();
+                }
+                break;
+            }
+        }
     }
 
     private boolean isValidPhone(String phone) {
