@@ -233,17 +233,17 @@ public class FacebookActivity extends AppCompatActivity
             }
         });
 
-        /* Temporary bypassing facebook login *////////////////////////////////////////
-        signInButton = findViewById(R.id.signInButton);
-        signInButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
-                finish();
-                startActivity(intent);
-            }
-        });
-        //////////////////////////////////////////////////////////////////////////////
+//        /* Temporary bypassing facebook login *////////////////////////////////////////
+//        signInButton = findViewById(R.id.signInButton);
+//        signInButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(FacebookActivity.this, MainActivity.class);
+//                finish();
+//                startActivity(intent);
+//            }
+//        });
+//        //////////////////////////////////////////////////////////////////////////////
 
     }
 
