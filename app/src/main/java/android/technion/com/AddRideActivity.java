@@ -292,12 +292,11 @@ public class AddRideActivity extends AppCompatActivity {
             newRide.setEventID(event.getDatabaseID());
         }
 
-        db.addDriveToDatabase(newRide);
-
         if(drive != null) {
-            db.removeDriveFromDataBase(drive.getDatabaseID());
+            db.updateDriveInDatabase(drive, newRide);
             toast = Toast.makeText(getApplicationContext(), "Ride Updated!", Toast.LENGTH_SHORT);
         } else {
+            db.addDriveToDatabase(newRide);
             toast = Toast.makeText(getApplicationContext(), "Ride Sent!", Toast.LENGTH_SHORT);
         }
         toast.show();

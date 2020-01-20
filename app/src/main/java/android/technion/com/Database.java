@@ -26,12 +26,15 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+import com.google.firebase.firestore.SetOptions;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.InstanceIdResult;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import java.io.ByteArrayOutputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 import static android.content.ContentValues.TAG;
 
@@ -53,16 +56,15 @@ public class Database {
     }
 
     public void addEventToDatabase(final Event event) {
-        final String databaseID;
         db.collection("Events").add(event).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {
-                Log.d(TAG, "Event added with ID: " + documentReference.getId());
-                db.collection("Events").document(documentReference.getId())
-                        .update(
-                                "databaseID", documentReference.getId()
-                        );
-            }
+                    Log.d(TAG, "Event added with ID: " + documentReference.getId());
+                    db.collection("Events").document(documentReference.getId())
+                            .update(
+                                    "databaseID", documentReference.getId()
+                            );
+                }
         })
                 .addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -70,6 +72,18 @@ public class Database {
                         Log.w(TAG, "Error adding Event", e);
                     }
                 });
+    }
+
+    public void updateEventInDatabase(final Event oldEvent, final Event newEvent) {
+        final DocumentReference docRef = db.collection("Events").document(oldEvent.getDatabaseID());
+        docRef.update("location", newEvent.getLocation());
+        docRef.update("locationCity", newEvent.getLocationCity());
+        docRef.update("reporterId", newEvent.getReporterId());
+        docRef.update("animalType", newEvent.getAnimalType());
+        docRef.update("phoneNumber", newEvent.getPhoneNumber());
+        docRef.update("description", newEvent.getDescription());
+        docRef.update("urgent", newEvent.getUrgent());
+        docRef.update("photoID", newEvent.getPhotoID());
     }
 
     public void addDriveToDatabase(final Drive drive){
@@ -92,6 +106,20 @@ public class Database {
 
     }
 
+    public void updateDriveInDatabase(final Drive oldDrive, final Drive newDrive) {
+        final DocumentReference docRef = db.collection("Drives").document(oldDrive.getDatabaseID());
+        docRef.update("driverId", newDrive.getDriverId());
+        docRef.update("driverProfilePicUri", newDrive.getDriverProfilePicUri());
+        docRef.update("driverFullName", newDrive.getDriverFullName());
+        docRef.update("driverPhoneNumber", newDrive.getDriverPhoneNumber());
+        docRef.update("fromLocation", newDrive.getFromLocation());
+        docRef.update("fromCity", newDrive.getFromCity());
+        docRef.update("toLocation", newDrive.getToLocation());
+        docRef.update("toCity", newDrive.getToCity());
+        docRef.update("date", newDrive.getDate());
+        docRef.update("time", newDrive.getTime());
+    }
+
     public void addFosterToDatabase(Foster foster) {
         db.collection("Fosters").add(foster).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
@@ -111,8 +139,21 @@ public class Database {
                 });
     }
 
-    public void addUserToDatabase(final User user) {
+    public void updateFosterInDatabase(final Foster oldFoster, final Foster newFoster) {
+        final DocumentReference docRef = db.collection("Fosters").document(oldFoster.getDatabaseID());
+        docRef.update("fosterId", newFoster.getFosterId());
+        docRef.update("fosterProfilePicUri", newFoster.getFosterProfilePicUri());
+        docRef.update("fosterFullName", newFoster.getFosterFullName());
+        docRef.update("fosterPhoneNumber", newFoster.getFosterPhoneNumber());
+        docRef.update("location", newFoster.getLocation());
+        docRef.update("locationCity", newFoster.getLocationCity());
+        docRef.update("fromDate", newFoster.getFromDate());
+        docRef.update("fromTime", newFoster.getFromTime());
+        docRef.update("untilDate", newFoster.getUntilDate());
+        docRef.update("untilTime", newFoster.getUntilTime());
+    }
 
+    public void addUserToDatabase(final User user) {
         FirebaseInstanceId.getInstance().getInstanceId()
                 .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
                     @Override
@@ -142,7 +183,6 @@ public class Database {
     }
 
     public void setUpRecyclerViewEventsList(Context context, RecyclerView recyclerList) {
-
         Query query = FirebaseFirestore.getInstance().collection("Events").limit(50);
         FirestoreRecyclerOptions<Event> options =
                 new FirestoreRecyclerOptions.Builder<Event>()
@@ -219,7 +259,6 @@ public class Database {
     }
 
     public void setUpRecyclerViewDrivesList(final Context context, RecyclerView recyclerList) {
-
         Query query = FirebaseFirestore.getInstance().collection("Drives").orderBy("driverFullName", Query.Direction.ASCENDING).limit(50);
         FirestoreRecyclerOptions<Drive> options =
                 new FirestoreRecyclerOptions
@@ -298,7 +337,6 @@ public class Database {
 
 
     public void storeImageInDatabaseStorage(ImageView imageView, final String photoID) {
-
         StorageReference storageRef = storage.getReference();
         StorageReference userImagesRef;
         if(photoID.toLowerCase().contains("Facebook")){
@@ -326,11 +364,9 @@ public class Database {
                 Log.d(TAG, "Event photo added with ID: " + photoID);
             }
         });
-
     }
 
     public void getImageFromDatabaseToImageView(final ImageView imageView, final String photoID) {
-
         StorageReference islandRef;
         if(photoID.toLowerCase().contains("Facebook")){
             islandRef = storage.getReference("facebookPics/" + photoID );
@@ -485,7 +521,6 @@ public class Database {
     }
 
     public void setUpRecyclerViewDrivesListFromCertainEvent(final Context context, RecyclerView recyclerList, final Event event) {
-
         Query query = FirebaseFirestore.getInstance().collection("Drives")
                 .whereEqualTo("eventID", event.getDatabaseID()).limit(10);
         FirestoreRecyclerOptions<Drive> options =
