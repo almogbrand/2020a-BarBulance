@@ -48,9 +48,9 @@
     <string name="app_description">Barbulance is an application for animal lovers who wish to report the location and condition of injured wild animals and, if possible, offer transportation to veterinary clinics.\nVolunteers can get notifications about injured wild animals, open new calls to inform the other volunteers and the clinics, and volunteer to provide transportation.\nApp managers will be in charge of volunteers, be able to edit incident reports, manage issues of endangered species and more.\nIn addition, the volunteers will be able to offer their regularly travelled routes and spontaneous trips to transport animals if needed.</string>
     <string name="developers">Lilit Yenokyan, Dani Ginsberg &amp; Almog Brand</string>
     <string name="credits_graphic_designer"><a href="https://www.instagram.com/hadas_cohen_art/">Hadas Cohen Graphic Designer</a></string>
-    <string name="terms_and_conditions"><a href="https://drive.google.com/open?id=1ltqBoesiGGdJzDELnN6xiPKTmhzjwYxQ">Terms and Conditions</a></string>
-    <string name="privacy_policy"><a href="https://drive.google.com/open?id=1eXcnTxZybJUCrKUYNX9Md-yOFhMUdXkH">Privacy Policy</a></string>
-    <string name="open_source_licences"><a href="https://github.com/Technion236503/2020a-BarBulance/blob/master/README.md">Open Source Licences</a></string>
+    <string name="terms_and_conditions"><a href="https://github.com/almogbrand/BarBulance-/blob/master/T%26C.md">Terms and Conditions</a></string>
+    <string name="privacy_policy"><a href="https://github.com/almogbrand/BarBulance-/blob/master/PRIVACY.md">Privacy Policy</a></string>
+    <string name="open_source_licences"><a href="https://github.com/almogbrand/BarBulance-/blob/master/LICENSE.md">Open Source Licences</a></string>
     <string name="title_additional_information">Additional Information</string>
     <string name="title_credits_and_thanks">Credits and thanks to</string>
     <string name="title_developed_by">Developed By</string>
