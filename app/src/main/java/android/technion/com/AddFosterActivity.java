@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -65,6 +66,7 @@ public class AddFosterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_foster);
 
+        Database db = new Database();
         foster = (Foster) getIntent().getSerializableExtra("foster");
         event = (Event) getIntent().getSerializableExtra("event");
 
@@ -268,6 +270,12 @@ public class AddFosterActivity extends AppCompatActivity {
             addFosterFromTimeText.setText(foster.getFromTime());
             addFosterUntilDateText.setText(foster.getUntilDate());
             addFosterUntilTimeText.setText(foster.getUntilTime());
+        } else {
+            FirebaseAuth mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                db.getUserToTextViews(currentUser.getUid(), addFosterNameText, new TextView(AddFosterActivity.this), addFosterPhoneText);
+            }
         }
     }
 

@@ -84,6 +84,7 @@ public class AddEventActivity extends AppCompatActivity {
     private String currentPhotoPath;
     private String imageName = "";
     private Event event;
+    private FirebaseAuth mAuth;
     private Toolbar toolbar;
     private int locationRequestCode = 1000;
     private double latitude=32.776437;
@@ -99,6 +100,7 @@ public class AddEventActivity extends AppCompatActivity {
         setContentView(R.layout.activity_add_event);
 
         Database db = new Database();
+
         event = (Event) getIntent().getSerializableExtra("event");
         if(event != null){
             imageName = event.getPhotoID();
@@ -256,6 +258,12 @@ public class AddEventActivity extends AppCompatActivity {
             addEventDescriptionText.setText(event.getDescription());
             addEventUrgentSwitch.setChecked(event.getUrgent());
             db.getImageFromDatabaseToImageView(addEventImage, event.getPhotoID());
+        } else {
+            mAuth = FirebaseAuth.getInstance();
+            FirebaseUser currentUser = mAuth.getCurrentUser();
+            if(currentUser != null){
+                db.getUserToTextViews(currentUser.getUid(), addEventNameText, new TextView(AddEventActivity.this), addEventPhoneText);
+            }
         }
     }
 
