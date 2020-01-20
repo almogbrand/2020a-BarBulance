@@ -36,6 +36,7 @@
     <string name="full_name">Full Name</string>
     <string name="phone_number">Phone number</string>
     <string name="description_optional">Description (optional)</string>
+    <string name="Credits_for_designer"><a href="https://www.instagram.com/hadas_cohen_art/">Link</a></string>
     <string name="Credits_for_A"><a href="https://github.com/rzwitserloot/lombok/blob/master/LICENSE/">Link</a></string>
     <string name="Credits_for_B"><a href="https://github.com/Templarian/MaterialDesign/blob/master/LICENSE/">Link</a></string>
     <string name="Credits_for_C"><a href="https://www.freepikcompany.com/legal#nav-flaticon/">Link</a></string>
@@ -45,4 +46,6 @@
     <string name="date">Date</string>
     <string name="add_emergency_event">Add Emergency Event</string>
     <string name="chat">Chat</string>
+    <string name="app_description">BarBulance is an application for animal lovers who wish to report the location and condition of injured wild animals and, if possible, offer themselves to transport them to veterinary clinics. Volunteers can get notifications about injured wild animals, open new calls to inform the other volunteers and the clinics, and volunteer to provide transportation. App managers will be in charge of volunteers, be able to edit incident reports, manage issues of endangered species and more. In addition, the volunteers will be able to offer their regularly travelled routes and spontaneous trips to transport animals if needed. Volunteers will be able to get news and updates about the rescued animals and the organization.</string>
+    <string name="developers">Lilit Yenokyan, Dani Ginsberg and Almog Brand</string>
 </resources>
