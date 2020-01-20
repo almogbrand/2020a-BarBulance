@@ -2,6 +2,10 @@
    <img src="https://user-images.githubusercontent.com/54279376/72726880-30e80f00-3b92-11ea-8702-1cc239831247.png" height="450" width="600"> <br>
 </h1>
 
+<p align="center">
+  <strong>License</strong><br>
+</p>
+
 ## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> &nbsp;&nbsp;Open Source License
 * [Firebase](https://firebase.google.com/) - User auth, Firestore database & storage, Google Cloud Services [Terms of Service](https://firebase.google.com/terms)
 
