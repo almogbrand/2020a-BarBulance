@@ -2,7 +2,7 @@
    <img src="https://user-images.githubusercontent.com/54279376/72726880-30e80f00-3b92-11ea-8702-1cc239831247.png" height="450" width="600"> <br>
 </h1>
 
-## Content
+## <img src="https://user-images.githubusercontent.com/54279376/72727611-09924180-3b94-11ea-8121-c62543ab062b.png" height="40" width="40"> <br>Content
 - [About](#About)
 - [Complementary Features](#features)
 - [Built With](#built-with)
