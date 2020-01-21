@@ -63,7 +63,7 @@ public class ContactActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         LoginManager.getInstance().logOut();
                         intent = new Intent(ContactActivity.this, FacebookActivity.class);
-                        finish();
+                        finishAffinity();
                         startActivity(intent);
                         return true;
                     case R.id.action_send:
