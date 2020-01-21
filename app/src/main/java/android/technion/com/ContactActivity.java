@@ -9,9 +9,12 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.facebook.login.LoginManager;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.regex.Matcher;
@@ -22,6 +25,9 @@ public class ContactActivity extends AppCompatActivity {
     private EditText your_email;
     private EditText your_subject;
     private EditText your_message;
+    private Database db;
+    private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
     private Toolbar toolbar;
 
     @Override
@@ -33,6 +39,13 @@ public class ContactActivity extends AppCompatActivity {
         your_email       = (EditText) findViewById(R.id.contactEmail);
         your_subject     = (EditText) findViewById(R.id.contactSubject);
         your_message     = (EditText) findViewById(R.id.contactMessage);
+
+        db = new Database();
+        mAuth = FirebaseAuth.getInstance();
+        currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            db.getUserToTextViews(currentUser.getUid(), your_name, your_email, new TextView(ContactActivity.this));
+        }
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.back);
@@ -63,7 +76,7 @@ public class ContactActivity extends AppCompatActivity {
                         FirebaseAuth.getInstance().signOut();
                         LoginManager.getInstance().logOut();
                         intent = new Intent(ContactActivity.this, FacebookActivity.class);
-                        finish();
+                        finishAffinity();
                         startActivity(intent);
                         return true;
                     case R.id.action_send:

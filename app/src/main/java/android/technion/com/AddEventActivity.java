@@ -68,7 +68,9 @@ public class AddEventActivity extends AppCompatActivity {
     private TextInputEditText addEventPhoneText;
     private TextInputEditText addEventLocationText;
     private TextInputEditText addEventLocationCity;
+    private Database db;
     private FirebaseAuth mAuth;
+    private FirebaseUser currentUser;
     private Location userLastKnownLocation;
     private FusedLocationProviderClient fusedLocationClient;
 
@@ -99,14 +101,14 @@ public class AddEventActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_event);
 
-        Database db = new Database();
-
         event = (Event) getIntent().getSerializableExtra("event");
         if(event != null){
             imageName = event.getPhotoID();
         }
+
+        db = new Database();
         mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        currentUser = mAuth.getCurrentUser();
         if(currentUser!=null){
             eventReporterDBID = currentUser.getUid();
         } else {
@@ -265,10 +267,8 @@ public class AddEventActivity extends AppCompatActivity {
             addEventUrgentSwitch.setChecked(event.getUrgent());
             db.getImageFromDatabaseToImageView(addEventImage, event.getPhotoID());
         } else {
-            mAuth = FirebaseAuth.getInstance();
-            FirebaseUser currentUser1 = mAuth.getCurrentUser();
             if(currentUser != null){
-                db.getUserToTextViews(currentUser1.getUid(), addEventNameText, new TextView(AddEventActivity.this), addEventPhoneText);
+                db.getUserToTextViews(currentUser.getUid(), addEventNameText, new TextView(AddEventActivity.this), addEventPhoneText);
             }
         }
     }
