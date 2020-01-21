@@ -210,6 +210,7 @@ public class FacebookActivity extends AppCompatActivity
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
                 loginButton.setVisibility(mDetailTextView.GONE);
+                signInAddEventButton.setVisibility(View.GONE);
             }
 
             @Override
