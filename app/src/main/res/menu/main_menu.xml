@@ -15,7 +15,7 @@
 
     <item
         android:id="@+id/action_edit"
-        android:icon="@drawable/edit"
+        android:icon="@drawable/pencil_outline"
         app:showAsAction="always"
         android:title="@string/edit" />
 </menu>
