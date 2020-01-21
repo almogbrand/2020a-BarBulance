@@ -38,6 +38,7 @@
                 android:id="@+id/addFosterNameText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords"
                 android:hint="@string/full_name" />
         </com.google.android.material.textfield.TextInputLayout>
 

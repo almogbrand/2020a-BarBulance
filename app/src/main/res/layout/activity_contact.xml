@@ -27,7 +27,6 @@
             android:layout_marginTop="16dp"
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
-            android:inputType="textPersonName"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/toolbar"
@@ -37,6 +36,7 @@
                 android:id="@+id/contactName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textPersonName|textCapWords"
                 android:hint="Name" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,6 +59,7 @@
                 android:id="@+id/contactEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
                 android:hint="Email" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,6 +82,7 @@
                 android:id="@+id/contactSubject"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:inputType="textEmailSubject|textCapSentences|textAutoCorrect|textShortMessage"
                 android:hint="Subject" />
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -96,7 +98,6 @@
             android:layout_marginEnd="24dp"
             android:layout_marginRight="24dp"
             android:layout_marginBottom="16dp"
-            android:inputType="textMultiLine"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -108,6 +109,8 @@
                 android:id="@+id/contactMessage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:minLines="3"
+                android:inputType="textMultiLine|textCapSentences|textAutoCorrect"
                 android:hint="Message" />
 
         </com.google.android.material.textfield.TextInputLayout>
