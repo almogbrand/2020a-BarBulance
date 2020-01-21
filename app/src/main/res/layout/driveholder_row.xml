@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="100dp"
+    android:background="?attr/selectableItemBackground" >
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/rideImageView"
+        android:layout_width="62dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:contentDescription="@string/person"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.5" />
+
+<!--    app:civ_border_width="2dp"-->
+<!--    app:civ_border_color="@color/colorPrimaryDark"-->
+    <!--    <ImageView-->
+    <!--        android:id="@+id/rideImageView"-->
+    <!--        android:layout_width="56dp"-->
+    <!--        android:layout_height="56dp"-->
+    <!--        android:layout_marginStart="16dp"-->
+    <!--        android:layout_marginLeft="16dp"-->
+    <!--        android:contentDescription="@string/person"-->
+    <!--        app:layout_constraintBottom_toBottomOf="parent"-->
+    <!--        app:layout_constraintStart_toStartOf="parent"-->
+    <!--        app:layout_constraintTop_toTopOf="parent"-->
+    <!--        app:layout_constraintVertical_bias="0.5" />-->
+
+    <TextView
+        android:id="@+id/rideDriver"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/textview"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.18" />
+
+    <ImageView
+        android:id="@+id/rideTimeLogo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="42dp"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideFromLocation"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/clock_outline" />
+
+    <TextView
+        android:id="@+id/rideTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:text="@string/textview"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/rideTimeLogo"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_weight="3" />
+
+    <TextView
+        android:id="@+id/rideFromLocation"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:text="@string/textview"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideFromLocationLogo"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:layout_constraintVertical_weight="3" />
+
+    <TextView
+        android:id="@+id/rideToLocation"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="2dp"
+        android:layout_marginLeft="2dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginRight="24dp"
+        android:maxLines="1"
+        android:text="@string/textview"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/rideToLocationLogo"
+        app:layout_constraintTop_toBottomOf="@+id/rideFromLocation" />
+
+    <ImageView
+        android:id="@+id/rideToLocationLogo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="4dp"
+        android:contentDescription="@string/location"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideFromLocationLogo"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/map_marker" />
+
+    <ImageView
+        android:id="@+id/rideFromLocationLogo"
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginLeft="100dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginBottom="19dp"
+        android:contentDescription="@string/location"
+        android:tint="@color/colorSecondaryText"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/map_marker" />
+
+    <TextView
+        android:id="@+id/rideFrom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:layout_marginTop="4dp"
+        android:text="@string/from"
+        android:textSize="16sp"
+        app:layout_constraintBottom_toTopOf="@+id/rideTo"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideDriver"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/rideTo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginLeft="26dp"
+        android:text="@string/to"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/rideImageView"
+        app:layout_constraintTop_toBottomOf="@+id/rideFrom" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
