@@ -75,10 +75,12 @@ public class FacebookActivity extends AppCompatActivity
                                     if (task.isSuccessful()) {
                                         DocumentSnapshot document = task.getResult();
                                         if (document.exists()) {
-
                                             //update only token
                                             Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                                            String email = document.get("userEmail").toString();
+                                            String email = "";
+                                            if(document.get("userEmail")!=null) {
+                                                email = document.get("userEmail").toString();
+                                            }
                                             String name = document.get("userName").toString();
                                             String phone = document.get("userPhoneNumber").toString();
                                             //String email = document.get("fcmtoken").toString();
@@ -209,7 +211,7 @@ public class FacebookActivity extends AppCompatActivity
             public void onSuccess(LoginResult loginResult) {
                 Log.d(TAG, "facebook:onSuccess:" + loginResult);
                 handleFacebookAccessToken(loginResult.getAccessToken());
-                loginButton.setVisibility(mDetailTextView.GONE);
+                loginButton.setVisibility(View.GONE);
                 signInAddEventButton.setVisibility(View.GONE);
             }
 
