@@ -141,7 +141,7 @@ public class DisplayEventActivity extends AppCompatActivity {
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         mAuth = FirebaseAuth.getInstance();
-        final FirebaseUser currentUser = mAuth.getCurrentUser();
+        FirebaseUser currentUser = mAuth.getCurrentUser();
         if(currentUser.getUid().equals(event.getEventReporterDBID())){
             toolbar.inflateMenu(R.menu.edit_menu);
         }
